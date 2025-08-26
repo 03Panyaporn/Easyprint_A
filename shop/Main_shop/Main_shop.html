@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EASSYPRINT — หน้าหลัก</title>
+    <link rel="stylesheet" href="Main_shop.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">EASSYPRINT</div>
+      
+        <div class="searchbar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" id="searchInput" placeholder="ค้นหาออเดอร์" />
+          </div>
+      
+        <div class="icons">
+          <div class="toggle-container">
+            <span>สถานะร้าน</span>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+      
+          <div class="notification-icon" onclick="goToNotification()">
+            <i class="fa fa-bell"></i>
+          </div>
+
+            <div class="profile-icon" onclick="toggleProfilePopup()">
+                <i class="fa fa-user-circle"></i>
+    
+                <div class="profile-popup" id="profilePopup">
+                    <div class="profile-img">
+                        <img src="profile.png" alt="โปรไฟล์ร้านค้า">
+                    </div>
+                <div class="profile-name">ร้าน EASYPRINT</div>
+                <hr>
+                
+                <a href="../Edit_profile/Edit_profile.html" class="profile-btn">
+                    <i class="fa-solid fa-user"></i>
+                    <span>แก้ไขโปรไฟล์</span>
+                </a>
+            
+                <a href="../login/login.html" class="profile-btn logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>ออกจากระบบ</span>
+                </a>
+          </div>
+        </div>     
+      </div>
+    </div>
+
+    <!-- เมนูด้านข้าง -->
+    <aside class="app-sidebar" id="sidebar">
+      <nav>
+        <a><i class="fa-solid fa-house"></i> หน้าหลัก</a>
+        <a><i class="fa-solid fa-receipt"></i> รายการคำสั่งซื้อ</a>
+        <h6>กำหนดบริการ</h6>
+        <a><i class="fa-solid fa-box"></i> สินค้า</a>
+        <a><i class="fa-solid fa-circle-plus"></i> เพิ่มสินค้า</a>
+        <a><i class="fa-solid fa-money-check-dollar"></i> กำหนดค่าจัดส่ง</a>
+        <a><i class="fa-solid fa-truck-fast"></i> ประเภทขนส่ง</a>
+
+        <h6>แสดงยอดขาย</h6>
+          <a><i class="fa-solid fa-chart-line"></i> แสดงยอดขาย</a>
+      </nav>
+    </aside>
+
+      <!-- เนื้อหา ด้านบน -->
+      <main class="app-main">
+        <div class="page-title">หน้าหลัก</div>
+  
+      <!-- กรอบแสดงรายการ 3กรอบ -->
+      <section class="cards">
+        <article class="card card-yellow">
+            <div class="card-row">
+              <span class="card-title">คำสั่งซื้อทั้งหมด</span>
+              <button class="btn-ghost"><i class="fa-solid fa-receipt"></i></button>
+            </div>
+
+            <div class="card-figure"><span id="allCount">22</span> ออเดอร์</div>
+        </article>
+  
+        <article class="card card-red">
+            <div class="card-row">
+              <span class="card-title">คำสั่งซื้อเร่งด่วน</span>
+              <button class="btn-ghost"><i class="fa-solid fa-bolt"></i></button>
+            </div>
+
+            <div class="card-figure"><span id="rushCount">4</span> ออเดอร์</div>
+        </article>
+  
+        <article class="card card-blue">
+            <div class="card-row">
+              <span class="card-title">ยอดขายรวมวันนี้</span>
+              <button class="btn-ghost"><i class="fa-solid fa-wallet"></i></button>
+            </div>
+
+            <div class="card-figure"><span id="todaySales">2,940</span> บาท</div>
+        </article>
+      </section>
+
+
+      <!-- ตารางออเดอร์ -->
+      <div class="page-title2">
+        รายการคำสั่งซื้อ
+        <div class="filter-right">
+          <label class="select">
+            <select id="typeSelect">
+              <option value="roll-up">ประเภทสินค้า</option>
+              <option value="roll-up">roll-up</option>
+              <option value="x-stand">x-stand</option>
+              <option value="โปสเตอร์">โปสเตอร์</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <!-- ส่วนเมนูออเดอร์ -->
+      <section class="order-list">
+        <div class="order-filters">
+          <a href="all_orders.html" class="filter-btn active">ทั้งหมด <span>30</span></a>
+          <a href="waiting_orders.html" class="filter-btn">รอคิว <span>2</span></a>
+          <a href="confirmed_orders.html" class="filter-btn">ยืนยันออเดอร์ <span>4</span></a>
+          <a href="printing_orders.html" class="filter-btn">กำลังพิมพ์ <span>6</span></a>
+          <a href="preparing_orders.html" class="filter-btn">เตรียมจัดส่ง <span>8</span></a>
+          <a href="shipped_orders.html" class="filter-btn">จัดส่งแล้ว <span>10</span></a>
+        </div>
+      </section>
+      
+      
+   
+      <!-- ส่วนตารางออเดอร์ -->
+      <table class="order-table">
+        <thead>
+          <tr>
+            <th>หมายเลขออเดอร์</th>
+            <th>สถานะออเดอร์</th>
+            <th>ชื่อลูกค้า</th>
+            <th>ประเภท</th>
+            <th>จำนวน</th>
+            <th>ตัวอย่าง</th>
+            <th>ยอดรวม</th>
+            <th></th>
+          </tr>
+        </thead>
+
+      <tbody>
+            <tr class="order-row active">
+              <td>
+                <div>WA110666</div>
+                <div class="order-date">15/12/2022 5:50 PM</div>
+              </td>
+              <td><span class="status waiting">รับออเดอร์</span></td>
+              <td><b>สมชาย</b></td>
+              <td>roll-up</td>
+              <td>1  ชิ้น</td>
+              <td></td>
+              <td>270 บาท
+                <button class="confirm-btn payment"><i class="fa-regular fa-square-check"></i> ตรวจสอบการชำระเงิน</button>
+              </td>
+
+              <td>
+                <div class="order-actions">
+                  <button class="confirm-btn">ยืนยันออเดอร์</button>
+                  <div class="icon-group">
+                    <button class="icon-btn">✏️</button>
+                    <button class="icon-btn stop">⏸️</button>    
+                    <button class="icon-btn delete">🗑️</button>
+                  </div>
+                </div>
+              </td>
+              
+            </tr>
+            <tr class="order-row">
+              <td>
+                <div>WA110555</div>
+                <div class="order-date">14/12/2022 4:50 PM</div>
+              </td>
+              <td><span class="status waiting">รับออเดอร์</span></td>
+              <td><b>สมหญิง</b></td>
+              <td>x-stand</td>
+              <td>1  ชิ้น</td>
+              <td></td>
+              <td>340 บาท
+                <button class="confirm-btn payment"><i class="fa-regular fa-square-check"></i> ตรวจสอบการชำระเงิน </button>
+              </td>
+
+              <td>
+                <div class="order-actions">
+                  <button class="confirm-btn">ยืนยันออเดอร์</button>
+                  <div class="icon-group">
+                    <button class="icon-btn">✏️</button>
+                    <button class="icon-btn stop">⏸️</button>    
+                    <button class="icon-btn delete">🗑️</button>
+                  </div>
+                </div>
+              </td>
+              
+            </tr>
+            <tr class="order-row">
+              <td>
+                <div>WA110444</div>
+                <div class="order-date">13/12/2022 3:50 PM</div>
+              </td>
+              <td><span class="status waiting">กำลังพิมพ์</span></td>
+              <td><b>สมปอง</b></td>
+              <td>โปสเตอร์</td>
+              <td>2  ชิ้น</td>
+              <td></td>
+              <td>510 บาท
+                <button class="confirm-btn payment"><i class="fa-regular fa-square-check"></i> ตรวจสอบการชำระเงิน </button>
+              </td>
+
+              <td>
+                <div class="order-actions">
+                    <button class="confirm-btn">รอแพ็ค</button>
+                    <div class="icon-group">
+                    <button class="icon-btn">✏️</button>
+                    <button class="icon-btn stop">⏸️</button>    
+                    <button class="icon-btn delete">🗑️</button>
+                    </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </main>
+   
+    <script src="Main_shop.js"></script>
+</body>
+</html>

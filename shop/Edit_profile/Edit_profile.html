@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EASSYPRINT — แก้ไขโปรไฟล์</title>
+    <link rel="stylesheet" href="Edit_profile.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+ 
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">EassyPrint</div>
+     
+        <div class="searchbar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" id="searchInput" placeholder="ค้นหาออเดอร์" />
+          </div>
+     
+        <div class="icons">
+        <div class="toggle-container">
+        <span>สถานะร้าน</span>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+     
+          <div class="notification-icon" onclick="toggleNotification('notificationList')">
+            <i class="fa fa-bell"></i>
+            <div class="notification-list" id="notificationList">
+              <div class="notification-item">การแจ้งเตือนที่ 1</div>
+              <div class="notification-item">การแจ้งเตือนที่ 2</div>
+            </div>
+          </div>
+     
+          <div class="profile-icon" onclick="toggleNotification('notificationListCog')">
+            <i class="fa fa-user-circle"></i>
+            <div class="notification-list-cog" id="notificationListCog">
+              <div class="notification-item">ศูนย์ช่วยเหลือ</div>
+              <a href="../customer/main/main.html" style="text-decoration: none;">
+                <div class="notification-item">ออกจากระบบ</div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+     <aside class="app-sidebar" id="sidebar">
+        <nav>
+          <a><i class="fa-solid fa-house"></i> หน้าหลัก</a>
+          <a><i class="fa-solid fa-receipt"></i> รายการคำสั่งซื้อ</a>
+          <h6>กำหนดบริการ</h6>
+          <a><i class="fa-solid fa-box"></i> สินค้า</a>
+          <a><i class="fa-solid fa-circle-plus"></i> เพิ่มสินค้า</a>
+          <a><i class="fa-solid fa-money-check-dollar"></i> กำหนดค่าจัดส่ง</a>
+          <a><i class="fa-solid fa-truck-fast"></i> ประเภทขนส่ง</a>
+ 
+          <h6>แสดงยอดขาย</h6>
+          <a><i class="fa-solid fa-chart-line"></i> แสดงยอดขาย</a>
+        </nav>
+      </aside>
+
+    <div class="profile-edit-container">
+        <h2>แก้ไขโปรไฟล์</h2>
+        <div class="profile-container">
+            <label for="uploadImage" class="profile">
+              <i class="fa fa-user"></i>
+              <div class="edit-icon">
+                <i class="fa fa-camera"></i>
+              </div>
+            </label>
+          
+            <input type="file" id="uploadImage" accept="image/*">
+          </div>
+          
+        
+        <div class="profile-edit-field">
+            <label for="shopName">ชื่อร้าน</label>
+            <input type="text" id="shopName" placeholder="กรอกชื่อร้าน">
+        </div>
+        
+        <div class="profile-edit-field">
+            <label for="email">อีเมล (Email)</label>
+            <input type="email" id="email" placeholder="กรอกอีเมล">
+        </div>
+        
+        <div class="profile-edit-field">
+            <label for="phone">เบอร์โทร</label>
+            <input type="tel" id="phone" placeholder="กรอกเบอร์โทร">
+        </div>
+
+        <div class="profile-edit-field">
+            <label for="phone">คำอธิบายร้านค้า</label>
+            <input type="tel" id="phone" placeholder="กรอกคำอธิบายร้านค้า">
+        </div>
+
+        <div class="profile-edit-field">
+            <label for="hours">วัน-เวลาทำการ</label>
+            <input type="text" id="hours" placeholder="กรอกวัน-เวลาทำการ">
+        </div>
+
+        <div class="profile-edit-field">
+            <label for="contact">ช่องทางติดต่อ / เว็บไซต์</label>
+            <input type="text" id="contact" placeholder="กรอกช่องทางติดต่อ">
+        </div>
+
+        <button class="save-btn">บันทึก</button>
+    </div>
+
+      <script src="Edit_profile.js"></script>
+</body>
+</html>
+ 
+ 

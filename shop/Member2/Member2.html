@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EASSYPRINT — กรอกข้อมูลร้านค้า</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Member2.css" />
+
+</head>
+<body>
+    <div class="layout">
+      <div class="sidebar left" aria-hidden="true"></div>
+  
+      <main class="card">
+        <header class="card-header">
+          <h1 class="title">กรอกข้อมูลร้านค้า</h1>
+          <p class="subtitle">รายละเอียดข้อมูลเหล่านี้ สามารถแก้ไขได้ภายหลังเมื่อเริ่มใช้งานแล้ว</p>
+      
+          <div class="status-container">
+            <div class="progress">
+                <div class="progress-step active">
+                    <div class="icon">📋</div>
+                    <span>รายละเอียดร้านค้า</span>
+                </div>
+          
+                <div class="progress-line"></div>
+                <div class="progress-step">
+                    <div class="icon">💰</div>
+                    <span>บัญชีสำหรับโอนเงิน</span>
+                </div>
+              
+                <div class="progress-line"></div>
+                <div class="progress-step">
+                    <div class="icon">📁</div>
+                    <span>ข้อมูลเพิ่มเติม</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="section">
+          <h2 class="section-title">ชื่อบัญชี สำหรับให้ลูกค้าโอนเงิน</h2>
+          <p class="note">
+            (บัญชีที่กรอกจะใช้สำหรับพื่อตรวจสอบสลิปอัตโนมัติ เพื่อป้องกันการส่งสลิปปลอม
+            และเพื่อสำหรับให้ลูกค้าสามารถแจ้งโอนเงินผ่านสลิปให้กับทางร้านค้าได้สะดวกยิ่งขึ้น)
+          </p>
+  
+          <form id="bankForm" novalidate>
+            <div id="accountList" class="account-list">
+              <div class="account" data-index="1">
+                <div class="row two">
+                  <div class="field">
+                    <label for="bank-1">เลือกธนาคาร</label>
+                    <select id="bank-1" name="bank[]">
+                      <option value="" selected disabled>เลือกธนาคาร</option>
+                      <option>กสิกรไทย (KBank)</option>
+                      <option>ไทยพาณิชย์ (SCB)</option>
+                      <option>กรุงไทย (KTB)</option>
+                      <option>กรุงเทพ (BBL)</option>
+                      <option>กรุงศรีอยุธยา (BAY)</option>
+                      <option>ทหารไทยธนชาต (TTB)</option>
+                    </select>
+                  </div>
+  
+                  <div class="field">
+                    <label for="accno-1">เลขที่บัญชี</label>
+                    <input id="accno-1" name="accno[]" type="text" inputmode="numeric" placeholder="เลขที่บัญชี" />
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="field full">
+                    <label for="accname-1">ชื่อบัญชี</label>
+                    <input id="accname-1" name="accname[]" type="text" placeholder="ชื่อบัญชี" />
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="field mt">
+              <label for="rules">เงื่อนไขและขั้นตอนการแจ้งโอนเงิน</label>
+              <textarea id="rules" rows="6" placeholder=""></textarea>
+            </div>
+  
+            <div class="form-actions">
+              <button type="button" class="btn btn-secondary" onclick="goNextPageMember21()">
+                ย้อนกลับ
+              </button>
+
+              <button type="submit" class="btn btn-primary" onclick="goNextPageMember22()">
+                ถัดไป
+              </button>
+            </div>
+            
+        </form>
+      </section>
+    </main>
+
+      <div class="sidebar right" aria-hidden="true"></div>
+    </div>
+  
+    <template id="tplAccount"> ... </template>
+    <script src="Member2.js"></script>
+  </body>
+  
+<script src="Member2.js"></script>
+
+
+</body>
+</html>

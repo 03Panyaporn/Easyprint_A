@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EASSYPRINT — กรอกข้อมูลร้านค้า</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Member3.css" />
+</head>
+
+<body>
+  <div class="layout">
+    <div class="sidebar left" aria-hidden="true"></div>
+
+    <main class="card">
+      <header class="card-header">
+        <h1 class="title">กรอกข้อมูลร้านค้า</h1>
+        <p class="subtitle">รายละเอียดข้อมูลเหล่านี้ สามารถแก้ไขได้ภายหลังเมื่อเริ่มใช้งานแล้ว</p>
+
+  <div class="status-container">
+  <div class="progress">
+      <div class="progress-step active">
+          <div class="icon">📋</div>
+          <span>รายละเอียดร้านค้า</span>
+      </div>
+
+      <div class="progress-line"></div>
+      <div class="progress-step">
+          <div class="icon">💰</div>
+          <span>บัญชีสำหรับโอนเงิน</span>
+      </div>
+     
+      <div class="progress-line"></div>
+      <div class="progress-step">
+          <div class="icon">📁</div>
+          <span>ข้อมูลเพิ่มเติม</span>
+      </div>
+  </div>
+</header>
+
+      <section class="section">
+        <form id="extraForm" novalidate>
+          <div class="phone">
+            <div class="field full">
+              <label for="accname-1">ประเภทของสินค้าที่รขาย</label>
+              <input id="accname-1" name="accname[]" type="text"/>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="stock-count">วันเปิดทำการ</label>
+            <select id="open-date" required>
+              <option value="" selected disabled>กรุณาวันเปิดทำการ</option>
+                        <option>เปิดทุกวัน</option>
+                        <option>วันจันทร์</option>
+                        <option>วันอังคาร</option>
+                        <option>วันพุธ</option>
+                        <option>วันพฤหัสดี</option>
+                        <option>วันศุกร์</option>
+                        <option>วันเสาร์</option>
+                        <option>วันอาทิตย์</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="stock-count">วันปิดทำการ</label>
+            <select id="open-date" required>
+              <option value="" selected disabled>กรุณาวันปิดทำการ</option>
+                        <option>เปิดทุกวัน</option>
+                        <option>วันจันทร์</option>
+                        <option>วันอังคาร</option>
+                        <option>วันพุธ</option>
+                        <option>วันพฤหัสดี</option>
+                        <option>วันศุกร์</option>
+                        <option>วันเสาร์</option>
+                        <option>วันอาทิตย์</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <div class="form-group">
+                <label for="open-time">เวลาทำการเปิด</label>
+                <input type="time" id="open-time" required>                        
+            </div>
+
+            <div class="form-group">
+                <label for="close-time">เวลาทำการปิด</label>
+                <input type="time" id="close-time" required>
+            </div>
+        </div>
+
+        <div class="phone">
+          <div class="field full">
+            <label for="accname-1">เบอร์โทรศัพท์ที่ต้องการให้ติดต่อกลับ</label>
+            <input id="accname-1" name="accname[]" type="text"/>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="goNextPageMember31()">
+            ย้อนกลับ
+          </button>
+
+          <button type="submit" class="btn btn-primary" onclick="goNextPageMember32()">
+            ถัดไป
+          </button>
+        </div>
+        
+
+        </form>
+      </section>
+    </main>
+
+    <div class="sidebar right" aria-hidden="true"></div>
+  </div>
+
+  <script src="Member3.js"></script>
+</body>
+</html>
