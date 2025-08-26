@@ -6,10 +6,19 @@
     font-family: 'Sarabun', sans-serif;
 }
 
+html,
 body {
-    background: #f7f7f7;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background: #DBDDDD;
     color: #333;
 }
+
 
 /* ------------------ Status bar ------------------ */
 .status-bar {
@@ -35,24 +44,27 @@ body {
 .navbar {
     display: flex;
     align-items: center;
-    justify-content: space-between; 
+    justify-content: space-between;
     background: #474D4C;
     color: white;
     padding: 10px 20px;
-    gap: 10px; 
+    gap: 10px;
 }
+
 .logo {
     display: flex;
     align-items: center;
-    gap: 5px; 
+    gap: 5px;
     font-size: 20px;
     font-weight: bold;
 }
+
 .logo-wrapper {
     display: flex;
     align-items: center;
-    gap: 10px; 
+    gap: 10px;
 }
+
 .navbar .logo {
     font-size: 20px;
     font-weight: bold;
@@ -133,7 +145,7 @@ body {
 .rectangle-81 {
     display: flex;
     align-items: center;
-    gap: 5px; 
+    gap: 5px;
     background: #d9d9d9;
     border-radius: 50px;
     padding: 5px 12px;
@@ -154,20 +166,20 @@ body {
 .card {
     background: white;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     padding: 20px;
-    flex-direction: column;    
-    
+    flex-direction: column;
+
 }
 
 .card img {
     width: 100%;
-    height: 500px;      
+    height: 500px;
     object-fit: cover;
     border-radius: 10px;
-    box-shadow: 0px 4px 14px rgba(0,0,0,0.1);
-    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
 
 }
 
@@ -193,25 +205,28 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    padding: 20px 40px;
+    flex-wrap: nowrap;
+    padding: 10px 20px;
     background: #03A89D;
     color: white;
+    font-size: 14px;
 }
 
-.footer-left, .footer-right {
+.footer-left p,
+.footer-contact p {
+    margin: 0 5px 0 0;
+    font-size: 13px;
+}
+
+.footer-right {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
 .footer-right .footer-icon {
-
-    height: auto;
-}
-
-.footer-contact p {
-    margin: 2px 0;
+    width: 60px;
+    height: 60px;
 }
 
 
@@ -224,32 +239,39 @@ footer {
 
     .logo {
         font-size: 12px;
-        order: 1; 
+        order: 1;
     }
 
     .menu {
-        order: 2; 
+        order: 2;
         gap: 8px;
         font-size: 12px;
     }
 
     .rectangle-81 {
-        order: 3;            
-        margin-left: auto;   
+        order: 3;
+        margin-left: auto;
         font-size: 12px;
         padding: 3px 8px;
         justify-self: end;
-        
+
     }
 
     .menu img {
         width: 20px;
         height: 20px;
     }
-    .card img {
-    width: 100%;
-    height: 200px;      
-    
 
-}
+    .card img {
+        width: 100%;
+        height: 200px;
+
+
+    }
+
+    footer {
+        gap: 10px;
+
+    }
+
 }
