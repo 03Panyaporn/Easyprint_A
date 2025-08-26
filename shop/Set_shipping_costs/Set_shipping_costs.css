@@ -1,0 +1,364 @@
+/* ส่วนแทบบาร์ */
+* {
+    padding: 0;  
+    }
+ 
+body {
+    background: #f8f9fa;
+    font-family: 'Sarabun', sans-serif;
+    color: #eaf7f5;
+    height: 100vh;
+    margin: 0;
+}
+ 
+/* Navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #44545d; /* เทาอ่อน */
+    padding: 10px 30px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+ 
+  /* โลโก้ */
+  .logo {
+    font-size: 25px;
+    font-weight: bold;
+    display: flex;
+    margin-right: 20px;
+  }
+ 
+  .searchbar{
+    flex:1;
+    display:flex; align-items:center; gap:8px;
+    background:#f4fffe;
+    color:#2a3b3a;
+    border-radius:999px;
+    padding:10px 16px;
+    max-width:560px;
+  }
+  .searchbar input{
+    border:none; outline:none; background:transparent; width:100%;
+    font-size:16px;
+  }
+ 
+ 
+/* ปุ่มสวิตช์เปิด-ปิดร้าน */
+/* toggle-container อยู่ใน icons แล้ว ไม่ต้องใช้ justify-content: space-between */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0;        /* เอา padding 100px ออก */
+  }
+ 
+/* ปุ่มสวิตช์ */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+ 
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+ 
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 25px;
+}
+ 
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 2.5px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+ 
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+ 
+input:checked + .slider:before {
+  transform: translateX(25px);
+}
+ 
+/* ไอคอนแจ้งเตือน และ ตั้งค่า */
+/* icons ครอบ toggle + bell + profile */
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;          /* ระยะห่างระหว่าง toggle, bell, profile */
+    margin-right: 60px;
+    font-size: 20px;
+}
+ 
+.icons i {
+    font-size: 5px;
+}
+ 
+.notification-list,
+.notification-list-cog {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 100px;
+    width: 300px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 1000;
+    }
+ 
+.notification-list.show, .notification-list-cog.show {
+    display: block;
+ }
+ 
+.notification-item {
+    padding: 15px;
+     border-bottom: 1px solid #eee;
+      cursor: pointer;
+      font-size: 16px;
+     }
+ 
+.notification-item:hover {
+     background: #f0f0f0;
+     }
+ 
+.notification-item:last-child {
+     border-bottom: none;
+     }
+     
+@media (max-width: 768px) { .notification-list, .notification-list-cog { width: 220px; } }
+ 
+/* ====== Sidebar ====== */
+.app-sidebar {
+    height: 100vh;
+    position: fixed;
+    top: 55px;   /* เลื่อนลงมาไม่ให้โดนทับ */
+    left: 0;
+    width: 240px; /* กำหนดความกว้าง sidebar ด้วย */
+    background: #3aaea3; /* ใส่สีพื้นหลังให้ชัด */
+    padding-top: 20px;   /* กันเมนูไม่ชิดเกินไป */
+    padding-left: 18px;   /* กันเมนูไม่ชิดเกินไป */
+}
+ 
+ 
+  .app-sidebar nav a,
+  .app-sidebar nav h6{
+    display:block;
+    border-radius:12px;
+    padding:12px 14px;
+    margin:2px 0;
+  }
+  .app-sidebar nav a{
+    cursor:pointer;
+    background:transparent;
+    color:#ecfffb;
+  }
+  .app-sidebar nav a:hover{background:rgba(255,255,255,.1)}
+  .app-sidebar nav a.active{
+    background:#3aaea3; font-weight:700;
+  }
+  .app-sidebar nav a i{width:20px; margin-right:8px}
+  .app-sidebar nav h6{
+    margin-top:16px;
+    letter-spacing:.4px;
+    font-size:12px;
+    opacity:.8;
+  }
+
+  /* เนื้อหาหลัก ส่วนแสดงตาราง */
+.content {
+  margin-left: 260px; /* เว้นให้ไม่ทับเมนู sidebar กว้าง 240px + padding */
+  padding: 80px 20px 20px; /* เว้นพื้นที่ navbar ด้านบน */
+  background: white;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* แท็บ */
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tabs .tab {
+  padding: 10px 20px;
+  background: #3aaea3;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tabs .tab.active {
+  background: #2c8c86;
+}
+
+/* ตารางค่าจัดส่ง */
+.shipping-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  color: #2a3b3a;
+}
+
+.shipping-table thead {
+  background-color: #e6f7f6;
+  color: #3aaea3;
+  font-weight: 700;
+}
+
+.shipping-table th, .shipping-table td {
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 2px solid #b3e0de; /* เส้นใต้แถวชัดเจน */
+}
+
+.shipping-table tbody tr:hover {
+  background-color: #f0fdfa;
+}
+
+.edit-btn {
+  background: none;
+  border: 1px solid #3aaea3;
+  color: #3aaea3;
+  border-radius: 12px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.edit-btn:hover {
+  background-color: #3aaea3;
+  color: white;
+}
+.shipping-table td:last-child {
+  text-align: right;
+}
+/* ===== ป๊อปอัปแก้ไขค่าจัดส่ง ===== */
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 420px;
+  color: #2a3b3a;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.popup-content h4 {
+  margin-top: 0;
+  margin-bottom: 18px;
+  font-size: 18px;
+}
+
+.form-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.popup-content select, .popup-content input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  flex: 1;
+}
+
+.popup-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-price {
+  background-color: #00aaff;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.add-price i {
+  margin-right: 6px;
+}
+/* ช่องกรอกหมายเหตุให้เต็มความกว้าง */
+.note-input {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 8px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* คำว่า "คำสั่ง" ใต้ช่องกรอก */
+.order-label {
+  font-size: 16px;
+  color: #2a3b3a;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+.popup-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.order-label {
+  font-size: 16px;
+  color: #2a3b3a;
+  font-weight: 500;
+}
+/* ข้อความในคอลัมน์ "ค่าจัดส่ง" ให้อยู่กึ่งกลาง */
+.shipping-table td:nth-child(2),
+.shipping-table th:nth-child(2) {
+  text-align: center;
+}
+
