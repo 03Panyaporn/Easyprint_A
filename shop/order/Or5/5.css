@@ -433,7 +433,7 @@ input:checked + .slider:before {
 
 /* ถ้าโลโก้ยังขาว ให้เปลี่ยนสีด้วย */
 .logo {
-  color: #000;
+  color: #ffffff;
 }
 
 

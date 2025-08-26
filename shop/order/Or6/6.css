@@ -26,13 +26,11 @@ body {
     z-index: 1000;
   }
  
-  /* โลโก้ */
-  .logo {
+.logo {
     font-size: 25px;
     font-weight: bold;
-    display: flex;
-    margin-right: 20px;
-  }
+    color: #ffffff !important;
+}
  
   .searchbar{
     flex:1;
