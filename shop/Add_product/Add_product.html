@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EASYPRINT — หน้าหลัก</title>
+    <link rel="stylesheet" href="Add_product.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ 
+    <!-- ฟอนต์ไทย -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- ไอคอน -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+    <script src="Add_product.js"></script>
+ 
+</head>
+<body>
+    <div class="navbar">
+        <!-- โลโก้EasyPrint -->
+        <div class="logo">EasyPrint</div>
+     
+        <!-- กล่องค้นหา -->
+        <div class="searchbar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" id="searchInput" placeholder="ค้นหาออเดอร์" />
+          </div>
+     
+        <!-- ไอคอน + โปรไฟล์ -->
+        <div class="icons">
+          <!-- สถานะร้าน -->
+          <div class="toggle-container">
+            <span>สถานะร้าน</span>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+     
+          <!-- แจ้งเตือน -->
+          <div class="notification-icon" onclick="toggleNotification('notificationList')">
+            <i class="fa fa-bell"></i>
+            <div class="notification-list" id="notificationList">
+              <div class="notification-item">การแจ้งเตือนที่ 1</div>
+              <div class="notification-item">การแจ้งเตือนที่ 2</div>
+            </div>
+          </div>
+     
+          <!-- โปรไฟล์ -->
+          <div class="profile-icon" onclick="toggleNotification('notificationListCog')">
+            <i class="fa fa-user-circle"></i>
+            <div class="notification-list-cog" id="notificationListCog">
+              <div class="notification-item">ศูนย์ช่วยเหลือ</div>
+              <a href="../customer/main/main.html" style="text-decoration: none;">
+                <div class="notification-item">ออกจากระบบ</div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+ 
+    <!-- เมนูด้านข้าง -->
+     <!-- ====== Sidebar ====== -->
+     <aside class="app-sidebar" id="sidebar">
+        <nav>
+          <a class="active"><i class="fa-solid fa-house"></i> หน้าหลัก</a>
+          <a><i class="fa-solid fa-receipt"></i> รายการคำสั่งซื้อ</a>
+          <h6>กำหนดบริการ</h6>
+          <a><i class="fa-solid fa-box"></i> สินค้า</a>
+          <a><i class="fa-solid fa-circle-plus"></i> เพิ่มสินค้า</a>
+          <a><i class="fa-solid fa-money-check-dollar"></i> กำหนดค่าจัดส่ง</a>
+          <a><i class="fa-solid fa-truck-fast"></i> ประเภทขนส่ง</a>
+ 
+          <h6>แสดงยอดขาย</h6>
+          <a><i class="fa-solid fa-chart-line"></i> แสดงยอดขาย</a>
+        </nav>
+      </aside>
+
+      <main style="margin-left: 260px; margin-top: 80px; padding: 30px;">
+  <div style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap;">
+    <!-- รูปภาพหน้าปก -->
+    <div>
+      <h2 style="color: #000; margin-bottom: 10px;">สินค้าทั่วไป</h2>
+      <div id="image-box" style="width: 240px; height: 240px; border: 2px dashed #ccc; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: #fff; position: relative;">
+        <input type="file" id="upload" accept="image/*" style="display: none;">
+        <label for="upload" id="upload-label" style="cursor: pointer; color: #aaa; font-size: 40px;">+</label>
+        <img id="preview" src="" alt="" style="max-width: 100%; max-height: 100%; display: none; border-radius: 10px;">
+        <button id="remove-img" style="position: absolute; top: 5px; right: 5px; background: #f44336; color: white; border: none; border-radius: 4px; padding: 2px 8px; display: none; cursor: pointer;">ลบ</button>
+      </div>
+      <div style="text-align: center; margin-top: 10px; color: #000;"><span id="img-count">0</span>/1</div>
+    </div>
+
+    <!-- รายละเอียดทั่วไป -->
+    <div style="flex: 1; min-width: 300px;">
+      <h2 style="color: #000; margin-bottom: 20px;">รายละเอียดทั่วไป</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <input type="text" placeholder="รหัสสินค้า" class="input-field">
+        <input type="text" placeholder="แท็ก" class="input-field">
+        <input type="text" placeholder="ชื่อสินค้า" class="input-field">
+        <input type="text" placeholder="บาร์โค้ด" class="input-field">
+        <input type="text" placeholder="ราคาขาย" class="input-field">
+        <input type="text" placeholder="รายละเอียดสินค้า" class="input-field">
+      </div>
+    </div>
+  </div>
+
+  <!-- ปุ่มเพิ่มสินค้า -->
+  <div style="text-align: center; margin-top: 30px;">
+    <button style="background: #fff; border: 2px solid #3aaea3; padding: 12px 20px; font-size: 16px; color: #3aaea3; border-radius: 10px; cursor: pointer;">
+      <i class="fa fa-plus-circle"></i> เพิ่มข้อมูลสินค้า
+    </button>
+  </div>
+</main>
+
+
+
+</body>
+</html>
+ 
