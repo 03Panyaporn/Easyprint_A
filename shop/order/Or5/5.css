@@ -1,0 +1,649 @@
+/* ส่วนแทบบาร์ */
+* {
+    padding: 0;  
+    }
+ 
+body {
+    background: #f8f9fa;
+    font-family: 'Sarabun', sans-serif;
+    color: #eaf7f5;
+    height: 100vh;
+    margin: 0;
+}
+ 
+/* Navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #44545d; /* เทาอ่อน */
+    padding: 10px 30px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+ 
+  /* โลโก้ */
+  .logo {
+    font-size: 25px;
+    font-weight: bold;
+    display: flex;
+    margin-right: 20px;
+  }
+ 
+  .searchbar{
+    flex:1;
+    display:flex; align-items:center; gap:8px;
+    background:#f4fffe;
+    color:#2a3b3a;
+    border-radius:999px;
+    padding:10px 16px;
+    max-width:560px;
+  }
+  .searchbar input{
+    border:none; outline:none; background:transparent; width:100%;
+    font-size:16px;
+  }
+ 
+ 
+/* ปุ่มสวิตช์เปิด-ปิดร้าน */
+/* toggle-container อยู่ใน icons แล้ว ไม่ต้องใช้ justify-content: space-between */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0;        /* เอา padding 100px ออก */
+  }
+ 
+/* ปุ่มสวิตช์ */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+ 
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+ 
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 25px;
+}
+ 
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 2.5px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+ 
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+ 
+input:checked + .slider:before {
+  transform: translateX(25px);
+}
+ 
+/* ไอคอนแจ้งเตือน และ ตั้งค่า */
+/* icons ครอบ toggle + bell + profile */
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;          /* ระยะห่างระหว่าง toggle, bell, profile */
+    margin-right: 60px;
+    font-size: 20px;
+}
+ 
+.icons i {
+    font-size: 5px;
+}
+ 
+.notification-list,
+.notification-list-cog {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 100px;
+    width: 300px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 1000;
+    }
+ 
+.notification-list.show, .notification-list-cog.show {
+    display: block;
+ }
+ 
+.notification-item {
+    padding: 15px;
+     border-bottom: 1px solid #eee;
+      cursor: pointer;
+      font-size: 16px;
+     }
+ 
+.notification-item:hover {
+     background: #f0f0f0;
+     }
+ 
+.notification-item:last-child {
+     border-bottom: none;
+     }
+     
+@media (max-width: 768px) { .notification-list, .notification-list-cog { width: 220px; } }
+ 
+/* ====== Sidebar ====== */
+.app-sidebar {
+    height: 100vh;
+    position: fixed;
+    top: 55px;
+    left: 0;
+    width: 240px;
+    background: #3aaea3;
+    padding-top: 20px;
+    padding-left: 18px;
+}
+
+/* บังคับให้ข้อความ + หัวข้อ + ไอคอนเป็นสีขาว */
+.app-sidebar nav a,
+.app-sidebar nav h6,
+.app-sidebar nav a i {
+    color: #fff !important;   /* <<< บังคับให้ขาว */
+}
+
+.app-sidebar nav a,
+.app-sidebar nav h6 {
+    display: block;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin: 2px 0;
+}
+
+.app-sidebar nav a {
+    cursor: pointer;
+    background: transparent;
+    text-decoration: none;
+}
+
+.app-sidebar nav a:hover {
+    background: rgba(255, 255, 255, .2);
+    color: #fff !important; /* hover ก็ยังขาว */
+}
+
+.app-sidebar nav a.active {
+    background: #2f8f85;
+    font-weight: 700;
+    color: #fff !important; /* active ก็ยังขาว */
+}
+
+.app-sidebar nav a i {
+    width: 20px;
+    margin-right: 8px;
+    color: #fff !important; /* ไอคอนบังคับขาว */
+}
+
+.app-sidebar nav h6 {
+    margin-top: 16px;
+    letter-spacing: .4px;
+    font-size: 12px;
+    opacity: .9;
+    color: #fff !important; /* หัวข้อก็ขาว */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Content area */
+.content {
+  margin-left: 250px; /* เท่ากับ sidebar width */
+  padding: 30px 30px 30px 30px; /* top padding มากกว่า header */
+  flex-grow: 1;
+  color: #2a3b3a;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dashboard header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #f4f7f8;
+  border-radius: 20px;
+  padding: 5px 10px;
+  width: 200px;
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 5px;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.search-bar button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.toggles button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-left: 10px;
+}
+
+.toggle-btn {
+  border: 1px solid #666;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+
+
+
+
+
+/* Order list section */
+.order-list {
+  background-color: #eef5f6;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.order-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  border: none;
+  border-radius: 10px;
+  background-color: #e3f0f0;
+  padding: 5px 12px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #4dc3b6;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.85rem;
+}
+
+.filter-btn span {
+  background: #c3e8e6;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-weight: 700;
+  color: #4dc3b6;
+}
+
+.filter-btn.active {
+  background-color: #4dc3b6;
+  color: #fff;
+}
+
+.product-type {
+  margin-left: auto;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Table */
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-table thead tr {
+  background-color: #cce8e7;
+}
+
+.order-table th, .order-table td {
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+.order-table tbody tr {
+  background-color: #fff;
+  box-shadow: 0 0 7px #d1d7da;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: table-row;
+}
+
+.order-table tbody tr.active {
+  border: 2px solid #4dc3b6;
+}
+
+.status {
+  padding: 5px 12px;
+  border-radius: 12px;
+  background-color: #bbb;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.status.waiting {
+  background-color: #bbb;
+}
+
+.confirm-btn {
+  background-color: #4dc3b6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 5px;
+  font-size: 0.8rem;
+}
+
+.icon-btn.delete {
+  color: red;
+}
+
+.order-date {
+  font-size: 0.7rem;
+  color: #999;
+}
+
+
+/* เปลี่ยนสีตัวอักษรหลักใน content เป็นดำ */
+.content {
+  color: #000;  /* สีดำ */
+  background-color: #ffffff;
+  margin-left: 250px; /* เท่ากับ sidebar width */
+  padding: 30px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ปรับสีตัวอักษรในตารางให้อ่านง่าย */
+.order-table th,
+.order-table td {
+  color: #000; /* สีดำ */
+}
+
+/* ปรับสีตัวอักษรในฟิลเตอร์ */
+.filter-btn {
+  color: #000; /* สีดำ */
+}
+
+.filter-btn span {
+  color: #000; /* สีดำ */
+}
+
+/* ปรับสี sidebar ให้อ่านง่ายขึ้น */
+.app-sidebar nav a,
+.app-sidebar nav h6 {
+  color: #000; /* สีดำ */
+}
+
+/* ถ้าโลโก้ยังขาว ให้เปลี่ยนสีด้วย */
+.logo {
+  color: #000;
+}
+
+
+
+/* ปุ่มชำระเงินในตาราง */
+.pay-btn {
+  display: block; /* อยู่บรรทัดเดียวกับยอดรวม */
+  margin-top: 5px;
+  background-color: #c6c9c8; /* สีเขียวอ่อน */
+  color: #000000;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 0.65rem;
+  cursor: pointer;
+  width: 100%; /* เต็มความกว้างของ td */
+  text-align: center;
+  transition: background 0.3s;
+}
+
+.pay-btn:hover {
+  background-color: #3aaea3;
+}
+
+
+
+    table {
+      border-collapse: collapse;
+      width: 60%;
+      margin: 20px auto;
+    }
+
+    .pay-btn {
+      background-color: #a6abab;
+      color: rgb(0, 0, 0);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .pay-btn:hover {
+      background-color: #a7acac;
+    }
+
+
+    .payment-popup {
+      display: none; /* ซ่อนไว้ก่อน */
+      background: #f7f7f7;
+      border: 1px solid #ccc;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 8px;
+      text-align: left;
+      position: relative;
+    }
+    .status-paid {
+      color: green;
+      font-weight: bold;
+    }
+    .slip-preview {
+      background: #ddd;
+      padding: 20px;
+      text-align: left;
+      margin: 8px 0;
+    }
+    .close-btn {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #666;
+    }
+    .close-btn:hover {
+      color: red;
+    }
+
+
+
+
+    
+
+
+
+/* รูปเล็ก */
+.thumbnail {
+  width: 80px;
+  height: auto;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.thumbnail:hover {
+  transform: scale(1.05);
+}
+
+/* กล่อง popup */
+.image-popup {
+  display: none; /* ซ่อนไว้ก่อน */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-popup img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+}
+
+.image-popup .close-btn {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+
+/*
+body {
+  font-family: sans-serif;
+}
+
+/* ปุ่มไอคอน *//*
+.icon-btn {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 18px;
+} */
+
+/* กล่องเมนู */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  padding: 8px 12px;
+  margin-top: 6px;
+  list-style: none;
+  z-index: 10;
+}
+
+.dropdown-menu li {
+  padding: 6px 4px;
+  cursor: pointer;
+  color: #333;
+}
+
+.dropdown-menu li:hover {
+  background: #e2e2e2;
+  border-radius: 6px;
+}
+
+
+
+
+
+/*ปุ่มในดินสอ*/
+/* Popup overlay */
+.popup {
+  display: none; /* ซ่อนเริ่มต้น */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ข้างใน popup */
+.popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 300px;
+  text-align: center;
+  position: relative;
+}
+
+/* ปุ่มปิด */
+.popup .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
+
+#popup-text {
+    white-space: pre-line;
+}
