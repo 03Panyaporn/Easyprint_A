@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สถานะการสั่งซื้อ : กำลังจัดส่ง</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap">
+</head>
+
+<body>
+    <div class="status-bar">
+        <span class="dot"></span> สถานะร้านค้า : เปิดบริการ
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo-wrapper">
+            <div class="logo">
+                <img src="icon/printer0.svg" alt="Logo" class="logo-icon"> EASYPRINT
+            </div>
+            <div class="rectangle-81">
+                <img src="icon/location-on0.svg" alt="Location"> ตำแหน่งปัจจุบัน <img src="icon/chevron-down0.svg"
+                    alt="Location">
+            </div>
+        </div>
+
+        <div class="menu">
+            <a href="#"><img src="icon/home0.svg" alt="">หน้าหลัก</a>
+            <a href="#"><img src="icon/bell0.svg" alt="">ติดตามคำสั่งซื้อ</a>
+            <a href="#"><img src="icon/shopping-cart0.svg" alt=""></a>
+            <span class="divider">|</span>
+            <a href="#"><img src="icon/user0.svg" alt="" class="ellipse-57"></a>
+        </div>
+    </header>
+
+    <!-- ครอบเนื้อหาหลักด้วย main -->
+    <main>
+        <section class="order-status">
+            <div class="status-header">สถานะของสินค้า</div>
+            <div class="progress">
+                <div class="progress-step active">
+                    <div class="icon">📄</div>
+                    <span>รับงานแล้ว</span>
+                </div>
+                <div class="progress-line active"></div>
+                <div class="progress-step active">
+                    <div class="icon">💳</div>
+                    <span>ตรวจสอบการชำระเงิน</span>
+                </div>
+                <div class="progress-line active"></div>
+                <div class="progress-step active">
+                    <div class="icon">🖨️</div>
+                    <span>กำลังดำเนินการ</span>
+                </div>
+                <div class="progress-line active"></div>
+                <div class="progress-step active">
+                    <div class="icon">🚚</div>
+                    <span>กำลังจัดส่ง</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step">
+                    <div class="icon">📦</div>
+                    <span>จัดส่งสำเร็จแล้ว</span>
+                </div>
+            </div>
+            <div class="status-note">ร้านค้ากำลังส่งสินค้าไปให้คุณ</div>
+        </section>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-left">
+            <p>© 2025 EASYPRINT</p>
+        </div>
+        <div class="footer-right">
+            <img src="png/image-3.png" alt="LINE" class="footer-icon">
+            <div class="footer-contact">
+                <p><b>ติดต่อสอบถาม</b></p>
+                <p>LINE : @EASYPRINT</p>
+                <p>โทร : 080-999-9999</p>
+                <p>Email : easyprint@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

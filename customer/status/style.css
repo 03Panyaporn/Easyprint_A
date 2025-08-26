@@ -1,0 +1,405 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Sarabun', sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    color: #333;
+    min-height: 100vh; /* ให้ body เต็มจอ */
+}
+
+main {
+    flex: 1; /* ดัน footer ลงล่าง */
+}
+
+/* ------------------ Status bar ------------------ */
+.status-bar {
+    background: #f7f7f7;
+    padding: 8px 20px;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    color: #333;
+}
+
+.status-bar .dot {
+    height: 10px;
+    width: 10px;
+    background-color: #28a745;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+}
+ 
+.icons ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+ 
+.icons ul li a {
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+}
+.status-container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.status-header {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #03A89D;
+    border-bottom: 2px solid #03A89D;
+    padding-bottom: 5px;
+}
+
+.progress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.progress-step .icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #e6e6e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.progress-step.active .icon {
+    background-color: #03A89D;
+}
+
+.progress-line {
+    flex: 1;
+    height: 2px;
+    background-color: #e6e6e6;
+}
+
+.progress-line.active {
+    background-color: #03A89D;
+}
+
+
+/* ------------------ Navbar ------------------ */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #474D4C;
+    color: white;
+    padding: 10px 20px;
+    gap: 10px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar .logo {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.navbar .logo-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.navbar .menu {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.navbar .menu a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+}
+
+.navbar .menu img {
+    width: 24px;
+    height: 24px;
+}
+
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.rectangle-81 {
+    font-size: 14px;
+    padding: 5px 10px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+}
+
+.menu img {
+    width: 24px;
+    height: 24px;
+}
+
+.ellipse-57 {
+    border-radius: 50%;
+    border: 2px solid #f7f7f7;
+    width: 36px;
+    height: 36px;
+}
+
+
+.rectangle-81 {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #d9d9d9;
+    border-radius: 50px;
+    padding: 5px 12px;
+    font-size: 14px;
+    color: #000;
+}
+
+
+/* ------------------ ORDER ------------------ */
+
+.order-status {
+    background: rgb(255, 255, 255);
+    padding: 40px 60px;
+    margin: 50px auto;
+    border-radius: 10px;
+    max-width: 1000px;
+
+    box-shadow: 0 7px 10px rgba(0, 0, 0, 0.05);
+    border: 2px solid #d9d9d9;
+}
+
+.order-status h2 {
+    color: #03A89D;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.status-tracker {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 0 10px;
+}
+
+.status-header div{
+    font-size: 18px;
+    margin: 0;           /* เอา margin ออก */
+    padding: 0;          /* เอา padding ออก */
+    color: #0078d4;
+    border-bottom: 2px solid #0078d4;
+    text-align: left;    /* ชิดซ้าย */
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ccc;
+    font-size: 14px;
+    flex: 1;
+    z-index: 1;
+}
+
+.step img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 8px;
+    filter: grayscale(100%);
+}
+
+.step.active,
+.step.active ~ .step {
+    color: #ccc;
+}
+
+.step.active img {
+    filter: none;
+}
+
+.step.completed {
+    color: #03A89D;
+}
+
+.step.completed img {
+    filter: none;
+}
+
+.status-tracker::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #884e4e;
+    z-index: 0;
+}
+
+.status-note {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+
+main {
+    padding-bottom: 60px; /* เท่าความสูงของ footer */
+}
+
+/* ------------------ Footer ------------------ */
+footer {
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 10px 20px;
+    background: #03A89D;
+    color: white;
+    font-size: 14px;
+}
+
+.footer-left p,
+.footer-contact p {
+    margin: 0 5px 0 0;
+    font-size: 13px;
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-right .footer-icon {
+    width: 60px;
+    height: 60px;
+}
+
+
+/* ------------------ Responsive Mobile ------------------ */
+@media (max-width: 1000px) {
+    .navbar {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .logo {
+        font-size: 12px;
+        order: 1;
+    }
+
+    .menu {
+        order: 2;
+        gap: 8px;
+        font-size: 12px;
+    }
+
+    .rectangle-81 {
+        order: 3;
+        margin-left: auto;
+        font-size: 12px;
+        padding: 3px 8px;
+        justify-self: end;
+
+    }
+
+    .menu img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .card img {
+        width: 100%;
+        height: 200px;
+
+
+    }
+
+    footer {
+        gap: 10px;
+
+    }
+
+}
