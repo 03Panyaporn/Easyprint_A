@@ -1,277 +1,410 @@
-/* ------------------ Reset ------------------ */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Sarabun', sans-serif;
-}
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-family: 'Sarabun', sans-serif;
+ }
 
-html,
-body {
-    height: 100%;
-    margin: 0;
-}
+ html,
+ body {
+     height: 100%;
+     margin: 0;
+ }
 
-body {
+ body {
+     display: flex;
+     flex-direction: column;
+     background: #DBDDDD;
+     color: #333;
+     min-height: 100vh;
+ }
+
+ main {
+     flex: 1;
+ }
+
+ /* ------------------ Status bar ------------------ */
+ .status-bar {
+     background: #f7f7f7;
+     padding: 8px 20px;
+     font-size: 14px;
+     border-bottom: 1px solid #ddd;
+     display: flex;
+     align-items: center;
+     color: #333;
+ }
+
+ .status-bar .dot {
+     height: 10px;
+     width: 10px;
+     background-color: #28a745;
+     border-radius: 50%;
+     display: inline-block;
+     margin-right: 8px;
+ }
+
+ /* ------------------ Navbar ------------------ */
+ .navbar {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     background: #474D4C;
+     color: white;
+     padding: 10px 20px;
+     gap: 10px;
+ }
+
+ .logo {
+     display: flex;
+     align-items: center;
+     gap: 5px;
+     font-size: 20px;
+     font-weight: bold;
+ }
+
+ .logo-wrapper {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+ }
+
+ .navbar .menu {
+     display: flex;
+     gap: 15px;
+     align-items: center;
+ }
+
+ .navbar .menu a {
+     display: flex;
+     align-items: center;
+     gap: 5px;
+     text-decoration: none;
+     color: white;
+     font-size: 16px;
+ }
+
+ .navbar .menu img {
+     width: 24px;
+     height: 24px;
+ }
+
+ .logo-icon {
+     width: 32px;
+     height: 32px;
+ }
+
+ .rectangle-81 {
+     display: flex;
+     align-items: center;
+     gap: 5px;
+     background: #d9d9d9;
+     border-radius: 50px;
+     padding: 5px 12px;
+     font-size: 14px;
+     color: #000;
+     position: relative;
+     /* อ้างอิง dropdown */
+     cursor: pointer;
+ }
+
+ /* Dropdown ของตำแหน่งปัจจุบัน */
+ .location-menu {
+     display: none;
+     position: absolute;
+     top: calc(100% + 5px);
+     /* ด้านล่างปุ่ม */
+     left: 0;
+     background: white;
+     border: 1px solid #ccc;
+     border-radius: 8px;
+     padding: 5px 0;
+     z-index: 9999;
+     width: max-content;
+     min-width: 180px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ .location-option {
+     padding: 8px 12px;
+     cursor: pointer;
+ }
+
+ .location-option:hover {
+     background: #f0f0f0;
+ }
+
+ /* ------------------ Container ------------------ */
+ .container {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+     gap: 20px;
+     padding: 30px;
+ }
+
+ .card {
+     background: white;
+     border-radius: 10px;
+     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+     text-align: center;
+     padding: 20px;
+     flex-direction: column;
+ }
+
+ .card img {
+     width: 100%;
+     height: 500px;
+     object-fit: cover;
+     border-radius: 10px;
+     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
+     border: 1px solid rgba(0, 0, 0, 0.1);
+ }
+
+ .card button {
+     margin-top: 10px;
+     padding: 10px 20px;
+     border: none;
+     border-radius: 25px;
+     font-size: 14px;
+     cursor: pointer;
+     background: #03A89D;
+     color: white;
+     transition: 0.3s;
+ }
+
+ .card button:hover {
+     background: #028278;
+ }
+.location-menu .location-option {
+    border: 1px solid #ccc;   /* กรอบรอบตัวเลือก */
+    border-radius: 8px;
+    margin: 5px 10px;         /* เว้นระยะระหว่างตัวเลือก */
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    background: #DBDDDD;
-    color: #333;
+    background: #D9D9D9;      /* สีพื้นหลังเทา */
 }
 
+.location-menu .location-option:hover {
+    background: #c0c0c0;      /* สีเข้มขึ้นเมื่อ hover */
+}
+ .location-menu .location-option .option-detail {
+     font-size: 12px;
+     color: #555;
+     margin-top: 3px;
+ }
 
-/* ------------------ Status bar ------------------ */
-.status-bar {
-    background: #f7f7f7;
-    padding: 8px 20px;
-    font-size: 14px;
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    align-items: center;
-    color: #333;
+
+ /* ปุ่มสีเทา */
+ .location-menu .new-address {
+     background: #d9d9d9;
+     text-align: center;
+     border-radius: 5px;
+     margin-top: 5px;
+     padding: 8px;
+ }
+
+.location-menu .location-option:hover {
+    background: #f0f8ff; /* เปลี่ยนสีเมื่อ hover */
 }
 
-.status-bar .dot {
-    height: 10px;
-    width: 10px;
-    background-color: #28a745;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 8px;
-}
-
-/* ------------------ Navbar ------------------ */
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #474D4C;
-    color: white;
-    padding: 10px 20px;
-    gap: 10px;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.logo-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.navbar .logo {
-    font-size: 20px;
-    font-weight: bold;
+.option-header {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.navbar .logo-icon {
-    width: 32px;
-    height: 32px;
+.option-title {
+    flex: 1;
+    font-weight: 500;
 }
 
-.navbar .menu {
+.option-actions {
     display: flex;
-    gap: 15px;
-    align-items: center;
+    gap: 10px; /* เว้นระยะห่างระหว่างปุ่ม 10px */
 }
 
-.navbar .menu a {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
+.option-actions button {
+    margin-left: 50px;
+    margin-right: 10px; /* เว้นขวา 10px */
 }
 
-.navbar .menu img {
-    width: 24px;
-    height: 24px;
+.option-actions button:last-child {
+    margin-right: 0; /* ปุ่มสุดท้ายไม่มี margin */
 }
 
-
-.logo-icon {
-    width: 32px;
-    height: 32px;
+.option-actions img {
+    width: 16px;
+    height: 16px;
 }
 
-.rectangle-81 {
-    font-size: 14px;
-    padding: 5px 10px;
-    background: #f0f0f0;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+input[type="radio"] {
+    margin-left: 8px;
 }
-
-.menu {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.menu a {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-}
-
-.menu img {
-    width: 24px;
-    height: 24px;
-}
-
-.ellipse-57 {
-    border-radius: 50%;
-    border: 2px solid #f7f7f7;
-    width: 36px;
-    height: 36px;
-}
-
-
-.rectangle-81 {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+.location-option.add-location {
+    display: block;
+    padding: 8px 12px;
+    text-align: center;
     background: #d9d9d9;
-    border-radius: 50px;
-    padding: 5px 12px;
-    font-size: 14px;
+    border-radius: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+    text-decoration: none;
     color: #000;
 }
 
-
-/* ------------------ Container ------------------ */
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 30px;
+.location-option.add-location:hover {
+    background: #c0c0c0;
 }
-
-/* ------------------ Card ------------------ */
-.card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+.location-option.add-location {
+    display: block;
+    padding: 8px 12px;
     text-align: center;
-    padding: 20px;
-    flex-direction: column;
-
-}
-
-.card img {
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-
-}
-
-.card button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    font-size: 14px;
+    background: #d9d9d9;
+    border-radius: 5px;
+    margin-top: 5px;
     cursor: pointer;
-    background: #03A89D;
-    color: white;
-    transition: 0.3s;
+    text-decoration: none;
+    color: #000;
 }
 
-.card button:hover {
-    background: #028278;
-}
-
-
-/* ------------------ Footer ------------------ */
-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: nowrap;
-    padding: 10px 20px;
-    background: #03A89D;
-    color: white;
-    font-size: 14px;
-}
-
-.footer-left p,
-.footer-contact p {
-    margin: 0 5px 0 0;
-    font-size: 13px;
-}
-
-.footer-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.footer-right .footer-icon {
-    width: 60px;
-    height: 60px;
+.location-option.add-location:hover {
+    background: #c0c0c0;
 }
 
 
-/* ------------------ Responsive Mobile ------------------ */
-@media (max-width: 1000px) {
-    .navbar {
-        flex-wrap: wrap;
-        gap: 8px;
-    }
+ /* ------------------ Footer ------------------ */
+ footer {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     flex-wrap: nowrap;
+     padding: 10px 20px;
+     background: #03A89D;
+     color: white;
+     font-size: 14px;
+ }
 
-    .logo {
-        font-size: 12px;
-        order: 1;
-    }
+ .footer-left p,
+ .footer-contact p {
+     margin: 0 5px 0 0;
+     font-size: 13px;
+ }
 
-    .menu {
-        order: 2;
-        gap: 8px;
-        font-size: 12px;
-    }
+ .footer-right {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+ }
 
-    .rectangle-81 {
-        order: 3;
-        margin-left: auto;
-        font-size: 12px;
-        padding: 3px 8px;
-        justify-self: end;
+ .footer-right .footer-icon {
+     width: 60px;
+     height: 60px;
+ }
 
-    }
+ /* ------------------ Popup ที่อยู่ ------------------ */
+ .address-popup {
+     position: absolute;
+     /* ลอยอยู่เหนือเนื้อหา */
+     top: 60px;
+     /* ปรับให้ตรงกับตำแหน่งปัจจุบัน */
+     left: 50%;
+     transform: translateX(-50%);
+     background: #fff;
+     border: 1px solid #ccc;
+     border-radius: 12px;
+     padding: 15px;
+     width: 320px;
+     max-width: 90%;
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+     z-index: 9999;
+     display: none;
+     /* แสดงเมื่อคลิกปุ่ม */
+ }
 
-    .menu img {
-        width: 20px;
-        height: 20px;
-    }
+ .address-popup .title {
+     font-weight: bold;
+     margin-bottom: 5px;
+ }
 
-    .card img {
-        width: 100%;
-        height: 200px;
+ .address-popup .item {
+     margin-bottom: 10px;
+ }
 
+ .address-popup .item div {
+     font-size: 13px;
+     line-height: 1.4;
+     color: #333;
+ }
 
-    }
+ .option-header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
 
-    footer {
-        gap: 10px;
+ /* กลุ่มปุ่มด้านขวา */
+ .option-actions {
+     display: flex;
+     gap: 6px;
+ }
 
-    }
+ /* ปุ่มไอคอน */
+ .option-actions button {
+     background: none;
+     border: none;
+     cursor: pointer;
+     padding: 3px;
+     border-radius: 5px;
+     transition: background 0.2s;
+ }
 
-}
+ .option-actions button:hover {
+     background: #f0f0f0;
+ }
+
+ /* ไอคอนขนาดพอดี */
+ .option-actions img {
+     width: 16px;
+     height: 16px;
+     display: block;
+ }
+
+ /* ------------------ Responsive Mobile ------------------ */
+ @media (max-width: 600px) {
+     .navbar {
+         flex-wrap: wrap;
+         gap: 8px;
+     }
+
+     .logo {
+         font-size: 12px;
+         order: 1;
+     }
+
+     .menu {
+         order: 2;
+         gap: 8px;
+         font-size: 12px;
+     }
+
+     .rectangle-81 {
+         order: 3;
+         margin-left: auto;
+         font-size: 12px;
+         padding: 3px 8px;
+     }
+
+     .menu img {
+         width: 20px;
+         height: 20px;
+     }
+
+     .card img {
+         width: 100%;
+         height: 200px;
+     }
+
+     footer {
+         gap: 10px;
+     }
+ }

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EASYPRINT</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap">
+</head>
+
+<body>
+  <div class="status-bar">
+    <span class="dot"></span> สถานะร้านค้า : เปิดบริการ
+  </div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo-wrapper">
+      <div class="logo">
+        <img src="icon/printer0.svg" alt="Logo" class="logo-icon"> EASYPRINT
+      </div>
+      <div class="rectangle-81">
+        <img src="icon/location-on0.svg" alt="Location"> ตำแหน่งปัจจุบัน
+        <img src="icon/chevron-down0.svg" alt="Location">
+      </div>
+    </div>
+    <div class="menu">
+      <a href="#"><img src="icon/home0.svg" alt="">หน้าหลัก</a>
+      <a href="#"><img src="icon/bell0.svg" alt="">ติดตามคำสั่งซื้อ</a>
+      <a href="#"><img src="icon/shopping-cart0.svg" alt=""></a>
+      <span class="divider">|</span>
+      <a href="#"><img src="icon/user0.svg" alt="" class="ellipse-57"></a>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="container">
+    <div class="card">
+      <h3>ROLL - UP</h3>
+      <form id="orderForm">
+        <div class="form-grid">
+          <div>
+            <label for="sizeSelect">ขนาด</label>
+            <select id="sizeSelect" name="sizeType">
+              <option value="60x160">60x160 ซม.</option>
+              <option value="80x200">80x200 ซม.</option>
+              <option value="90x210">90x210 ซม.</option>
+            </select>
+          </div>
+          <div>
+            <label for="typeSelect">ประเภท</label>
+            <select id="typeSelect" name="printType">
+              <option value="PP">PP Paper (พีพี เปเปอร์)</option>
+              <option value="PVC">PVC (พีวีซี)</option>
+              <option value="POLY">ผ้าโพลีเอสเตอร์</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div>
+            <label for="upfile">อัปโหลดไฟล์</label>
+            <input type="file" id="upfile" name="upfile" accept="image/*">
+          </div>
+        </div>
+        <div class="form-grid">
+          <div>
+            <label>จำนวน</label>
+            <input type="number" id="quantity" value="1" min="1">
+          </div>
+          <div>
+            <label for="price">ราคา (บาท)</label>
+            <input type="text" id="price" readonly>
+          </div>
+        </div>
+
+
+        <div id="uploadedFiles" class="updatePreviewBoxSize"></div>
+
+        <div id="previewContainer">
+          <div id="previewBox"></div>
+          <div id="statusText"></div>
+        </div>
+        <div class="form-agree">
+          <input type="checkbox" id="agree" name="agree">
+          <div class="agree-text">
+            <label for="agree">ยอมรับเงื่อนไขการใช้งาน<a href="#">อ่านเงื่อนไขทั้งหมด</a></label>
+
+          </div>
+        </div>
+        <div class="btn-group">
+          <a href="../main/index.html"><button type="button" class="btn-login cancel-btn" >ยกเลิก</button></a>
+          <button type="submit" class="btn-login confirm-btn">ยืนยัน</button>
+        </div>
+      </form>
+    </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-left">
+      <p>© 2025 EASYPRINT</p>
+    </div>
+    <div class="footer-right">
+      <img src="png/image-3.png" alt="LINE" class="footer-icon">
+      <div class="footer-contact">
+        <p><b>ติดต่อสอบถาม</b></p>
+        <p>LINE : @EASYPRINT</p>
+        <p>โทร : 080-999-9999</p>
+        <p>Email : easyprint@gmail.com</p>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // ราคาตามขนาด
+    const priceList = { "60x160": 300, "80x200": 450, "90x210": 550 };
+    const sizeSelect = document.getElementById("sizeSelect");
+    const quantityInput = document.getElementById("quantity");
+    const priceInput = document.getElementById("price");
+    const upfile = document.getElementById("upfile");
+    const uploadedFilesDiv = document.getElementById("uploadedFiles");
+    const previewBox = document.getElementById("previewBox");
+    const statusText = document.getElementById("statusText");
+
+    function calculatePrice() {
+      const selectedOption = sizeSelect.value;
+      const quantity = parseInt(quantityInput.value) || 1;
+      const basePrice = priceList[selectedOption] || 0;
+      priceInput.value = (basePrice * quantity).toLocaleString();
+    }
+
+    function updatePreviewBoxSize() {
+      const [w, h] = sizeSelect.value.split("x").map(Number);
+      previewBox.style.width = w *4 + "px";
+      previewBox.style.height = h *4+ "px";
+    }
+
+    function handleFileChange() {
+      uploadedFilesDiv.innerHTML = "";
+      previewBox.innerHTML = "";
+      statusText.textContent = "";
+
+      const files = upfile.files;
+      Array.from(files).forEach(file => {
+        const fileInfo = document.createElement("p");
+        fileInfo.textContent = `ไฟล์: ${file.name} (ขนาด: ${sizeSelect.value})`;
+        uploadedFilesDiv.appendChild(fileInfo);
+
+        if (file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = new Image();
+            img.src = e.target.result;
+            img.onload = function () {
+              previewBox.appendChild(img);
+
+              const boxWidth = previewBox.clientWidth;
+              const boxHeight = previewBox.clientHeight;
+              const imgWidth = img.naturalWidth;
+              const imgHeight = img.naturalHeight;
+
+              const boxRatio = boxWidth / boxHeight;
+              const imgRatio = imgWidth / imgHeight;
+
+              if (imgRatio >= boxRatio) {
+                img.style.width = "100%";
+                img.style.height = "auto";
+              } else {
+                img.style.width = "auto";
+                img.style.height = "100%";
+              }
+
+              const displayedWidth = img.clientWidth;
+              const displayedHeight = img.clientHeight;
+              statusText.textContent = (displayedWidth >= boxWidth && displayedHeight >= boxHeight)
+                ? "เต็มกรอบ"
+                : "มีพื้นที่เหลือในกรอบ";
+            }
+          }
+          reader.readAsDataURL(file);
+        }
+      });
+
+      calculatePrice();
+    }
+
+    sizeSelect.addEventListener("change", () => {
+      updatePreviewBoxSize();
+      handleFileChange();
+    });
+
+    quantityInput.addEventListener("input", calculatePrice);
+    upfile.addEventListener("change", handleFileChange);
+
+    // เริ่มต้น
+    updatePreviewBoxSize();
+    calculatePrice();
+  </script>
+</body>
+
+
+</html>
