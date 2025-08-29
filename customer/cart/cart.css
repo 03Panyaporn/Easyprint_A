@@ -416,9 +416,13 @@ footer {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-
+    
   }
   
+  .add-address a{
+    text-decoration: none;
+    color: white;
+  }
   .add-address:hover {
     background-color: #017979;
   }
@@ -533,12 +537,17 @@ footer {
     transition: 0.3s;
 }
 
+.confirm-btn a{
+  text-decoration: none;
+  color: white;
+}
+
 .confirm-btn:hover {
     background: #028278;
 }
 
 .cancel-btn {
-    background: #e74c3c;         /* สีแดงสด */
+    background: #e74c3c;       
     color: white;
     border: none;
     padding: 12px 25px;
@@ -546,10 +555,16 @@ footer {
     font-size: 16px;
     cursor: pointer;
     transition: 0.3s;
+
   }
   
+  .cancel-btn a{
+    text-decoration: none;
+    color: white;
+  }
+
   .cancel-btn:hover {
-    background: #c0392b;         /* แดงเข้มเมื่อ hover */
+    background: #c0392b;         
   }
   
 .form-grid {
