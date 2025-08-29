@@ -1,0 +1,304 @@
+หน้าหลัก (แถบบน + แถบข้าง)
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EASYPRINT — หน้าหลัก</title>
+    <link rel="stylesheet" href="5.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ 
+    <!-- ฟอนต์ไทย -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- ไอคอน -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+            <script src="5.js" defer></script>
+ 
+</head>
+<body>
+    <div class="navbar">
+        <!-- โลโก้EasyPrint -->
+        <div class="logo">EasyPrint</div>
+     
+        <!-- กล่องค้นหา -->
+        <div class="searchbar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" id="searchInput" placeholder="ค้นหาออเดอร์" />
+          </div>
+     
+        <!-- ไอคอน + โปรไฟล์ -->
+        <div class="icons">
+          <!-- สถานะร้าน -->
+          <div class="toggle-container">
+            <span>สถานะร้าน</span>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+     
+          <!-- แจ้งเตือน -->
+          <div class="notification-icon" onclick="toggleNotification('notificationList')">
+            <i class="fa fa-bell"></i>
+            <div class="notification-list" id="notificationList">
+              <div class="notification-item">การแจ้งเตือนที่ 1</div>
+              <div class="notification-item">การแจ้งเตือนที่ 2</div>
+            </div>
+          </div>
+     
+          <!-- โปรไฟล์ -->
+          <div class="profile-icon" onclick="toggleNotification('notificationListCog')">
+            <i class="fa fa-user-circle"></i>
+            <div class="notification-list-cog" id="notificationListCog">
+              <div class="notification-item">ศูนย์ช่วยเหลือ</div>
+              <a href="../customer/main/main.html" style="text-decoration: none;">
+                <div class="notification-item">ออกจากระบบ</div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+ 
+    <!-- เมนูด้านข้าง -->
+     <!-- ====== Sidebar ====== -->
+     <aside class="app-sidebar" id="sidebar">
+        <nav>
+          <a class="active"><i class="fa-solid fa-house"></i> หน้าหลัก</a>
+          <a><i class="fa-solid fa-receipt"></i> รายการคำสั่งซื้อ</a>
+          <h6>กำหนดบริการ</h6>
+          <a><i class="fa-solid fa-box"></i> สินค้า</a>
+          <a><i class="fa-solid fa-circle-plus"></i> เพิ่มสินค้า</a>
+          <a><i class="fa-solid fa-money-check-dollar"></i> กำหนดค่าจัดส่ง</a>
+          <a><i class="fa-solid fa-truck-fast"></i> ประเภทขนส่ง</a>
+ 
+          <h6>แสดงยอดขาย</h6>
+          <a><i class="fa-solid fa-chart-line"></i> แสดงยอดขาย</a>
+        </nav>
+      </aside>
+</body>
+</html>
+
+
+
+
+
+
+
+  <!-- Main Content -->
+  <main class="content">
+    <section class="dashboard-header">
+      <h2>ระบบแสดงยอดขาย</h2>
+
+    </section>
+
+    <section class="order-list">
+      <div class="order-filters">
+        <button class="filter-btn">ทั้งหมด <span>30</span></button>
+        <button class="filter-btn">รับออเดอร์ <span>2</span></button>
+        <button class="filter-btn">กำลังพิมพ์ <span>4</span></button>
+        <button class="filter-btn">รอเเพ็ก <span>6</span></button>
+        <button class="filter-btn active">จัดส่งแล้ว <span>8</span></button>
+        <button class="filter-btn">เสร็จสิ้น <span>10</span></button>
+
+        <select class="product-type" name="product-type" id="product-type">
+          <option value="">ประเภทสินค้า</option>
+        </select>
+      </div>
+
+      <table class="order-table">
+        <thead>
+          <tr>
+            <th>หมายเลขออเดอร์</th>
+            <th>สถานะออเดอร์</th>
+            <th>ชื่อลูกค้า</th>
+            <th>ประเภท</th>
+            <th>จำนวน</th>
+            <th>ตัวอย่าง</th>
+            <th>ยอดรวม</th>
+            <th>จัดการ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="order-row active">
+            <td>
+              <div>WA110666</div>
+              <div class="order-date">15/12/2022 5:50 PM</div>
+            </td>
+            <td><span class="status waiting">รอคิว</span></td>
+            <td><b>สมชาย</b></td>
+            <td>roll-up</td>
+            <td>1</td>
+            <td>
+  <!-- รูปเล็ก -->
+  <img src="NongAon.png"
+       alt="ตัวอย่างงานพิมพ์"
+       class="thumbnail"
+       onclick="openImagePopup(this.src)">
+
+  <!-- popup รูปใหญ่ -->
+  <div id="imagePopup" class="image-popup">
+    <span class="close-btn" onclick="closeImagePopup()">&times;</span>
+    <img id="popupImage" src="">
+  </div>
+</td>
+<td>
+  270 บาท
+  <button class="pay-btn" onclick="togglePayment(this)">ตรวจสอบการชำระเงิน</button>
+  
+  <!-- กล่องแสดงการชำระเงิน -->
+  <div class="payment-popup">
+    <h4>ตรวจสอบการชำระเงิน <span class="status-paid">ชำระเงินแล้ว</span></h4>
+    <h4><span>ชื่อ: Kawfoyx </span></h4>
+    <h4><span>วันที่: 15/05/2569 </span></h4>
+    <h4><span>เวลา: 13.00 นาฬิกา </span></h4>
+    <p><b>สลิปโอนเงิน</b></p>
+    <div class="slip-preview">ตัวอย่างสลิปโอนเงิน</div>
+    <h4><span>ยอดรวม: 270 บาท </span></h4>
+    
+  </div>
+</td>
+            <td>
+              <button class="confirm-btn">จัดส่งแล้ว</button>
+   <button class="icon-btn" onclick="toggleMenu(event)">✏️</button>
+
+  <!-- เมนูย่อย -->
+  <ul class="dropdown-menu" id="menu">
+    <li onclick="showPopup('รายละเอียดออเดอร์\nออเดอร์#W1212312121\nชื่อ : Aon Kheemha\nสินค้าประเภท : x-stand\nจำนวน : 1\nยอดรวม : 270 บาท \nที่อยู่ : Payao 22/1 Maega\nจัดส่ง : EMS')">รายละเอียดออเดอร์</li>
+<li onclick="showPopupWithImage('พิมพ์ที่อยู่', 'NongAon.png')">พิมพ์ที่อยู่</li>
+<li onclick="showPopupWithImage('พิมพ์ใบเสร็จ', 'NongAon.png')">พิมพ์ใบเสร็จ</li>
+<li onclick="showPopupWithImage('ที่อยู่ + ใบเสร็จ', 'NongAon.png')">ที่อยู่ + ใบเสร็จ</li>
+  </ul>
+
+  <!-- ปุ่มที่หายไป กลับเข้ามาใน <td> -->
+  <button class="icon-btn">👁️</button>
+  <button class="icon-btn delete">🗑️</button>
+</td>
+
+<!-- Popup modal -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <p id="popup-text"></p>
+  </div>
+</div>
+            </td>
+          </tr>
+          <tr class="order-row">
+            <td>
+              <div>WA110555</div>
+              <div class="order-date">14/12/2022 4:50 PM</div>
+            </td>
+            <td><span class="status waiting">รอคิว</span></td>
+            <td><b>สมหญิง</b></td>
+            <td>x-stand</td>
+            <td>1</td>
+            <td>
+  <!-- รูปเล็ก -->
+  <img src="NongAon.png"
+       alt="ตัวอย่างงานพิมพ์"
+       class="thumbnail"
+       onclick="openImagePopup(this.src)">
+
+  <!-- popup รูปใหญ่ -->
+  <div id="imagePopup" class="image-popup">
+    <span class="close-btn" onclick="closeImagePopup()">&times;</span>
+    <img id="popupImage" src="">
+  </div>
+</td>
+<td>
+  350 บาท
+  <button class="pay-btn" onclick="togglePayment(this)">ตรวจสอบการชำระเงิน</button>
+  
+  <!-- กล่องแสดงการชำระเงิน -->
+  <div class="payment-popup">
+    <h4>ตรวจสอบการชำระเงิน <span class="status-paid">ชำระเงินแล้ว</span></h4>
+    <h4><span>ชื่อ: Kawfoyx </span></h4>
+    <h4><span>วันที่: 15/05/2569 </span></h4>
+    <h4><span>เวลา: 13.00 นาฬิกา </span></h4>
+    <p><b>สลิปโอนเงิน</b></p>
+    <div class="slip-preview">ตัวอย่างสลิปโอนเงิน</div>
+    <h4><span>ยอดรวม: 350 บาท </span></h4>
+    
+  </div>
+</td>
+            <td>
+              <button class="confirm-btn">จัดส่งแล้ว</button>
+  <!-- ปุ่มหลัก -->
+  <button class="icon-btn" onclick="toggleMenu(event)">✏️</button>
+
+  <!-- เมนูย่อย -->
+  <ul class="dropdown-menu" id="menu">
+    <li onclick="alert('รายละเอียดออเดอร์')">รายละเอียดออเดอร์</li>
+    <li onclick="alert('พิมพ์ที่อยู่')">พิมพ์ที่อยู่</li>
+    <li onclick="alert('ใบเสร็จ')">ใบเสร็จ</li>
+    <li onclick="alert('ที่อยู่ + ใบเสร็จ')">ที่อยู่ + ใบเสร็จ</li>
+  </ul>
+              <button class="icon-btn">👁️</button>
+              <button class="icon-btn delete">🗑️</button>
+            </td>
+          </tr>
+          <tr class="order-row">
+            <td>
+              <div>WA110444</div>
+              <div class="order-date">13/12/2022 3:50 PM</div>
+            </td>
+            <td><span class="status waiting">รอคิว</span></td>
+            <td><b>สมปอง</b></td>
+            <td>โปสเตอร์</td>
+            <td>2</td>
+            <td>
+  <!-- รูปเล็ก -->
+  <img src="NongAon.png"
+       alt="ตัวอย่างงานพิมพ์"
+       class="thumbnail"
+       onclick="openImagePopup(this.src)">
+
+  <!-- popup รูปใหญ่ -->
+  <div id="imagePopup" class="image-popup">
+    <span class="close-btn" onclick="closeImagePopup()">&times;</span>
+    <img id="popupImage" src="">
+  </div>
+</td>
+<td>
+  555 บาท
+  <button class="pay-btn" onclick="togglePayment(this)">ตรวจสอบการชำระเงิน</button>
+  
+  <!-- กล่องแสดงการชำระเงิน -->
+  <div class="payment-popup">
+    <h4>ตรวจสอบการชำระเงิน <span class="status-paid">ชำระเงินแล้ว</span></h4>
+    <h4><span>ชื่อ: Kawfoyx </span></h4>
+    <h4><span>วันที่: 15/05/2569 </span></h4>
+    <h4><span>เวลา: 13.00 นาฬิกา </span></h4>
+    <p><b>สลิปโอนเงิน</b></p>
+    <div class="slip-preview">ตัวอย่างสลิปโอนเงิน</div>
+    <h4><span>ยอดรวม: 555 บาท </span></h4>
+    
+  </div>
+</td>
+            <td>
+              <button class="confirm-btn">จัดส่งแล้ว</button>
+  <!-- ปุ่มหลัก -->
+  <button class="icon-btn" onclick="toggleMenu(event)">✏️</button>
+
+  <!-- เมนูย่อย -->
+  <ul class="dropdown-menu" id="menu">
+    <li onclick="alert('รายละเอียดออเดอร์')">รายละเอียดออเดอร์</li>
+    <li onclick="alert('พิมพ์ที่อยู่')">พิมพ์ที่อยู่</li>
+    <li onclick="alert('ใบเสร็จ')">ใบเสร็จ</li>
+    <li onclick="alert('ที่อยู่ + ใบเสร็จ')">ที่อยู่ + ใบเสร็จ</li>
+  </ul>
+              <button class="icon-btn">👁️</button>
+              <button class="icon-btn delete">🗑️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+</body>
+</html>
