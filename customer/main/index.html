@@ -88,7 +88,28 @@
             <a href="../status/order-received.html"><img src="icon/bell0.svg" alt="">ติดตามคำสั่งซื้อ</a>
             <a href="../cart/cart.html"><img src="icon/shopping-cart0.svg" alt=""></a>
             <span class="divider">|</span>
-            <a href="#"><img src="icon/user0.svg" alt="" class="ellipse-57"></a>
+             <div class="user-dropdown">
+                <a href="#" id="userBtn">
+                    <div>
+                        <img src="icon/user0.svg" alt="User">
+                    </div>
+                </a>
+
+                <!-- Dropdown เมนู -->
+                <div class="profile-card" id="userMenu">
+                    <div class="profile-icon">
+                        <img src="icon/user0.svg" alt="Profile" class="profile-img">
+                    </div>
+
+                    <div class="profile-info">
+                        <p class="profile-name">สมศรี นอนน้อย</p>
+                        <p class="profile-name">somjai@gmail.com</p>
+                        <p class="profile-name"><a href="#">แก้ไขโปรไฟล์</a></p>
+                    </div>
+                    <a href="../login/login.html">
+                    <button class="logout-btn">ออกจากระบบ</button></a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -130,6 +151,8 @@
 </body>
 
 <script>
+    const userBtn = document.getElementById("userBtn");
+    const userMenu = document.getElementById("userMenu");
     const locationBtn = document.getElementById('locationBtn');
     const locationMenu = document.getElementById('locationMenu');
     const selectedSpan = document.getElementById('selectedLocation');
@@ -180,7 +203,16 @@
             }
         });
     });
+    userBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        userMenu.style.display = userMenu.style.display === "block" ? "none" : "block";
+    });
 
+    document.addEventListener("click", function (e) {
+        if (!userBtn.contains(e.target) && !userMenu.contains(e.target)) {
+            userMenu.style.display = "none";
+        }
+    });
 </script>
 
 
