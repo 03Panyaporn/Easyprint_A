@@ -20,21 +20,103 @@
             <div class="logo">
                 <img src="icon/printer0.svg" alt="Logo" class="logo-icon"> EASYPRINT
             </div>
-            <div class="rectangle-81">
-                <img src="icon/location-on0.svg" alt="Location"> ตำแหน่งปัจจุบัน <img src="icon/chevron-down0.svg"
-                    alt="Location">
+            <div class="rectangle-81" id="locationBtn">
+                <img src="icon/location-on0.svg" alt="Location">
+                <span id="selectedLocations">ตำแหน่งปัจจุบัน</span>
+                <img src="icon/chevron-down0.svg" alt="Dropdown">
+
+                <!-- Dropdown container -->
+                <div class="location-menu" id="locationMenu">
+                    <div class="location-option">
+
+                        <label class="option-content">
+                            <input type="radio" name="address" value="ตำแหน่งปัจจุบัน">
+                            <span class="option-title">ตำแหน่งปัจจุบัน</span>
+                        </label>
+
+                    </div>
+                    <span class="option-title" style="margin-left: 20px; font-size:medium;">ตำแหน่งที่บันทึกไว้</span>
+                    <!-- บ้าน -->
+                    <div class="location-option">
+
+                        <label class="option-content">
+                            <input type="radio" name="address" value="บ้าน">
+                            <span class="option-title">บ้าน</span>
+                        </label>
+
+                        <div class="option-detail">
+                            สมใจ ทันที<br>
+                            75/1 , หมู่ 7 , ตำบลงาว<br>
+                            อำเภองาว , จังหวัดลำปาง 52110<br>
+                            080-000-1111
+                        </div>
+                        <div class="option-actions">
+                            <button class="edit-btn" title="แก้ไข"><img src="../main/icon/edit-30.svg"
+                                    alt="แก้ไข"></button>
+                            <button class="delete-btn" title="ลบ"><img src="../main/icon/trash-20.svg"
+                                    alt="ลบ"></button>
+                        </div>
+                    </div>
+
+                    <!-- ที่ทำงาน -->
+                    <div class="location-option">
+                        <label class="option-content">
+                            <input type="radio" name="address" value="ที่ทำงาน">
+                            <span class="option-title">ที่ทำงาน</span>
+                        </label>
+
+                        <div class="option-detail">
+                            สมหมาย ทันที<br>
+                            123 , หมู่ 4 , ตำบลแม่กา<br>
+                            อำเภอเมืองพะเยา , จังหวัดพะเยา ,56000<br>
+                            042-000-333
+                        </div>
+                        <div class="option-actions">
+                            <button class="edit-btn" title="แก้ไข"><img src="../main/icon/edit-30.svg"
+                                    alt="แก้ไข"></button>
+                            <button class="delete-btn" title="ลบ"><img src="../main/icon/trash-20.svg"
+                                    alt="ลบ"></button>
+                        </div>
+                    </div>
+
+                    <!-- เพิ่มที่อยู่ใหม่ -->
+                    <a href="../addaddress/address.html" class="location-option add-location">+ เพิ่มที่อยู่ใหม่</a>
+
+                </div>
             </div>
         </div>
-
+        </div>
 
         <div class="menu">
             <a href="../main/index.html"><img src="icon/home0.svg" alt="">หน้าหลัก</a>
             <a href="../status/order-received.html"><img src="icon/bell0.svg" alt="">ติดตามคำสั่งซื้อ</a>
             <a href="../cart/cart.html"><img src="icon/shopping-cart0.svg" alt=""></a>
             <span class="divider">|</span>
-            <a href="#"><img src="icon/user0.svg" alt="" class="ellipse-57"></a>
+            <div class="user-dropdown">
+                <a href="#" id="userBtn">
+                    <div>
+                        <img src="icon/user0.svg" alt="User" class="ellipse-57">
+                    </div>
+                </a>
+
+                <!-- Dropdown เมนู -->
+                <div class="profile-card" id="userMenu">
+                    <div class="profile-icon">
+                        <img src="icon/user0.svg" alt="Profile" class="profile-img">
+                    </div>
+
+                    <div class="profile-info">
+                        <p class="profile-name">สมศรี นอนน้อย</p>
+                        <p class="profile-name">somjai@gmail.com</p>
+                        <p class="profile-name"><a href="#">แก้ไขโปรไฟล์</a></p>
+                    </div>
+                    <a href="../login/login.html">
+                        <button class="logout-btn">ออกจากระบบ</button></a>
+                </div>
+            </div>
         </div>
     </header>
+
 
 
     <!-- Cart Container -->
@@ -44,40 +126,40 @@
             <!-- รายการสินค้า -->
             <h2>รายการสินค้าทั้งหมด</h2>
             <div class="table-wrapper">
-            <table class="cart-table">
-                <thead>
-                    <tr>
-                        <th>ประเภทสินค้า</th>
-                        <th>ตัวอย่าง</th>
-                        <th>ขนาด</th>
-                        <th>จำนวน</th>
-                        <th>ประเภทวัสดุ</th>
-                        <th>ราคา</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>โปสเตอร์</td>
-                        <td><img src="png/ex_poster.jpg" alt="โปสเตอร์"></td>
-                        <td>80 x 200</td>
-                        <td>3 ชิ้น</td>
-                        <td>ไวนิล</td>
-                        <td>1000 บาท</td>
-                        <td><button class="delete-btn"><img src="icon/trash-2.svg"></button></td>
-                    </tr>
-                    <tr>
-                        <td>ROLL - UP</td>
-                        <td><img src="png/ex_rollup.jpg" alt="ROLL-UP"></td>
-                        <td>80 x 200</td>
-                        <td>1 ชิ้น</td>
-                        <td>PP</td>
-                        <td>500 บาท</td>
-                        <td><button class="delete-btn"><img src="icon/trash-2.svg"></button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>ประเภทสินค้า</th>
+                            <th>ตัวอย่าง</th>
+                            <th>ขนาด</th>
+                            <th>จำนวน</th>
+                            <th>ประเภทวัสดุ</th>
+                            <th>ราคา</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>โปสเตอร์</td>
+                            <td><img src="png/ex_poster.jpg" alt="โปสเตอร์"></td>
+                            <td>80 x 200</td>
+                            <td>3 ชิ้น</td>
+                            <td>ไวนิล</td>
+                            <td>1000 บาท</td>
+                            <td><button class="delete-btn"><img src="icon/trash-2.svg"></button></td>
+                        </tr>
+                        <tr>
+                            <td>ROLL - UP</td>
+                            <td><img src="png/ex_rollup.jpg" alt="ROLL-UP"></td>
+                            <td>80 x 200</td>
+                            <td>1 ชิ้น</td>
+                            <td>PP</td>
+                            <td>500 บาท</td>
+                            <td><button class="delete-btn"><img src="icon/trash-2.svg"></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <div class="cart-total">
                 ยอดรวมสินค้าทั้งหมด <b>1500 บาท</b>
@@ -169,36 +251,36 @@
                 <div class="bank-box">
                     <p class="name-bank">ธนาคารไทยพาณิชย์</p>
                     <p class="id-bank">123-456-789-1111</p>
-                  </div>
-                <img src="png/qr-code-generated.jpg" alt="QR CODE" class="qr-code">
-              
-                <div class="payment-options">
-                  
-                  <!-- ข้อมูลธนาคาร + อัปโหลดไฟล์ -->
-                  <div class="form-grid">
-                   
-                    <div>
-                      <label for="upfile">อัปโหลดหลักฐานการโอน</label>
-                      <input type="file" id="upfile" name="upfile" accept="image/*">
-                    </div>
-                  </div>
-              
-                  <!-- ตัวเลือกใบเสร็จ -->
-                  <div class="receipt-choice">
-                    <p>ต้องการใบเสร็จหรือไม่ ?</p>
-                    <label><input type="radio" name="slip" value="yes"> รับใบเสร็จ</label>
-                    <label><input type="radio" name="slip" value="no"> ไม่รับ</label>
-                  </div>
-              
                 </div>
-              </section>
-              
+                <img src="png/qr-code-generated.jpg" alt="QR CODE" class="qr-code">
+
+                <div class="payment-options">
+
+                    <!-- ข้อมูลธนาคาร + อัปโหลดไฟล์ -->
+                    <div class="form-grid">
+
+                        <div>
+                            <label for="upfile">อัปโหลดหลักฐานการโอน</label>
+                            <input type="file" id="upfile" name="upfile" accept="image/*">
+                        </div>
+                    </div>
+
+                    <!-- ตัวเลือกใบเสร็จ -->
+                    <div class="receipt-choice">
+                        <p>ต้องการใบเสร็จหรือไม่ ?</p>
+                        <label><input type="radio" name="slip" value="yes"> รับใบเสร็จ</label>
+                        <label><input type="radio" name="slip" value="no"> ไม่รับ</label>
+                    </div>
+
+                </div>
+            </section>
+
 
             <!-- ปุ่มยืนยัน -->
             <div class="button-row">
                 <button class="cancel-btn"><a href="../main/index.html">ยกเลิก</a></button>
                 <button class="confirm-btn"><a href="../status/order-received.html">ยืนยัน</a></button>
-              </div>
+            </div>
 
         </div>
     </main>

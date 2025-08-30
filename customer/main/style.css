@@ -162,7 +162,12 @@
   width: 40px;
   height: 40px;       
 }
-
+.ellipse-57 {
+  border-radius: 50%;
+  border: 2px solid #f7f7f7;
+  width: 36px;
+  height: 36px;
+}
 
  .logo-icon {
      width: 32px;
