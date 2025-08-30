@@ -1,4 +1,4 @@
-  document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     const paymentButtons = document.querySelectorAll('.confirm-btn.payment');
     const paymentPopup = document.getElementById('paymentPopup');
     const closeBtn = document.getElementById('closePopup');
@@ -61,10 +61,10 @@
 
 
   function goToNotification() {
-    window.location.href = "../Notification/Notification.html";
+    window.location.href = "../../Notification/Notification.html";
   }
 
   function goNextEditProfile() {
-    window.location.href = '../Edit_profile/Edit_profile.html';
+    window.location.href = '../../Edit_profile/Edit_profile.html';
   }
 

@@ -59,3 +59,8 @@ window.addEventListener('click', function(e) {
         popup.classList.remove('show');
     }
 });
+
+
+function goNextEditProfile() {
+  window.location.href = '../Edit_profile/Edit_profile.html';
+}

@@ -5,7 +5,7 @@ function goToNotification() {
 function goNextEditProfile() {
   window.location.href = '../Edit_profile/Edit_profile.html';
 }
-
+ 
 document.querySelector('.switch input').addEventListener('change', function () {
     if (this.checked) {
       alert("ระบบเปิดการทำงาน");
@@ -13,7 +13,7 @@ document.querySelector('.switch input').addEventListener('change', function () {
       alert("ระบบปิดการทำงาน");
     }
   });
-
+ 
   document.querySelector('.topbar input').addEventListener('keyup', function () {
     let keyword = this.value.toLowerCase();
     document.querySelectorAll("tbody tr").forEach(row => {
@@ -35,33 +35,38 @@ window.addEventListener('click', function(e) {
       popup.classList.remove('show');
   }
 });
- 
-const uploadInput = document.getElementById('upload');
-const previewImg = document.getElementById('preview');
-const uploadLabel = document.getElementById('upload-label');
-const imgCount = document.getElementById('img-count');
-const removeBtn = document.getElementById('remove-img');
 
-uploadInput.addEventListener('change', function () {
-  const file = this.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function () {
-      previewImg.src = reader.result;
-      previewImg.style.display = 'block';
-      uploadLabel.style.display = 'none';
-      removeBtn.style.display = 'block';
-      imgCount.textContent = '1';
-    };
-    reader.readAsDataURL(file);
+document.addEventListener('DOMContentLoaded', () => {
+  const table = document.getElementById('product-table');
+  const countSpan = document.getElementById('selected-count');
+  const sortSelect = document.getElementById('sort-by');
+
+  function updateCount() {
+    const rows = table.querySelectorAll('.table-row');
+    countSpan.textContent = rows.length;
   }
-});
 
-removeBtn.addEventListener('click', function () {
-  uploadInput.value = '';
-  previewImg.src = '';
-  previewImg.style.display = 'none';
-  uploadLabel.style.display = 'block';
-  removeBtn.style.display = 'none';
-  imgCount.textContent = '0';
+  table.addEventListener('click', (e) => {
+    if(e.target.classList.contains('btn-delete')) {
+      const row = e.target.closest('.table-row');
+      if(row) {
+        row.remove();
+        updateCount();
+      }
+    }
+  });
+
+  updateCount();
+
+  sortSelect.addEventListener('change', () => {
+    const rowsArray = Array.from(table.querySelectorAll('.table-row'));
+    
+    rowsArray.sort((a, b) => {
+      const dateA = new Date(a.getAttribute('data-created'));
+      const dateB = new Date(b.getAttribute('data-created'));
+      return dateA - dateB; 
+    });
+
+    rowsArray.forEach(row => table.appendChild(row));
+  });
 });

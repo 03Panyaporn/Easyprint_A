@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EASYPRINT — สินค้า</title>
-    <link rel="stylesheet" href="product.css">
+    <title>EASYPRINT — แสดงยอดขาย</title>
+    <link rel="stylesheet" href="Sales_statistics.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-  <script src="product.js"></script>
  
 </head>
 <body>
     <div class="navbar">
         <div class="logo">EasyPrint</div>
- 
+
         <div class="searchbar">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="search" id="searchInput" placeholder="ค้นหาออเดอร์" />
@@ -29,7 +28,7 @@
               <span class="slider"></span>
             </label>
           </div>
-
+     
           <div class="notification-icon" onclick="goToNotification()">
             <i class="fa fa-bell"></i>
           </div>
@@ -49,7 +48,7 @@
                     <span>แก้ไขโปรไฟล์</span>
                 </a>
            
-                <a href="../Notification/Notification.html" class="profile-btn logout">
+                <a href="../login/login.html" class="profile-btn logout">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span>ออกจากระบบ</span>
                 </a>
@@ -71,62 +70,37 @@
           <a href="../Sales_statistics/Sales_statistics.html"><i class="fa-solid fa-chart-line"></i> แสดงยอดขาย</a>
         </nav>
       </aside>
-      
-      <main class="main-content">
-        <div class="header-row">
-          <h2>สินค้าทั้งหมด</h2>
-        </div>
 
-        <div class="header-divider"></div>
+        <main class="main-content">
+            <h2>ยอดขายทั้งหมด</h2>
 
-        <div class="sub-header">
-          <div class="sub-left">
-            <div>รายการสินค้า (<span id="selected-count">4</span>)</div>
-          </div>
-        </div>
-      
-        <div class="product-table" id="product-table">
-          <div class="table-header">
-            <div>ลำดับ</div>
-            <div>ประเภทสินค้า</div>
-            <div>ขนาด</div>
-            <div>ราคาขาย / ชิ้น</div>
-            <div></div>
-          </div>
-      
-          <div class="table-row" data-category="Rool-up">
-            <div>1</div>
-            <div>Poster</div>
-            <div>60*80</div>
-            <div>150 บาท</div>
-            <div><button class="btn-delete">ลบสินค้า</button></div>
-          </div>
-      
-          <div class="table-row" data-category="X-Stand">
-            <div>2</div>
-            <div>Poster</div>
-            <div>80*120</div>
-            <div>300 บาท</div>
-            <div><button class="btn-delete">ลบสินค้า</button></div>
-          </div>
-      
-          <div class="table-row" data-category="Poster">
-            <div>3</div>
-            <div>X-Stand</div>
-            <div>80*200</div>
-            <div>890 บาท</div>
-            <div><button class="btn-delete">ลบสินค้า</button></div>
-          </div>
-      
-          <div class="table-row" data-category="Poster">
-            <div>4</div>
-            <div>Rool-up</div>
-            <div>60*160</div>
-            <div>450 บาท</div>
-            <div><button class="btn-delete">ลบสินค้า</button></div>
-          </div>
-        </div>
-      </main>  
-  </body>
+            <div class="sales-filter">
+                <button class="filter-btn active" data-period="daily">รายวัน</button>
+                <button class="filter-btn" data-period="weekly">รายสัปดาห์</button>
+                <button class="filter-btn" data-period="monthly">รายเดือน</button>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="salesChart"></canvas>
+            </div>
+
+            <div class="sales-table-container">
+                <table id="salesTable">
+                    <thead>
+                        <tr>
+                        <th>วันที่ / สัปดาห์ / เดือน</th>
+                        <th>โปสเตอร์ (บาท)</th>
+                        <th>โรลอัพ (บาท)</th>
+                        <th>เอ็กสแตน (บาท)</th>
+                        </tr>
+                    </thead>
+                <tbody>
+            </tbody>
+        </table>
+    </div>
+  </main>
+
+        <script src="Sales_statistics.js"></script>
+
+</body>
 </html>
- 

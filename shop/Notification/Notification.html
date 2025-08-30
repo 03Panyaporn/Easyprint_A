@@ -59,24 +59,41 @@
             </div>
           </div>
       
-            <div class="profile-icon" onclick="toggleProfilePopup()">
-                <i class="fa fa-user-circle"></i>
-            </div>
-        </div>
+          <div class="profile-icon" onclick="toggleProfilePopup()">
+            <i class="fa fa-user-circle"></i>
+
+            <div class="profile-popup" id="profilePopup">
+                <div class="profile-img">
+                    <img src="profile.png" alt="โปรไฟล์ร้านค้า">
+                </div>
+            <div class="profile-name">ร้าน EASYPRINT</div>
+            <hr>
+            
+            <a href="../Edit_profile/Edit_profile.html" class="profile-btn">
+                <i class="fa-solid fa-user"></i>
+                <span>แก้ไขโปรไฟล์</span>
+            </a>
+        
+            <a href="../login/login.html" class="profile-btn logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>ออกจากระบบ</span>
+            </a>
       </div>
+    </div>
+  </div>
+</div>
 
      <aside class="app-sidebar" id="sidebar">
         <nav>
-          <a><i class="fa-solid fa-house"></i> หน้าหลัก</a>
-          <a><i class="fa-solid fa-receipt"></i> รายการคำสั่งซื้อ</a>
+          <a href="../Main_shop/Main_shop.html"><i class="fa-solid fa-house"></i> หน้าหลัก</a>
+          <a href="../order/main_Or/main_Or.html"><i class="fa-solid fa-receipt"></i> รายการคำสั่งซื้อ</a>
           <h6>กำหนดบริการ</h6>
-          <a><i class="fa-solid fa-box"></i> สินค้า</a>
-          <a><i class="fa-solid fa-circle-plus"></i> เพิ่มสินค้า</a>
-          <a><i class="fa-solid fa-money-check-dollar"></i> กำหนดค่าจัดส่ง</a>
-          <a><i class="fa-solid fa-truck-fast"></i> ประเภทขนส่ง</a>
+          <a href="../product/product.html"><i class="fa-solid fa-box"></i> สินค้า</a>
+          <a href="../Add_product/Add_product.html"><i class="fa-solid fa-circle-plus"></i> เพิ่มสินค้า</a>
+          <a href="../Set_shipping_costs/Set_shipping_costs.html"><i class="fa-solid fa-money-check-dollar"></i> กำหนดค่าจัดส่ง</a>
 
           <h6>แสดงยอดขาย</h6>
-          <a><i class="fa-solid fa-chart-line"></i> แสดงยอดขาย</a>
+          <a href="../Sales_statistics/Sales_statistics.html"><i class="fa-solid fa-chart-line"></i> แสดงยอดขาย</a>
         </nav>
       </aside>
 
@@ -93,15 +110,7 @@
             </div>
             <div class="card-figure"><span id="allCount">22</span> ออเดอร์</div>
           </article>
-  
-          <article class="card card-red">
-            <div class="card-row">
-              <span class="card-title">คำสั่งซื้อเร่งด่วน</span>
-              <button class="btn-ghost"><i class="fa-solid fa-bolt"></i></button>
-            </div>
-            <div class="card-figure"><span id="rushCount">4</span> ออเดอร์</div>
-          </article>
-  
+
           <article class="card card-blue">
             <div class="card-row">
               <span class="card-title">ยอดขายรวมวันนี้</span>
@@ -161,7 +170,7 @@
               <td><b>สมชาย</b></td>
               <td>roll-up</td>
               <td>1  ชิ้น</td>
-              <td></td>
+              <td class="order-preview"> preview </td>
               <td>270 บาท
                 <button class="confirm-btn payment"><i class="fa-regular fa-square-check"></i> ตรวจสอบการชำระเงิน</button>
               </td>
@@ -170,10 +179,10 @@
                 <div class="order-actions">
                   <button class="confirm-btn">ยืนยันออเดอร์</button>
                   <div class="icon-group">
-                    <button class="icon-btn">✏️</button>
-                    <button class="icon-btn stop">⏸️</button>    
-                    <button class="icon-btn delete">🗑️</button>
+                    <button class="icon-btn" data-tooltip="รายละเอียดคำสั่งซื้อ">📝</button>
+                    <button class="icon-btn stop" data-tooltip="ปริ้นที่อยู่">🖨️</button>
                   </div>
+                  
                 </div>
               </td>
               
@@ -187,7 +196,7 @@
               <td><b>สมหญิง</b></td>
               <td>x-stand</td>
               <td>1  ชิ้น</td>
-              <td></td>
+              <td class="order-preview"> preview </td>
               <td>340 บาท
                 <button class="confirm-btn payment"><i class="fa-regular fa-square-check"></i> ตรวจสอบการชำระเงิน </button>
               </td>
@@ -196,10 +205,10 @@
                 <div class="order-actions">
                   <button class="confirm-btn">ยืนยันออเดอร์</button>
                   <div class="icon-group">
-                    <button class="icon-btn">✏️</button>
-                    <button class="icon-btn stop">⏸️</button>    
-                    <button class="icon-btn delete">🗑️</button>
+                    <button class="icon-btn" data-tooltip="รายละเอียดคำสั่งซื้อ">📝</button>
+                    <button class="icon-btn stop" data-tooltip="ปริ้นที่อยู่">🖨️</button>
                   </div>
+                  
                 </div>
               </td>
               
@@ -213,7 +222,7 @@
               <td><b>สมปอง</b></td>
               <td>โปสเตอร์</td>
               <td>2  ชิ้น</td>
-              <td></td>
+              <td class="order-preview"> preview </td>
               <td>510 บาท
                 <button class="confirm-btn payment"><i class="fa-regular fa-square-check"></i> ตรวจสอบการชำระเงิน </button>
               </td>
@@ -222,12 +231,11 @@
                 <div class="order-actions">
                     <button class="confirm-btn">รอแพ็ค</button>
                     <div class="icon-group">
-                    <button class="icon-btn">✏️</button>
-                    <button class="icon-btn stop">⏸️</button>    
-                    <button class="icon-btn delete">🗑️</button>
+                      <button class="icon-btn" data-tooltip="รายละเอียดคำสั่งซื้อ">📝</button>
+                      <button class="icon-btn stop" data-tooltip="ปริ้นที่อยู่">🖨️</button>
                     </div>
                 </div>
-                </td>
+              </td>
             </tr>
           </tbody>
         </table>

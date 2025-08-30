@@ -63,12 +63,14 @@ function goNextPageMember22() {
         accnos.some(a => a.value.trim() !== '') &&
         accnames.some(n => n.value.trim() !== '');
   
-      if(!firstValid){
-        alert('กรุณากรอกข้อมูลบัญชีอย่างน้อย 1 บัญชีให้ครบถ้วน');
-        return;
-      }
+        if(!firstValid){
+          setTimeout(() => {
+            alert('กรุณากรอกข้อมูลบัญชีอย่างน้อย 1 บัญชีให้ครบถ้วน');
+          }, 0);
+          return;
+        }
   
-      alert('บันทึกข้อมูลสำเร็จ (เดโม)');
+      alert('บันทึกข้อมูลสำเร็จ');
     });
   })();
   

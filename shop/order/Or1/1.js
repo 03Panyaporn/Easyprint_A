@@ -1,84 +1,125 @@
-/* ================= Dropdown Menu ปุ่มดินสอ ================= */
-const menu = document.getElementById("menu");
-
-function toggleMenu(event) {
-  event.stopPropagation(); // ป้องกัน click หล่นไป document
-  const rect = event.target.getBoundingClientRect();
-  menu.style.left = rect.left + "px";
-  menu.style.top = rect.bottom + "px";
-  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+function goToNotification() {
+  window.location.href = "../Notification/Notification.html";
+}
+ 
+function goNextEditProfile() {
+  window.location.href = '../Edit_profile/Edit_profile.html';
 }
 
-// คลิกนอกเมนู -> ปิด
-document.addEventListener("click", function(e) {
-  menu.style.display = "none";
-});
-
-/* ================= Modal Popup กลางจอ ================= */
-function showPopup(text) {
-  document.getElementById('popup-text').innerText = text;
-  document.getElementById('popup').style.display = 'flex';
+document.querySelector('.switch input').addEventListener('change', function () {
+    if (this.checked) {
+      alert("ระบบเปิดการทำงาน");
+    } else {
+      alert("ระบบปิดการทำงาน");
+    }
+  });
+ 
+  document.querySelector('.topbar input').addEventListener('keyup', function () {
+    let keyword = this.value.toLowerCase();
+    document.querySelectorAll("tbody tr").forEach(row => {
+      let text = row.innerText.toLowerCase();
+      row.style.display = text.includes(keyword) ? "" : "none";
+    });
+  });
+ 
+ 
+function toggleProfilePopup() {
+  const popup = document.getElementById('profilePopup');
+  popup.classList.toggle('show');
 }
-
-function closePopup() {
-  document.getElementById('popup').style.display = 'none';
-}
-
-/* ================= Payment Popup ในตาราง ================= */
-function togglePayment(button) {
-  const popup = button.nextElementSibling;
-  if (popup.style.display === "block") {
-    popup.style.display = "none";
-  } else {
-    // ปิด popup อื่นทั้งหมดก่อน
-    document.querySelectorAll('.payment-popup').forEach(p => p.style.display = 'none');
-    popup.style.display = "block";
-  }
-}
-
-// คลิกนอก popup -> ปิดทั้งหมด
-document.addEventListener("click", function(e) {
-  if (!e.target.closest('.pay-btn') && !e.target.closest('.payment-popup')) {
-    document.querySelectorAll('.payment-popup').forEach(p => p.style.display = 'none');
+ 
+window.addEventListener('click', function(e) {
+  const popup = document.getElementById('profilePopup');
+  const icon = document.querySelector('.profile-icon');
+  if (!icon.contains(e.target)) {
+      popup.classList.remove('show');
   }
 });
 
-/* ================= Image Popup ================= */
-function openImagePopup(src) {
-  document.getElementById('popupImage').src = src;
-  document.getElementById('imagePopup').style.display = 'flex';
-}
-
-function closeImagePopup() {
-  document.getElementById('imagePopup').style.display = 'none';
-}
-
-/* ================= ป้องกันการซ้อน event ================= */
-document.querySelectorAll('.dropdown-menu, .payment-popup, .image-popup, #popup').forEach(el => {
-  el.addEventListener('click', function(e){
-    e.stopPropagation();
+document.querySelectorAll('.payment').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.getAttribute('data-target');
+    const popup = document.querySelector(target);
+    if (popup) popup.style.display = 'block';
   });
 });
 
+document.querySelectorAll('#closePopup').forEach(closeBtn => {
+  closeBtn.addEventListener('click', () => {
+    closeBtn.closest('.popup').style.display = 'none';
+  });
+});
 
-//พิมพี่อยู๋//
-function showPopupWithImage(text, imageUrl) {
-  const popupText = document.getElementById('popup-text');
-  const popupContent = `
-    <div style="margin-bottom: 15px;">${text}</div>
-    <img src="${imageUrl}" alt="ตัวอย่าง" style="max-width: 100%; border-radius: 10px; margin-bottom: 15px;">
-    <button style="
-      display: block;
-      margin: 0 auto;
-      padding: 10px 20px;
-      background-color: #4dc3b6;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    ">พิมพ์</button>
-  `;
-  popupText.innerHTML = popupContent;
-  document.getElementById('popup').style.display = 'flex';
-}
+const orders = {
+  WA110666: {
+    customer: "สมชาย",
+    type: "roll-up",
+    quantity: "1 ชิ้น",
+    total: "270 บาท",
+    address: "123/4 ถนนสุขใจ เขตเมือง",
+    delivery: "Kerry Express"
+  },
+  WA110555: {
+    customer: "สมหญิง",
+    type: "x-stand",
+    quantity: "1 ชิ้น",
+    total: "340 บาท",
+    address: "56/7 ถนนเพลินใจ เขตเมือง",
+    delivery: "Flash Express"
+  }
+};
+
+document.querySelectorAll(".icon-btn[data-tooltip='รายละเอียดคำสั่งซื้อ']").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const orderId = btn.closest("tr").querySelector("td:first-child div").textContent.trim();
+    const data = orders[orderId];
+    if(!data) return;
+
+    document.getElementById("orderId").textContent = orderId;
+    document.getElementById("customerName").textContent = data.customer;
+    document.getElementById("productType").textContent = data.type;
+    document.getElementById("quantity").textContent = data.quantity;
+    document.getElementById("total").textContent = data.total;
+    document.getElementById("address").textContent = data.address;
+    document.getElementById("delivery").textContent = data.delivery;
+
+    const popup = document.getElementById("detailsPopup");
+    popup.style.display = "block";
+    setTimeout(()=> popup.classList.add("show"), 10);
+  });
+});
+
+document.querySelectorAll(".icon-btn[data-tooltip='ปริ้นที่อยู่']").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const orderId = btn.closest("tr").querySelector("td:first-child div").textContent.trim();
+    const data = orders[orderId];
+    if(!data) return;
+
+    document.getElementById("printName").textContent = data.customer;
+    document.getElementById("printAddress").textContent = data.address;
+    document.getElementById("printZip").textContent = "10110";
+    document.getElementById("printdelivery").textContent = data.delivery;
+
+    const popup = document.getElementById("printPopup");
+    popup.style.display = "block";
+    setTimeout(()=> popup.classList.add("show"), 10);
+  });
+});
+
+document.querySelectorAll(".close-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const popup = btn.closest(".popup-bottom-right");
+    popup.classList.remove("show");
+    setTimeout(()=> popup.style.display = "none", 300); 
+  });
+});
+
+document.getElementById("printBtn").addEventListener("click", () => {
+  const printContents = document.getElementById("printContent").innerHTML;
+  const originalContents = document.body.innerHTML;
+
+  document.body.innerHTML = printContents;
+  window.print();
+  document.body.innerHTML = originalContents;
+  location.reload(); 
+});

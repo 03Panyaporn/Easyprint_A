@@ -29,38 +29,45 @@
             </label>
         </div>
      
-          <div class="notification-icon" onclick="toggleNotification('notificationList')">
-            <i class="fa fa-bell"></i>
-            <div class="notification-list" id="notificationList">
-              <div class="notification-item">การแจ้งเตือนที่ 1</div>
-              <div class="notification-item">การแจ้งเตือนที่ 2</div>
-            </div>
-          </div>
-     
-          <div class="profile-icon" onclick="toggleNotification('notificationListCog')">
-            <i class="fa fa-user-circle"></i>
-            <div class="notification-list-cog" id="notificationListCog">
-              <div class="notification-item">ศูนย์ช่วยเหลือ</div>
-              <a href="../customer/main/main.html" style="text-decoration: none;">
-                <div class="notification-item">ออกจากระบบ</div>
-              </a>
-            </div>
-          </div>
+        <div class="notification-icon" onclick="goToNotification()">
+          <i class="fa fa-bell"></i>
         </div>
-      </div>
+
+          <div class="profile-icon" onclick="toggleProfilePopup()">
+              <i class="fa fa-user-circle"></i>
+  
+              <div class="profile-popup" id="profilePopup">
+                  <div class="profile-img">
+                      <img src="profile.png" alt="โปรไฟล์ร้านค้า">
+                  </div>
+              <div class="profile-name">ร้าน EASYPRINT</div>
+              <hr>
+              
+              <a href="../Edit_profile/Edit_profile.html" class="profile-btn">
+                  <i class="fa-solid fa-user"></i>
+                  <span>แก้ไขโปรไฟล์</span>
+              </a>
+          
+              <a href="../login/login.html" class="profile-btn logout">
+                  <i class="fa-solid fa-right-from-bracket"></i>
+                  <span>ออกจากระบบ</span>
+              </a>
+        </div>
+      </div> 
+    </div>
+  </div>
      
      <aside class="app-sidebar" id="sidebar">
         <nav>
-          <a><i class="fa-solid fa-house"></i> หน้าหลัก</a>
-          <a><i class="fa-solid fa-receipt"></i> รายการคำสั่งซื้อ</a>
+          <a href="../Main_shop/Main_shop.html"><i class="fa-solid fa-house"></i> หน้าหลัก</a>
+          <a href="../order/main_Or/main_Or.html"><i class="fa-solid fa-receipt"></i> รายการคำสั่งซื้อ</a>
           <h6>กำหนดบริการ</h6>
-          <a><i class="fa-solid fa-box"></i> สินค้า</a>
-          <a><i class="fa-solid fa-circle-plus"></i> เพิ่มสินค้า</a>
-          <a><i class="fa-solid fa-money-check-dollar"></i> กำหนดค่าจัดส่ง</a>
-          <a><i class="fa-solid fa-truck-fast"></i> ประเภทขนส่ง</a>
+          <a href="../product/product.html"><i class="fa-solid fa-box"></i> สินค้า</a>
+          <a href="../Add_product/Add_product.html"><i class="fa-solid fa-circle-plus"></i> เพิ่มสินค้า</a>
+          <a href="../Set_shipping_costs/Set_shipping_costs.html"><i class="fa-solid fa-money-check-dollar"></i> กำหนดค่าจัดส่ง</a>
  
           <h6>แสดงยอดขาย</h6>
-          <a><i class="fa-solid fa-chart-line"></i> แสดงยอดขาย</a>
+          <a href="../Sales_statistics/Sales_statistics.html"><i class="fa-solid fa-chart-line"></i> แสดงยอดขาย</a>
         </nav>
       </aside>
 
