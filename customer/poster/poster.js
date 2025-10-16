@@ -159,3 +159,26 @@ document.addEventListener("click", function (e) {
     userMenu.style.display = "none";
   }
 });
+document.addEventListener('DOMContentLoaded', () => { 
+  const confirmBtn = document.querySelector('.confirm-btn');
+  const upfile = document.getElementById('upfile');
+  const cartDot = document.getElementById('cartDot');
+
+  let orderCount = 0; 
+
+  confirmBtn.addEventListener('click', (e) => {
+    e.preventDefault(); 
+
+    if (upfile.files.length === 0) {
+      alert("กรุณาอัปโหลดไฟล์ก่อนยืนยัน"); 
+      return; 
+    }
+
+    orderCount += 1;
+    cartDot.textContent = orderCount; 
+    cartDot.style.display = 'block'; 
+
+    alert("เพิ่มออเดอร์ลงตะกร้าแล้ว"); 
+  });
+});
+

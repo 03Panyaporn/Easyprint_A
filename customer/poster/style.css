@@ -915,3 +915,37 @@ footer {
     transform: scale(1);
   }
 }
+.cart-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cart-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-icon {
+  width: 30px; 
+  height: 30px;
+}
+
+.cart-dot {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  min-width: 18px;       
+  height: 18px;
+  padding: 0 5px; 
+  background-color: red;
+  border-radius: 50%;     
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  display: none;
+  text-align: center;
+  line-height: 18px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+  white-space: nowrap; 
+}
