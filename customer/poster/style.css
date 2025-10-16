@@ -762,6 +762,26 @@ footer {
   height: 60px;
 }
 
+.custom-size {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.custom-size input {
+  width: 500px;
+  text-align: center;
+}
+
+.form-grid select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+
 /* ------------------ Responsive Mobile ------------------ */
 @media (max-width: 650px) {
   .navbar {
