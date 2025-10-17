@@ -1,6 +1,6 @@
 
     // ราคาตามขนาด
-    const priceList = { "60x160": 300, "80x200": 450, "90x210": 550 };
+    const priceList = { "80x200": 1200};
     const sizeSelect = document.getElementById("sizeSelect");
     const quantityInput = document.getElementById("quantity");
     const priceInput = document.getElementById("price");

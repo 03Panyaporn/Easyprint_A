@@ -590,25 +590,21 @@ main.container {
 }
 
 .btn-login {
-  width: 60%;
-  max-width: 300px;
-  display: block;
-  margin: 20px auto;
-  padding: 12px;
-  border: none;
-  border-radius: 25px;
-  background: #03A89D;
-  color: white;
+  padding: 10px 30px;
+  font-size: 16px;
   font-weight: bold;
+  border-radius: 6px;
+  border: none;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .btn-group {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
-  flex-wrap: wrap;
+   gap: 50%;     
+  margin-top: 30px;  
+  margin-bottom: 30px;
 }
 
 .btn-group .btn-login {
@@ -749,6 +745,19 @@ main.container {
 
 }
 
+#typeSelect[readonly] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  background-color: #f0f0f0; 
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  cursor: not-allowed;
+}
+
 /* ------------------ Footer ------------------ */
 footer {
   display: flex;
@@ -780,6 +789,13 @@ footer {
 
 /* ------------------ Responsive Mobile ------------------ */
 @media (max-width: 650px) {
+  .btn-group {
+  display: flex;
+  justify-content: center;
+   gap: 50px;     
+  margin-top: 30px;  
+  margin-bottom: 30px;
+}
   .navbar {
     flex-wrap: wrap;
     gap: 8px;
