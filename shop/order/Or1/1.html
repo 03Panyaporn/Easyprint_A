@@ -15,7 +15,7 @@
 <body>
     <div class="navbar">
         <div class="logo">EasyPrint</div>
-
+ 
         <div class="searchbar">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="search" id="searchInput" placeholder="ค้นหาออเดอร์" />
@@ -33,31 +33,31 @@
           <div class="notification-icon" onclick="goToNotification()">
             <i class="fa fa-bell"></i>
           </div>
-
+ 
             <div class="profile-icon" onclick="toggleProfilePopup()">
                 <i class="fa fa-user-circle"></i>
-    
+   
                 <div class="profile-popup" id="profilePopup">
                     <div class="profile-img">
                         <img src="profile.png" alt="โปรไฟล์ร้านค้า">
                     </div>
                 <div class="profile-name">ร้าน EASYPRINT</div>
                 <hr>
-                
+               
                 <a href="../../Edit_profile/Edit_profile.html" class="profile-btn">
                     <i class="fa-solid fa-user"></i>
                     <span>แก้ไขโปรไฟล์</span>
                 </a>
-            
+           
                 <a href="../../login/login.html" class="profile-btn logout">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span>ออกจากระบบ</span>
                 </a>
           </div>
         </div>  
-        </div>
       </div>
-
+    </div>
+ 
      <aside class="app-sidebar" id="sidebar">
         <nav>
           <a href="../../Main_shop/Main_shop.html"><i class="fa-solid fa-house"></i> หน้าหลัก</a>
@@ -86,18 +86,18 @@
           </label>
         </div>
       </div>
-
+ 
       <section class="order-list">
         <div class="order-filters">
-          <a href="../main_Or/main_Or.html" class="filter-btn">ทั้งหมด <span>10</span></a>
-          <a href="../Or1/1.html" class="filter-btn active">รอคิว <span>2</span></a>
+          <a href="../main_Or/main_Or.html" class="filter-btn">ทั้งหมด <span>9</span></a>
+          <a href="../Or1/1.html" class="filter-btn active">ออเดอร์ใหม่ <span>1</span></a>
           <a href="../Or2/2.html" class="filter-btn">ยืนยันออเดอร์ <span>2</span></a>
           <a href="../Or3/3.html" class="filter-btn">กำลังพิมพ์ <span>2</span></a>
           <a href="../Or4/4.html" class="filter-btn">เตรียมจัดส่ง <span>2</span></a>
           <a href="../Or5/5.html" class="filter-btn">จัดส่งแล้ว <span>2</span></a>
         </div>
       </section>
-
+ 
       <table class="order-table">
         <thead>
           <tr>
@@ -111,7 +111,7 @@
             <th></th>
           </tr>
         </thead>
-
+ 
       <tbody>
             <tr class="order-row active">
               <td>
@@ -128,7 +128,7 @@
                   <i class="fa-regular fa-square-check"></i> ตรวจสอบการชำระเงิน
                 </button>
               </td>
-
+ 
               <div class="popup" id="paymentPopup1">
                 <div class="popup-header">
                   <span>ตรวจสอบการชำระเงิน</span>
@@ -141,7 +141,7 @@
                     <h4>สลิปโอนเงิน</h4>
                     <button class="status-btn">ชำระเงินแล้ว</button>
                   </div>
-              
+             
                   <div class="content-row">
                     <div class="slip-box">ตัวอย่างสลิปโอนเงิน</div>
                     <div class="order-details">
@@ -154,16 +154,16 @@
                   </div>
                 </div>
               </div>
-              
+             
               <td>
                 <div class="order-actions">
                   <button class="confirm-btn">ยืนยันออเดอร์</button>
-
+ 
                   <div class="icon-group">
                     <button class="icon-btn" data-tooltip="รายละเอียดคำสั่งซื้อ">📝</button>
                     <button class="icon-btn stop" data-tooltip="ปริ้นที่อยู่">🖨️</button>
                   </div>  
-
+ 
                 <div class="popup-bottom-right" id="detailsPopup">
                   <div class="popup-header">
                     <span>รายละเอียดคำสั่งซื้อ</span>
@@ -179,7 +179,7 @@
                     <div>จัดส่งแบบ: <span id="delivery"></span></div>
                   </div>
                 </div>
-
+ 
                 <div class="popup-bottom-right" id="printPopup">
                   <div class="popup-header">
                     <span>ปริ้นที่อยู่</span>
@@ -198,7 +198,7 @@
                 </div>
               </td>
             </tr>
-
+ 
             <tr class="order-row">
               <td>
                 <div>WA110555</div>
@@ -214,7 +214,7 @@
                   <i class="fa-regular fa-square-check"></i> ตรวจสอบการชำระเงิน
                 </button>
               </td>
-
+ 
               <div class="popup" id="paymentPopup2">
                 <div class="popup-header">
                   <span>ตรวจสอบการชำระเงิน</span>
@@ -227,7 +227,7 @@
                     <h4>สลิปโอนเงิน</h4>
                     <button class="status-btn">ชำระเงินแล้ว</button>
                   </div>
-              
+             
                   <div class="content-row">
                     <div class="slip-box">ตัวอย่างสลิปโอนเงิน</div>
                     <div class="order-details">
@@ -240,7 +240,7 @@
                   </div>
                 </div>
               </div>
-
+ 
               <td>
                 <div class="order-actions">
                   <button class="confirm-btn">ยืนยันออเดอร์</button>
@@ -249,7 +249,7 @@
                     <button class="icon-btn stop" data-tooltip="ปริ้นที่อยู่">🖨️</button>
                   </div>                                  
                 </div>
-              </td> 
+              </td>
             </tr>
           </tbody>
         </table>

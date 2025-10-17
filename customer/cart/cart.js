@@ -84,35 +84,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Confirm order ---
   confirmBtn.addEventListener('click', (e) => {
+      e.preventDefault(); // กันการ reload
+
       let errors = [];
 
       const deliveryMethod = document.querySelector('input[name="delivery-method"]:checked');
       if (!deliveryMethod) {
           errors.push("กรุณาเลือกวิธีการจัดส่ง");
       } else {
-          if (deliveryMethod.value === "pickup" && selectPickup.value === "") {
-              errors.push("กรุณาเลือกจุดนัดรับ");
-          }
-          if (deliveryMethod.value === "shipping" && selectShipping.value === "") {
-              errors.push("กรุณาเลือกบริการขนส่ง");
-          }
+          if (deliveryMethod.value === "pickup" && selectPickup.value === "") errors.push("กรุณาเลือกจุดนัดรับ");
+          if (deliveryMethod.value === "shipping" && selectShipping.value === "") errors.push("กรุณาเลือกบริการขนส่ง");
       }
 
       const upfile = document.getElementById('upfile');
-      if (!upfile.value) {
-          errors.push("กรุณาอัปโหลดหลักฐานการโอนเงิน");
-      }
+      if (!upfile.value) errors.push("กรุณาอัปโหลดหลักฐานการโอนเงิน");
 
       const slip = document.querySelector('input[name="slip"]:checked');
-      if (!slip) {
-          errors.push("กรุณาเลือกว่าต้องการใบเสร็จหรือไม่");
-      }
+      if (!slip) errors.push("กรุณาเลือกว่าต้องการใบเสร็จหรือไม่");
 
       if (errors.length > 0) {
-          e.preventDefault();
           alert(errors.join("\n"));
-      } else {
+          return;
+      }
+
+      // --- เก็บคำสั่งซื้อไปหน้า Shop ---
+      const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+
+      if (cartItems.length > 0) {
+          const orders = JSON.parse(localStorage.getItem("orders") || "{}");
+
+          cartItems.forEach((item, index) => {
+              const orderId = "WA" + Date.now() + index;
+
+              orders[orderId] = {
+                  customer: "ลูกค้าไม่ระบุ",
+                  product: item.product,
+                  quantity: item.quantity + " ชิ้น",
+                  material: item.material,
+                  total: parseFloat(item.price).toFixed(2) + " บาท",
+                  width: item.width,
+                  height: item.height,
+                  delivery: deliveryMethod.value === "pickup" ? selectPickup.value : selectShipping.value,
+                  address: document.querySelector('input[name="address"]:checked + .address-content')?.innerText || "ไม่ระบุ",
+                  slip: slip.value,
+                  image: item.imgSrc || ""
+              };
+          });
+
+          localStorage.setItem("orders", JSON.stringify(orders));
+
+          // --- ล้างตะกร้า ---
+          localStorage.removeItem("cartItems");
+
           alert("ยืนยันการสั่งซื้อเรียบร้อย!");
+          // --- ส่งลูกค้าไปหน้าติดตามสถานะ ---
+          window.location.href = "../status/order-received.html";
       }
   });
 
@@ -143,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   userBtn.addEventListener("click", function (e) {
       e.preventDefault();
-      userMenu.style.display = userMenu.style.display === "block" ? "none" : "block";
+      userMenu.style.display = userMenu.style.display === "block" ? 'none' : 'block';
   });
 
   document.addEventListener("click", function (e) {
