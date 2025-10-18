@@ -233,5 +233,39 @@
 
 
 </body>
+<script>
+  document.querySelector('.btn-login:not(.cancel-btn)').addEventListener('click', function (e) {
+    e.preventDefault(); // ป้องกันการ redirect ทันที
+ 
+    // เก็บค่าจากฟอร์ม
+    const newAddress = {
+      type: document.getElementById('placeType').value,
+      fname: document.getElementById('fname').value,
+      lname: document.getElementById('lname').value,
+      houseNo: document.getElementById('houseNo').value,
+      village: document.getElementById('village').value,
+      street: document.getElementById('street').value,
+      subdistrict: document.getElementById('subdistrict').value,
+      district: document.getElementById('district').value,
+      province: document.getElementById('province').value,
+      zipcode: document.getElementById('zipcode').value,
+      phone: document.getElementById('phone').value
+    };
+ 
+    // ดึงข้อมูลเดิมจาก localStorage ถ้ามี
+    const saved = JSON.parse(localStorage.getItem('addresses')) || [];
+ 
+    // เพิ่มข้อมูลใหม่
+    saved.push(newAddress);
+ 
+    // บันทึกกลับ
+    localStorage.setItem('addresses', JSON.stringify(saved));
+ 
+    alert('บันทึกที่อยู่เรียบร้อย!');
+ 
+    // กลับไปหน้า main
+    window.location.href = '../main/index.html';
+  });
+</script>
 
 </html>
