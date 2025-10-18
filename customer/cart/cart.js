@@ -116,8 +116,16 @@ document.addEventListener('DOMContentLoaded', () => {
           cartItems.forEach((item, index) => {
               const orderId = "WA" + Date.now() + index;
 
+              // ✅ ตรวจสอบฟิลด์ว่าครบก่อนบันทึก
+              const requiredFields = ["product", "material", "price", "quantity", "width", "height"];
+              const missing = requiredFields.filter(f => !item[f] && item[f] !== 0);
+              if (missing.length > 0) {
+                  console.warn(`⚠️ ออเดอร์ ${orderId} ขาดฟิลด์:`, missing.join(", "));
+                  return; // ข้ามออเดอร์ที่ไม่ครบ
+              }
+
               orders[orderId] = {
-                  customer: "ลูกค้าไม่ระบุ",
+                  customer: "พอร์ช",
                   product: item.product,
                   quantity: item.quantity + " ชิ้น",
                   material: item.material,
@@ -127,9 +135,18 @@ document.addEventListener('DOMContentLoaded', () => {
                   delivery: deliveryMethod.value === "pickup" ? selectPickup.value : selectShipping.value,
                   address: document.querySelector('input[name="address"]:checked + .address-content')?.innerText || "ไม่ระบุ",
                   slip: slip.value,
-                  image: item.imgSrc || ""
+                  image: item.imgSrc || "",
+                  preview: item.imgSrc || "",  // ✅ เพิ่ม field preview สำหรับฝั่งร้านค้า
+                  status: "waiting",
+                  date: new Date().toLocaleString()
               };
           });
+
+          // ✅ ตรวจสอบ orders ก่อนบันทึกลง localStorage
+          if (Object.keys(orders).length === 0) {
+              alert("ไม่สามารถบันทึกคำสั่งซื้อได้ เพราะข้อมูลไม่ครบ");
+              return;
+          }
 
           localStorage.setItem("orders", JSON.stringify(orders));
 

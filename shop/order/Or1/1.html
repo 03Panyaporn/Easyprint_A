@@ -124,6 +124,7 @@
                     <button class="icon-btn stop" data-tooltip="ปริ้นที่อยู่">🖨️</button>
                   </div>  
  
+                <!-- Popup รายละเอียดคำสั่งซื้อ -->
                 <div class="popup-bottom-right" id="detailsPopup">
                   <div class="popup-header">
                     <span>รายละเอียดคำสั่งซื้อ</span>
@@ -137,9 +138,13 @@
                     <div>ยอดรวม: <span id="total"></span></div>
                     <div>ที่อยู่: <span id="address"></span></div>
                     <div>จัดส่งแบบ: <span id="delivery"></span></div>
+                    <div>วัสดุ: <span id="material"></span></div>
+                    <div>ขนาด: <span id="size"></span></div>
+                    <div>รูปสินค้า: <br><img id="productImage" src="" width="150"></div>
                   </div>
                 </div>
- 
+
+                <!-- Popup ปริ้นที่อยู่ -->
                 <div class="popup-bottom-right" id="printPopup">
                   <div class="popup-header">
                     <span>ปริ้นที่อยู่</span>
@@ -155,7 +160,9 @@
                     <button class="confirm-btn" id="printBtn">ปริ้น</button>
                   </div>
                 </div>
-              </div>
+
+
+              </div>             
             </td>
           </tr>  
         </tr>

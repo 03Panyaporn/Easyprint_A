@@ -53,19 +53,20 @@ function renderOrders() {
         const row = document.createElement("tr");
         row.classList.add("order-row");
 
-        const previewContent = data.preview ?
-            `<img src="${data.preview}" alt="preview" class="preview-img" data-full="${data.preview}">` : "preview";
+        // ✅ แสดงภาพสินค้าจากลูกค้าใน preview
+        const previewContent = data.image
+            ? `<img src="${data.image}" alt="preview" class="preview-img" data-full="${data.image}" style="width:80px; height:auto; display:block; object-fit:contain;">`
+            : `<span style="color:red;">ไม่มีภาพ</span>`;
 
         row.innerHTML = `
-            <td><div>${orderId}</div></td>
+            <td>${orderId}</td>
             <td><span class="status ${data.status || 'waiting'}">${data.status === 'confirmed' ? 'ยืนยันแล้ว' : 'รอคิว'}</span></td>
             <td><b>${data.customer}</b></td>
             <td>${data.product}</td>
             <td>${data.quantity}</td>
             <td class="order-preview">${previewContent}</td>
             <td>
-                ${data.total} 
-                <br>
+                ${data.total} <br>
                 <button class="confirm-btn payment" data-target="#paymentPopup-${orderId}" style="margin-top:5px;">ตรวจสอบการชำระเงิน</button>
             </td>
             <td class="order-actions-cell">
@@ -78,10 +79,10 @@ function renderOrders() {
         `;
         tbody.appendChild(row);
 
-        if(data.status === 'waiting') waitingCount++;
+        if (data.status === 'waiting') waitingCount++;
 
         // --- สร้าง popup การชำระเงิน ---
-        if(!document.getElementById(`paymentPopup-${orderId}`)) {
+        if (!document.getElementById(`paymentPopup-${orderId}`)) {
             const paymentPopup = document.createElement("div");
             paymentPopup.classList.add("popup");
             paymentPopup.id = `paymentPopup-${orderId}`;
@@ -114,59 +115,11 @@ function renderOrders() {
     });
 
     const newOrderBtn = document.querySelector(".filter-btn.active span");
-    if(newOrderBtn) newOrderBtn.textContent = waitingCount;
+    if (newOrderBtn) newOrderBtn.textContent = waitingCount;
 
-    attachPopupEvents();
     attachConfirmOrderEvents();
     attachPreviewEvents();
-}
-
-// --- จับ Event Popup ---
-function attachPopupEvents() {
-    document.querySelectorAll(".icon-btn[data-tooltip='รายละเอียดคำสั่งซื้อ']").forEach(btn => {
-        btn.onclick = () => {
-            const orderId = btn.closest("tr").querySelector("td:first-child div").textContent.trim();
-            const data = orders[orderId];
-            if(!data) return;
-
-            const popup = document.getElementById("detailsPopup");
-            document.getElementById("orderId").textContent = orderId;
-            document.getElementById("customerName").textContent = data.customer;
-            document.getElementById("productType").textContent = data.product;
-            document.getElementById("quantity").textContent = data.quantity;
-            document.getElementById("total").textContent = data.total;
-            document.getElementById("address").textContent = data.address;
-            document.getElementById("delivery").textContent = data.delivery;
-
-            popup.style.display = "block";
-            setTimeout(()=> popup.classList.add("show"), 10);
-        };
-    });
-
-    document.querySelectorAll(".icon-btn[data-tooltip='ปริ้นที่อยู่']").forEach(btn => {
-        btn.onclick = () => {
-            const orderId = btn.closest("tr").querySelector("td:first-child div").textContent.trim();
-            const data = orders[orderId];
-            if(!data) return;
-
-            const popup = document.getElementById("printPopup");
-            document.getElementById("printName").textContent = data.customer;
-            document.getElementById("printAddress").textContent = data.address;
-            document.getElementById("printZip").textContent = data.zip || '';
-            document.getElementById("printdelivery").textContent = data.delivery;
-
-            popup.style.display = "block";
-            setTimeout(()=> popup.classList.add("show"), 10);
-        };
-    });
-
-    document.querySelectorAll(".close-btn").forEach(btn => {
-        btn.onclick = () => {
-            const popup = btn.closest(".popup-bottom-right, .popup");
-            popup.classList.remove("show");
-            setTimeout(()=> popup.style.display = "none", 300);
-        };
-    });
+    attachIconEvents(); // ✅ ผูก event ปุ่มรายละเอียดและปริ้น
 }
 
 // --- Confirm Order ---
@@ -174,34 +127,99 @@ function attachConfirmOrderEvents() {
     document.querySelectorAll(".confirm-order").forEach(btn => {
         btn.onclick = () => {
             const orderId = btn.dataset.id;
-            if(orders[orderId]) orders[orderId].status = 'confirmed';
+            if (orders[orderId]) orders[orderId].status = 'confirmed';
             localStorage.setItem("orders", JSON.stringify(orders));
             renderOrders();
         };
     });
 }
 
-// --- แสดง popup รูปใหญ่ ---
+// --- แสดง preview / ขยายภาพเต็ม ---
 function attachPreviewEvents() {
     document.querySelectorAll(".preview-img").forEach(img => {
-        img.onclick = () => {
-            const src = img.getAttribute("data-full");
-            const overlay = document.createElement("div");
-            overlay.style.position = "fixed";
-            overlay.style.top = 0;
-            overlay.style.left = 0;
-            overlay.style.width = "100%";
-            overlay.style.height = "100%";
-            overlay.style.background = "rgba(0,0,0,0.8)";
-            overlay.style.display = "flex";
-            overlay.style.alignItems = "center";
-            overlay.style.justifyContent = "center";
-            overlay.style.zIndex = 9999;
-            overlay.innerHTML = `<img src="${src}" style="max-width:90%; max-height:90%; border:2px solid #fff; border-radius:5px;"><span style="position:absolute;top:20px;right:40px;font-size:30px;color:#fff;cursor:pointer;">&times;</span>`;
-            document.body.appendChild(overlay);
-            overlay.querySelector("span").onclick = () => overlay.remove();
+        img.onclick = () => showPreviewImage(img.getAttribute("data-full"));
+    });
+}
+
+// --- แสดง popup รายละเอียด / ปริ้น ---
+function attachIconEvents() {
+    document.querySelectorAll(".icon-btn").forEach(btn => {
+        btn.onclick = (e) => {
+            e.stopPropagation();
+            const row = e.target.closest("tr");
+            const orderId = row.querySelector(".confirm-order").dataset.id;
+            const data = orders[orderId];
+            if (!data) return;
+
+            if (btn.dataset.tooltip === "รายละเอียดคำสั่งซื้อ") {
+                let existingPopup = document.getElementById(`detailsPopup-${orderId}`);
+                if (!existingPopup) {
+                    const detailsPopup = document.createElement("div");
+                    detailsPopup.classList.add("popup");
+                    detailsPopup.id = `detailsPopup-${orderId}`;
+                    detailsPopup.innerHTML = `
+                        <div class="popup-header">
+                            <span>รายละเอียดคำสั่งซื้อ #${orderId}</span>
+                            <div class="header-right">
+                                <button class="closeDetailsPopup">&times;</button>
+                            </div>
+                        </div>
+                        <div class="popup-content" style="padding:15px; color:#6c6c6c;"> 
+                            <p><b>ลูกค้า:</b> ${data.customer}</p>
+                            <p><b>สินค้า:</b> ${data.product}</p>
+                            <p><b>จำนวน:</b> ${data.quantity}</p>
+                            <p><b>วัสดุ:</b> ${data.material}</p>
+                            <p><b>ขนาด:</b> ${data.width} x ${data.height}</p>
+                            <p><b>ยอดรวม:</b> ${data.total}</p>
+                            <p><b>วิธีจัดส่ง:</b> ${data.delivery}</p>
+                            <p><b>ที่อยู่:</b> ${data.address}</p>
+                            ${data.image ? `<img src="${data.image}" style="max-width:200px; display:block; margin-top:10px;">` : ''}
+                        </div>
+                    `;
+                    document.body.appendChild(detailsPopup);
+                    detailsPopup.querySelector(".closeDetailsPopup").onclick = () => detailsPopup.remove();
+                } else {
+                    existingPopup.style.display = "block";
+                }
+            }
+
+
+            if (btn.dataset.tooltip === "ปริ้นที่อยู่") {
+                const printContent = `
+                    <h3>คำสั่งซื้อ #${orderId}</h3>
+                    <p><b>ลูกค้า:</b> ${data.customer}</p>
+                    <p><b>ที่อยู่:</b> ${data.address}</p>
+                `;
+                const printWindow = window.open('', '', 'height=400,width=600');
+                printWindow.document.write('<html><head><title>ปริ้นที่อยู่</title></head><body>');
+                printWindow.document.write(printContent);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                printWindow.print();
+            }
         };
     });
+}
+
+// --- แสดงภาพเต็ม (popup) ---
+function showPreviewImage(src) {
+    const overlay = document.createElement("div");
+    overlay.style.position = "fixed";
+    overlay.style.top = 0;
+    overlay.style.left = 0;
+    overlay.style.width = "100%";
+    overlay.style.height = "100%";
+    overlay.style.background = "rgba(0,0,0,0.8)";
+    overlay.style.display = "flex";
+    overlay.style.alignItems = "center";
+    overlay.style.justifyContent = "center";
+    overlay.style.zIndex = 9999;
+    overlay.innerHTML = `
+        <img src="${src}" style="max-width:90%; max-height:90%; border:2px solid #fff; border-radius:8px;">
+        <span style="position:absolute;top:20px;right:40px;font-size:30px;color:#fff;cursor:pointer;">&times;</span>
+    `;
+    document.body.appendChild(overlay);
+    overlay.querySelector("span").onclick = () => overlay.remove();
 }
 
 // --- Auto-update ทุก 2 วินาที ---
@@ -211,32 +229,21 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // -------------------- ระบบนับจำนวนออเดอร์ใหม่ --------------------
-
-// ฟังก์ชันนับจำนวนออเดอร์ใหม่และอัปเดตแสดงผล
 function updateNewOrderCount() {
     const orders = JSON.parse(localStorage.getItem("orders") || "{}");
     let waitingCount = 0;
 
     Object.keys(orders).forEach(orderId => {
-        if (orders[orderId].status === "waiting") {
-            waitingCount++;
-        }
+        if (orders[orderId].status === "waiting") waitingCount++;
     });
 
-    // แสดงผลที่กล่อง "ออเดอร์ใหม่"
     const newOrderBox = document.querySelector('a[href="../Or1/1.html"] span');
-    if (newOrderBox) {
-        newOrderBox.textContent = waitingCount;
-    }
+    if (newOrderBox) newOrderBox.textContent = waitingCount;
 
-    // (เสริม) อัปเดตจำนวนทั้งหมด
     const totalBox = document.querySelector('a[href="../main_Or/main_Or.html"] span');
-    if (totalBox) {
-        totalBox.textContent = Object.keys(orders).length;
-    }
+    if (totalBox) totalBox.textContent = Object.keys(orders).length;
 }
 
-// เรียกใช้งานตอนโหลด และอัปเดตทุก 2 วินาที
 document.addEventListener("DOMContentLoaded", () => {
     updateNewOrderCount();
     setInterval(updateNewOrderCount, 2000);
