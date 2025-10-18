@@ -123,12 +123,17 @@
               
               <td>
                 <div class="order-actions">
-                  <button class="confirm-btn">กำลังพิมพ์</button>
+                  
+                   <div style="display:flex; flex-direction:column; align-items:flex-start; gap:5px;">
+                    <!-- ปุ่มกำลังพิมพ์ -->
+                    <button class="confirm-btn printing-btn" data-order-id="ORDER_ID">กำลังพิมพ์</button>
 
-                  <div class="icon-group">
-                    <button class="icon-btn" data-tooltip="รายละเอียดคำสั่งซื้อ">📝</button>
-                    <button class="icon-btn stop" data-tooltip="ปริ้นที่อยู่">🖨️</button>
-                  </div>  
+                    <!-- ปุ่มรายละเอียดและปริ้นที่อยู่ -->
+                    <div class="icon-group">
+                        <button class="icon-btn" data-tooltip="รายละเอียดคำสั่งซื้อ">📝</button>
+                        <button class="icon-btn stop" data-tooltip="ปริ้นที่อยู่">🖨️</button>
+                    </div>
+                </div>
 
                 <div class="popup-bottom-right" id="detailsPopup">
                   <div class="popup-header">
@@ -142,9 +147,10 @@
                     <div>จำนวน: <span id="quantity"></span></div>
                     <div>ยอดรวม: <span id="total"></span></div>
                     <div>ที่อยู่: <span id="address"></span></div>
-                    <div>จัดส่งแบบ: <span id="delivery"></span></div>
+                    <div>จัดส่งแบบ: <span id="delivery"></span></div>         
                   </div>
                 </div>
+
 
                 <div class="popup-bottom-right" id="printPopup">
                   <div class="popup-header">

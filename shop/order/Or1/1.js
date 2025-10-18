@@ -20,27 +20,10 @@ window.addEventListener('click', function(e) {
     if (!document.querySelector('.profile-icon').contains(e.target)) popup.classList.remove('show');
 });
 
-// --- เปิด popup การชำระเงิน ---
-document.addEventListener('click', function(e) {
-    if(e.target.closest('.payment')) {
-        const target = e.target.closest('.payment').getAttribute('data-target');
-        const popup = document.querySelector(target);
-        if(popup) popup.style.display = 'block';
-    }
-});
-
-// --- ปิด popup ---
-document.addEventListener('click', function(e) {
-    if(e.target.id === 'closePopup') {
-        const popup = e.target.closest('.popup');
-        if(popup) popup.style.display = 'none';
-    }
-});
-
 // --- ดึง Orders จาก localStorage ---
 let orders = JSON.parse(localStorage.getItem("orders") || "{}");
 
-// --- Render Orders ลงตาราง ---
+// --- Render Orders หน้าออเดอร์ใหม่ (waiting) ---
 function renderOrders() {
     const tbody = document.querySelector(".order-table tbody");
     tbody.innerHTML = "";
@@ -50,17 +33,30 @@ function renderOrders() {
 
     Object.keys(orders).forEach(orderId => {
         const data = orders[orderId];
-        const row = document.createElement("tr");
-        row.classList.add("order-row");
+        if(data.status !== 'waiting') return;
 
-        // ✅ แสดงภาพสินค้าจากลูกค้าใน preview
         const previewContent = data.image
-            ? `<img src="${data.image}" alt="preview" class="preview-img" data-full="${data.image}" style="width:80px; height:auto; display:block; object-fit:contain;">`
+            ? `<img src="${data.image}" 
+                    alt="preview" 
+                    class="preview-img" 
+                    data-full="${data.image}" 
+                    style="
+                        width:80px; 
+                        height:auto; 
+                        display:block; 
+                        object-fit:contain; 
+                        margin:5px 0 0 0; /* เพิ่ม margin-top 5px ให้ขยับลงมา */
+                        max-height:80px; 
+                    ">`
             : `<span style="color:red;">ไม่มีภาพ</span>`;
 
+
+
+        const row = document.createElement("tr");
+        row.classList.add("order-row");
         row.innerHTML = `
             <td>${orderId}</td>
-            <td><span class="status ${data.status || 'waiting'}">${data.status === 'confirmed' ? 'ยืนยันแล้ว' : 'รอคิว'}</span></td>
+            <td><span class="status waiting">รอคิว</span></td>
             <td><b>${data.customer}</b></td>
             <td>${data.product}</td>
             <td>${data.quantity}</td>
@@ -78,8 +74,7 @@ function renderOrders() {
             </td>
         `;
         tbody.appendChild(row);
-
-        if (data.status === 'waiting') waitingCount++;
+        waitingCount++;
 
         // --- สร้าง popup การชำระเงิน ---
         if (!document.getElementById(`paymentPopup-${orderId}`)) {
@@ -114,106 +109,117 @@ function renderOrders() {
         }
     });
 
+    // อัพเดทจำนวนออเดอร์ใหม่
     const newOrderBtn = document.querySelector(".filter-btn.active span");
     if (newOrderBtn) newOrderBtn.textContent = waitingCount;
-
-    attachConfirmOrderEvents();
-    attachPreviewEvents();
-    attachIconEvents(); // ✅ ผูก event ปุ่มรายละเอียดและปริ้น
 }
 
-// --- Confirm Order ---
-function attachConfirmOrderEvents() {
-    document.querySelectorAll(".confirm-order").forEach(btn => {
-        btn.onclick = () => {
-            const orderId = btn.dataset.id;
-            if (orders[orderId]) orders[orderId].status = 'confirmed';
+// --- Event Delegation สำหรับ tbody ---
+const tbody = document.querySelector(".order-table tbody");
+
+tbody.addEventListener("click", (e) => {
+    const target = e.target;
+
+    // --- ปุ่ม Payment ---
+    if(target.closest(".payment")) {
+        const popupId = target.closest(".payment").getAttribute("data-target");
+        const popup = document.querySelector(popupId);
+        if(popup) popup.style.display = 'block';
+        return;
+    }
+
+    // --- ปุ่ม Confirm Order ---
+    if(target.closest(".confirm-order")) {
+        const orderId = target.closest(".confirm-order").dataset.id;
+        if(orders[orderId]) {
+            orders[orderId].status = 'confirmed';
             localStorage.setItem("orders", JSON.stringify(orders));
             renderOrders();
-        };
-    });
-}
+        }
+        return;
+    }
 
-// --- แสดง preview / ขยายภาพเต็ม ---
-function attachPreviewEvents() {
-    document.querySelectorAll(".preview-img").forEach(img => {
-        img.onclick = () => showPreviewImage(img.getAttribute("data-full"));
-    });
-}
+    // --- ปุ่ม Icon (รายละเอียด / ปริ้น) ---
+    if(target.closest(".icon-btn")) {
+        const btn = target.closest(".icon-btn");
+        const row = btn.closest("tr");
+        const orderId = row.querySelector("td:first-child").textContent.trim();
+        const data = orders[orderId];
+        if(!data) return;
 
-// --- แสดง popup รายละเอียด / ปริ้น ---
-function attachIconEvents() {
-    document.querySelectorAll(".icon-btn").forEach(btn => {
-        btn.onclick = (e) => {
-            e.stopPropagation();
-            const row = e.target.closest("tr");
-            const orderId = row.querySelector(".confirm-order").dataset.id;
-            const data = orders[orderId];
-            if (!data) return;
-
-            if (btn.dataset.tooltip === "รายละเอียดคำสั่งซื้อ") {
-                let existingPopup = document.getElementById(`detailsPopup-${orderId}`);
-                if (!existingPopup) {
-                    const detailsPopup = document.createElement("div");
-                    detailsPopup.classList.add("popup");
-                    detailsPopup.id = `detailsPopup-${orderId}`;
-                    detailsPopup.innerHTML = `
-                        <div class="popup-header">
-                            <span>รายละเอียดคำสั่งซื้อ #${orderId}</span>
-                            <div class="header-right">
-                                <button class="closeDetailsPopup">&times;</button>
-                            </div>
+        // รายละเอียดคำสั่งซื้อ
+        if(btn.dataset.tooltip === "รายละเอียดคำสั่งซื้อ") {
+            let existingPopup = document.getElementById(`detailsPopup-${orderId}`);
+            if(!existingPopup) {
+                const detailsPopup = document.createElement("div");
+                detailsPopup.classList.add("popup");
+                detailsPopup.id = `detailsPopup-${orderId}`;
+                detailsPopup.innerHTML = `
+                    <div class="popup-header">
+                        <span>รายละเอียดคำสั่งซื้อ #${orderId}</span>
+                        <div class="header-right">
+                            <button class="closeDetailsPopup">&times;</button>
                         </div>
-                        <div class="popup-content" style="padding:15px; color:#6c6c6c;"> 
-                            <p><b>ลูกค้า:</b> ${data.customer}</p>
-                            <p><b>สินค้า:</b> ${data.product}</p>
-                            <p><b>จำนวน:</b> ${data.quantity}</p>
-                            <p><b>วัสดุ:</b> ${data.material}</p>
-                            <p><b>ขนาด:</b> ${data.width} x ${data.height}</p>
-                            <p><b>ยอดรวม:</b> ${data.total}</p>
-                            <p><b>วิธีจัดส่ง:</b> ${data.delivery}</p>
-                            <p><b>ที่อยู่:</b> ${data.address}</p>
-                            ${data.image ? `<img src="${data.image}" style="max-width:200px; display:block; margin-top:10px;">` : ''}
-                        </div>
-                    `;
-                    document.body.appendChild(detailsPopup);
-                    detailsPopup.querySelector(".closeDetailsPopup").onclick = () => detailsPopup.remove();
-                } else {
-                    existingPopup.style.display = "block";
-                }
-            }
-
-
-            if (btn.dataset.tooltip === "ปริ้นที่อยู่") {
-                const printContent = `
-                    <h3>คำสั่งซื้อ #${orderId}</h3>
-                    <p><b>ลูกค้า:</b> ${data.customer}</p>
-                    <p><b>ที่อยู่:</b> ${data.address}</p>
+                    </div>
+                    <div class="popup-content" style="padding:15px; color:#6c6c6c;"> 
+                        <p><b>ลูกค้า:</b> ${data.customer}</p>
+                        <p><b>สินค้า:</b> ${data.product}</p>
+                        <p><b>จำนวน:</b> ${data.quantity}</p>
+                        <p><b>วัสดุ:</b> ${data.material || '-'}</p>
+                        <p><b>ขนาด:</b> ${data.width || '-'} x ${data.height || '-'}</p>
+                        <p><b>ยอดรวม:</b> ${data.total}</p>
+                        <p><b>วิธีจัดส่ง:</b> ${data.delivery}</p>
+                        <p><b>ที่อยู่:</b> ${data.address}</p>
+                        ${data.image ? `<img src="${data.image}" style="max-width:200px; display:block; margin:5px 0 0 0;">` : ''}
+                    </div>
                 `;
-                const printWindow = window.open('', '', 'height=400,width=600');
-                printWindow.document.write('<html><head><title>ปริ้นที่อยู่</title></head><body>');
-                printWindow.document.write(printContent);
-                printWindow.document.write('</body></html>');
-                printWindow.document.close();
-                printWindow.print();
+                document.body.appendChild(detailsPopup);
+                detailsPopup.querySelector(".closeDetailsPopup").onclick = () => detailsPopup.remove();
+            } else {
+                existingPopup.style.display = "block";
             }
-        };
-    });
-}
+        }
 
-// --- แสดงภาพเต็ม (popup) ---
+        // ปริ้นที่อยู่
+        if(btn.dataset.tooltip === "ปริ้นที่อยู่") {
+            const printContent = `
+                <h3>คำสั่งซื้อ #${orderId}</h3>
+                <p><b>ลูกค้า:</b> ${data.customer}</p>
+                <p><b>ที่อยู่:</b> ${data.address}</p>
+                <p><b>จัดส่งแบบ:</b> ${data.delivery}</p>
+            `;
+            const printWindow = window.open('', '', 'height=400,width=600');
+            printWindow.document.write('<html><head><title>ปริ้นที่อยู่</title></head><body>');
+            printWindow.document.write(printContent);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+    }
+
+    // --- แสดง preview ภาพเต็ม ---
+    if(target.closest(".preview-img")) {
+        const src = target.closest(".preview-img").getAttribute("data-full") || target.closest(".preview-img").src;
+        showPreviewImage(src);
+    }
+});
+
+// --- ปิด popup ---
+document.addEventListener('click', (e) => {
+    if(e.target.id === 'closePopup') {
+        const popup = e.target.closest('.popup');
+        if(popup) popup.style.display = 'none';
+    }
+});
+
+// --- แสดง preview ภาพเต็ม ---
 function showPreviewImage(src) {
     const overlay = document.createElement("div");
-    overlay.style.position = "fixed";
-    overlay.style.top = 0;
-    overlay.style.left = 0;
-    overlay.style.width = "100%";
-    overlay.style.height = "100%";
-    overlay.style.background = "rgba(0,0,0,0.8)";
-    overlay.style.display = "flex";
-    overlay.style.alignItems = "center";
-    overlay.style.justifyContent = "center";
-    overlay.style.zIndex = 9999;
+    overlay.style.cssText = `
+        position:fixed; top:0; left:0; width:100%; height:100%;
+        background:rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center;
+        z-index:9999;
+    `;
     overlay.innerHTML = `
         <img src="${src}" style="max-width:90%; max-height:90%; border:2px solid #fff; border-radius:8px;">
         <span style="position:absolute;top:20px;right:40px;font-size:30px;color:#fff;cursor:pointer;">&times;</span>
@@ -226,25 +232,4 @@ function showPreviewImage(src) {
 document.addEventListener('DOMContentLoaded', () => {
     renderOrders();
     setInterval(renderOrders, 2000);
-});
-
-// -------------------- ระบบนับจำนวนออเดอร์ใหม่ --------------------
-function updateNewOrderCount() {
-    const orders = JSON.parse(localStorage.getItem("orders") || "{}");
-    let waitingCount = 0;
-
-    Object.keys(orders).forEach(orderId => {
-        if (orders[orderId].status === "waiting") waitingCount++;
-    });
-
-    const newOrderBox = document.querySelector('a[href="../Or1/1.html"] span');
-    if (newOrderBox) newOrderBox.textContent = waitingCount;
-
-    const totalBox = document.querySelector('a[href="../main_Or/main_Or.html"] span');
-    if (totalBox) totalBox.textContent = Object.keys(orders).length;
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    updateNewOrderCount();
-    setInterval(updateNewOrderCount, 2000);
 });
