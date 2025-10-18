@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
           row.innerHTML = `
               <td>${item.product}</td>
               <td>${item.imgSrc ? `<img src="${item.imgSrc}" width="80">` : ""}</td>
-              <td>${item.width} x ${item.height}</td>
+              <td>${item.width.trim()} x ${item.height.trim()}</td>
               <td>${item.quantity} ชิ้น</td>
               <td>${item.material}</td>
               <td>${item.price} บาท</td>
