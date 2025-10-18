@@ -12,11 +12,13 @@ const statusText = document.getElementById("statusText");
 
 function calculatePrice() {
   const selectedOption = sizeSelect.value; 
+  const sizeMatch = selectedOption.match(/(\d+x\d+)/);
+  const cleanSize = sizeMatch ? sizeMatch[1] : "";
   const quantity = parseInt(quantityInput.value) || 1;
-  const cleanSize = selectedOption.replace("ซม.", "").trim(); 
   const basePrice = priceList[cleanSize] || 0;
   priceInput.value = (basePrice * quantity).toLocaleString();
 }
+
 
 quantityInput.addEventListener("input", calculatePrice);
 calculatePrice();
