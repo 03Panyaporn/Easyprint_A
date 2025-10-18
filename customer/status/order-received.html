@@ -10,18 +10,18 @@
 </head>
 
 <body>
-<div class="status-bar">
-  <span class="dot" id="storeDot"></span>
-  <span id="storeText">สถานะร้านค้า : เปิดบริการ</span>
-</div>
+    <div class="status-bar">
+        <span class="dot" id="storeDot"></span>
+        <span id="storeText">สถานะร้านค้า : เปิดบริการ</span>
+    </div>
 
     <!-- Navbar -->
     <header class="navbar">
         <div class="logo-wrapper">
-             <div class="logo">
+            <div class="logo">
                 <img src="icon/printer0.svg" alt="Logo" class="logo-icon"> EASYPRINT
             </div>
-                        <div class="rectangle-81" id="locationBtn">
+            <div class="rectangle-81" id="locationBtn">
                 <img src="icon/location-on0.svg" alt="Location">
                 <span id="selectedLocations">ตำแหน่งปัจจุบัน</span>
                 <img src="icon/chevron-down0.svg" alt="Dropdown">
@@ -52,8 +52,10 @@
                             080-000-1111
                         </div>
                         <div class="option-actions">
-                            <button class="edit-btn" title="แก้ไข"><img src="../main/icon/edit-30.svg" alt="แก้ไข"></button>
-                            <button class="delete-btn" title="ลบ"><img src="../main/icon/trash-20.svg" alt="ลบ"></button>
+                            <button class="edit-btn" title="แก้ไข"><img src="../main/icon/edit-30.svg"
+                                    alt="แก้ไข"></button>
+                            <button class="delete-btn" title="ลบ"><img src="../main/icon/trash-20.svg"
+                                    alt="ลบ"></button>
                         </div>
                     </div>
 
@@ -71,8 +73,10 @@
                             042-000-333
                         </div>
                         <div class="option-actions">
-                            <button class="edit-btn" title="แก้ไข"><img src="../main/icon/edit-30.svg" alt="แก้ไข"></button>
-                            <button class="delete-btn" title="ลบ"><img src="../main/icon/trash-20.svg" alt="ลบ"></button>
+                            <button class="edit-btn" title="แก้ไข"><img src="../main/icon/edit-30.svg"
+                                    alt="แก้ไข"></button>
+                            <button class="delete-btn" title="ลบ"><img src="../main/icon/trash-20.svg"
+                                    alt="ลบ"></button>
                         </div>
                     </div>
 
@@ -81,13 +85,13 @@
 
                 </div>
             </div>
-    </div>
-    <div class="menu">
-      <a href="../main/index.html"><img src="icon/home0.svg" alt="">หน้าหลัก</a>
-      <a href="#"><img src="icon/bell0.svg" alt="">ติดตามคำสั่งซื้อ</a>
-      <a href="../cart/cart.html"><img src="icon/shopping-cart0.svg" alt=""></a>
-      <span class="divider">|</span>
-      <div class="user-dropdown">
+        </div>
+        <div class="menu">
+            <a href="../main/index.html"><img src="icon/home0.svg" alt="">หน้าหลัก</a>
+            <a href="#"><img src="icon/bell0.svg" alt="">ติดตามคำสั่งซื้อ</a>
+            <a href="../cart/cart.html"><img src="icon/shopping-cart0.svg" alt=""></a>
+            <span class="divider">|</span>
+            <div class="user-dropdown">
                 <a href="#" id="userBtn">
                     <div>
                         <img src="icon/user0.svg" alt="User" class="ellipse-57">
@@ -106,7 +110,7 @@
                         <p class="profile-name"><a href="#">แก้ไขโปรไฟล์</a></p>
                     </div>
                     <a href="../login/login.html">
-                    <button class="logout-btn">ออกจากระบบ</button></a>
+                        <button class="logout-btn">ออกจากระบบ</button></a>
                 </div>
             </div>
     </header>
@@ -141,9 +145,18 @@
                     <span>จัดส่งสำเร็จแล้ว</span>
                 </div>
             </div>
-            <div class="status-note">รอตรวจสอบการชำระเงิน</div>
+            <div class="status-note">
+
+
+                
+            </div>
+
+            <div class="order-table" id="orderTableContainer">
+                <!-- ตารางคำสั่งซื้อจะถูกแสดงที่นี่ -->
+            </div>
+
         </section>
-        
+
     </main>
 
     <!-- Footer -->
@@ -161,31 +174,31 @@
             </div>
         </div>
     </footer>
-          <script>
-  const dot = document.getElementById("storeDot");
-  const text = document.getElementById("storeText");
+    <script>
+        const dot = document.getElementById("storeDot");
+        const text = document.getElementById("storeText");
 
-  function updateStoreStatus() {
-    const status = localStorage.getItem("storeStatus");
-    if (status === "closed") {
-      dot.classList.add("closed");
-      text.textContent = "สถานะร้านค้า : ปิดบริการ";
-    } else {
-      dot.classList.remove("closed");
-      text.textContent = "สถานะร้านค้า : เปิดบริการ";
-    }
-  }
+        function updateStoreStatus() {
+            const status = localStorage.getItem("storeStatus");
+            if (status === "closed") {
+                dot.classList.add("closed");
+                text.textContent = "สถานะร้านค้า : ปิดบริการ";
+            } else {
+                dot.classList.remove("closed");
+                text.textContent = "สถานะร้านค้า : เปิดบริการ";
+            }
+        }
 
-  // โหลดตอนเปิดหน้า
-  updateStoreStatus();
+        // โหลดตอนเปิดหน้า
+        updateStoreStatus();
 
-  // ถ้ามีการเปลี่ยนสถานะจากฝั่งร้าน
-  window.addEventListener("storage", (event) => {
-    if (event.key === "storeStatus") {
-      updateStoreStatus();
-    }
-  });
-</script>
+        // ถ้ามีการเปลี่ยนสถานะจากฝั่งร้าน
+        window.addEventListener("storage", (event) => {
+            if (event.key === "storeStatus") {
+                updateStoreStatus();
+            }
+        });
+    </script>
 </body>
 <script>
     const userBtn = document.getElementById("userBtn");
@@ -222,8 +235,8 @@
     document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.addEventListener('click', function (e) {
             e.stopPropagation();
-            window.location.href = "../editaddress/address.html"; 
-    });
+            window.location.href = "../editaddress/address.html";
+        });
     });
 
     document.querySelectorAll('.delete-btn').forEach(btn => {
@@ -251,5 +264,5 @@
         }
     });
 </script>
-
+<script src="order-details.js"></script>
 </html>

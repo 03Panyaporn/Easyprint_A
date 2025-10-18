@@ -734,3 +734,65 @@ footer {
 .dot.closed {
   background-color: #E53935; /* สีแดงเมื่อปิดร้าน */
 }
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px; /* ลดขนาดตัวอักษร */
+}
+
+.order-table th {
+    background-color: #03A89D;
+    color: white;
+    padding: 8px; /* ลด padding */
+    text-align: center;
+    font-size: 12px; /* ลดขนาดตัวอักษร header */
+}
+
+.order-table td {
+    padding: 8px; /* ลด padding */
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    font-size: 12px; /* ลดขนาดตัวอักษร */
+}
+
+.order-table tbody tr:nth-child(odd) {
+    background-color: #f0f8ff;
+}
+
+.order-table tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.order-table tbody tr:hover {
+    background-color: #d0f0fd;
+}
+.order-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: flex-start;
+}
+
+.order-item {
+    width: 120px; /* ขนาดรูป preview */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 5px;
+    text-align: center;
+    background: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.order-item img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.order-item span {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+}
