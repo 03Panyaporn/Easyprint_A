@@ -86,3 +86,52 @@ function displayOrderStatus() {
 
 // เรียกฟังก์ชันเมื่อโหลดหน้า
 window.addEventListener('DOMContentLoaded', displayOrderStatus);
+
+document.querySelectorAll('.progress-step').forEach(step => {
+    step.addEventListener('click', () => {
+        const statusText = step.querySelector('span').textContent.trim();
+
+        switch(statusText) {
+            case 'รับงานแล้ว':
+                window.location.href = 'order-received.html';
+                break;
+            case 'ตรวจสอบการชำระเงิน':
+                window.location.href = 'payment-check.html';
+                break;
+            case 'กำลังดำเนินการ':
+                window.location.href = 'processing.html';
+                break;
+            case 'กำลังจัดส่ง':
+                window.location.href = 'in-delivery.html';
+                break;
+            case 'จัดส่งสำเร็จแล้ว':
+                window.location.href = 'delivered.html';
+                break;
+        }
+    });
+    
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const steps = document.querySelectorAll(".progress-step");
+    const orders = JSON.parse(localStorage.getItem("orders") || "{}");
+
+    const statusCount = {};
+
+    // นับจำนวนออเดอร์ในแต่ละ status
+    Object.values(orders).forEach(order => {
+        const status = order.status || "รับงานแล้ว";
+        statusCount[status] = (statusCount[status] || 0) + 1;
+    });
+
+    // สร้าง badge
+    steps.forEach(step => {
+        const statusName = step.querySelector("span").innerText;
+        if (statusCount[statusName] > 0) {
+            const badge = document.createElement("div");
+            badge.className = "badge";
+            badge.innerText = statusCount[statusName];
+            step.appendChild(badge);
+        }
+    });
+});
