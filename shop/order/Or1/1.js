@@ -209,3 +209,35 @@ document.addEventListener('DOMContentLoaded', () => {
     renderOrders();
     setInterval(renderOrders, 2000);
 });
+
+// -------------------- ระบบนับจำนวนออเดอร์ใหม่ --------------------
+
+// ฟังก์ชันนับจำนวนออเดอร์ใหม่และอัปเดตแสดงผล
+function updateNewOrderCount() {
+    const orders = JSON.parse(localStorage.getItem("orders") || "{}");
+    let waitingCount = 0;
+
+    Object.keys(orders).forEach(orderId => {
+        if (orders[orderId].status === "waiting") {
+            waitingCount++;
+        }
+    });
+
+    // แสดงผลที่กล่อง "ออเดอร์ใหม่"
+    const newOrderBox = document.querySelector('a[href="../Or1/1.html"] span');
+    if (newOrderBox) {
+        newOrderBox.textContent = waitingCount;
+    }
+
+    // (เสริม) อัปเดตจำนวนทั้งหมด
+    const totalBox = document.querySelector('a[href="../main_Or/main_Or.html"] span');
+    if (totalBox) {
+        totalBox.textContent = Object.keys(orders).length;
+    }
+}
+
+// เรียกใช้งานตอนโหลด และอัปเดตทุก 2 วินาที
+document.addEventListener("DOMContentLoaded", () => {
+    updateNewOrderCount();
+    setInterval(updateNewOrderCount, 2000);
+});
