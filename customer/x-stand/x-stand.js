@@ -155,7 +155,6 @@
     e.preventDefault(); 
 
     if (upfile.files.length === 0) {
-      alert("กรุณาอัปโหลดไฟล์ก่อนยืนยัน"); 
       return; 
     }
 
@@ -163,6 +162,56 @@
     cartDot.textContent = orderCount; 
     cartDot.style.display = 'block'; 
 
-    alert("เพิ่มออเดอร์ลงตะกร้าแล้ว"); 
+  });
+});
+document.addEventListener('DOMContentLoaded', () => {
+  const confirmBtn = document.querySelector('.confirm-btn');
+  const upfile = document.getElementById('upfile');
+  const cartDot = document.getElementById('cartDot');
+  const sizeSelect = document.getElementById("sizeSelect");
+  const quantityInput = document.getElementById("quantity");
+  const typeSelect = document.getElementById("typeSelect");
+  const priceInput = document.getElementById("price");
+
+  confirmBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if (upfile.files.length === 0) {
+      alert("กรุณาอัปโหลดไฟล์ก่อนยืนยัน");
+      return;
+    }
+
+    const file = upfile.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+
+      // ดึงตัวเลขขนาด
+      const sizeNumbers = sizeSelect.value.match(/\d+/g); // ["60","160"] หรือ ["80","180"]
+      const width = sizeNumbers[0];
+      const height = sizeNumbers[1];
+
+      cartItems.push({
+        product: "X-Stand",
+        width: width,
+        height: height,
+        quantity: parseInt(quantityInput.value),
+        material: typeSelect.value,
+        price: parseFloat(priceInput.value.replace(/,/g,'')),
+        imgSrc: e.target.result // Base64
+      });
+
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+      // อัปเดต badge
+      const totalCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+      cartDot.textContent = totalCount;
+      cartDot.style.display = 'block';
+
+      alert("เพิ่มออเดอร์ลงตะกร้าแล้ว");
+    };
+
+    reader.readAsDataURL(file);
   });
 });
