@@ -37,6 +37,7 @@ function displayOrderStatus() {
             <thead>
                 <tr>
                     <th>รหัสคำสั่งซื้อ</th>
+                    <th>วันที่สั่งซื้อ</th>
                     <th>สินค้า</th>
                     <th>ขนาด</th>
                     <th>จำนวน</th>
@@ -63,9 +64,11 @@ function displayOrderStatus() {
 
             // จัดที่อยู่ให้อ่านง่าย
             const addressHTML = order.address ? order.address.replace(/\n/g, '<br>') : 'ไม่ระบุ';
+            const orderDate = order.date || "-"; // ใช้ "-" ถ้าไม่มีข้อมูล
 
             row.innerHTML = `
                 <td>${order.orderId}</td>
+                <td>${orderDate}</td> <!-- แสดงวันที่ -->
                 <td>${order.product}</td>
                 <td>${order.width} x ${order.height}</td>
                 <td>${order.quantity}</td>
