@@ -344,3 +344,26 @@ footer {
     }
     
 }
+
+/*rwerwrwerw*/
+
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #4CAF50; /* สีเขียวเริ่มต้น */
+}
+
+.dot.closed {
+  background-color: #E53935; /* สีแดงเมื่อปิดร้าน */
+}

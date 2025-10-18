@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <script src="Main_shop.js"></script>
+
 
 </head>
 <body>
@@ -24,10 +24,11 @@
         <div class="icons">
           <div class="toggle-container">
             <span>สถานะร้าน</span>
-            <label class="switch">
-              <input type="checkbox" checked>
-              <span class="slider"></span>
-            </label>
+<label class="switch">
+  <input type="checkbox" id="storeStatus" checked>
+  <span class="slider"></span>
+</label>
+
           </div>
       
           <div class="notification-icon" onclick="goToNotification()">
@@ -244,5 +245,30 @@
         <button class="print-btn">ปริ้น</button>
       </div>
     </div>
+</body>
+...
+<script src="Main_shop.js"></script>
+<script>
+  const toggle = document.getElementById('storeStatus');
+
+  // โหลดสถานะจาก localStorage
+  const savedStatus = localStorage.getItem('storeStatus');
+  toggle.checked = savedStatus !== 'closed'; // ถ้าไม่มีค่า แปลว่าเปิด
+
+  // เมื่อมีการเปลี่ยนสถานะ
+  toggle.addEventListener('change', () => {
+    const status = toggle.checked ? 'open' : 'closed';
+    localStorage.setItem('storeStatus', status);
+  });
+
+  // ถ้ามีการเปลี่ยนสถานะจากหน้าอื่น (เปิดหลายแท็บ)
+  window.addEventListener('storage', (event) => {
+    if (event.key === 'storeStatus') {
+      toggle.checked = event.newValue !== 'closed';
+    }
+  });
+</script>
+
+
 </body>
 </html>

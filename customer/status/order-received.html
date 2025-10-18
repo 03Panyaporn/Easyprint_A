@@ -10,9 +10,10 @@
 </head>
 
 <body>
-    <div class="status-bar">
-        <span class="dot"></span> สถานะร้านค้า : เปิดบริการ
-    </div>
+<div class="status-bar">
+  <span class="dot" id="storeDot"></span>
+  <span id="storeText">สถานะร้านค้า : เปิดบริการ</span>
+</div>
 
     <!-- Navbar -->
     <header class="navbar">
@@ -160,6 +161,31 @@
             </div>
         </div>
     </footer>
+          <script>
+  const dot = document.getElementById("storeDot");
+  const text = document.getElementById("storeText");
+
+  function updateStoreStatus() {
+    const status = localStorage.getItem("storeStatus");
+    if (status === "closed") {
+      dot.classList.add("closed");
+      text.textContent = "สถานะร้านค้า : ปิดบริการ";
+    } else {
+      dot.classList.remove("closed");
+      text.textContent = "สถานะร้านค้า : เปิดบริการ";
+    }
+  }
+
+  // โหลดตอนเปิดหน้า
+  updateStoreStatus();
+
+  // ถ้ามีการเปลี่ยนสถานะจากฝั่งร้าน
+  window.addEventListener("storage", (event) => {
+    if (event.key === "storeStatus") {
+      updateStoreStatus();
+    }
+  });
+</script>
 </body>
 <script>
     const userBtn = document.getElementById("userBtn");
@@ -225,4 +251,5 @@
         }
     });
 </script>
+
 </html>

@@ -24,7 +24,7 @@
           <div class="toggle-container">
             <span>สถานะร้าน</span>
             <label class="switch">
-              <input type="checkbox" checked>
+              <input type="checkbox" id="storeStatus">
               <span class="slider"></span>
             </label>
           </div>
@@ -244,4 +244,28 @@
     <script src="Notification.js"></script>
     
 </body>
+<script>
+  const toggle = document.getElementById('storeStatus');
+
+  // โหลดสถานะจาก localStorage
+  const savedStatus = localStorage.getItem('storeStatus');
+  toggle.checked = savedStatus !== 'closed'; // ถ้าไม่มีค่า แปลว่าเปิด
+
+  // เมื่อมีการเปลี่ยนสถานะ
+  toggle.addEventListener('change', () => {
+    const status = toggle.checked ? 'open' : 'closed';
+    localStorage.setItem('storeStatus', status);
+  });
+
+  // ถ้ามีการเปลี่ยนสถานะจากหน้าอื่น (เปิดหลายแท็บ)
+  window.addEventListener('storage', (event) => {
+    if (event.key === 'storeStatus') {
+      toggle.checked = event.newValue !== 'closed';
+    }
+  });
+</script>
+
+
+
+
 </html>
