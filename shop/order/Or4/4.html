@@ -138,12 +138,14 @@
               
               <td>
                 <div class="order-actions">
-                  <button class="confirm-btn">จัดส่งแล้ว</button>
+                  <div style="display:flex; flex-direction:column; gap:5px; align-items:center;">
+                      <button class="confirm-btn shipping-btn" data-order-id="${orderId}">จัดส่งแล้ว</button>
+                      <div class="icon-group" style="display:flex; gap:5px;">
+                          <button class="icon-btn" data-tooltip="รายละเอียดคำสั่งซื้อ">📝</button>
+                          <button class="icon-btn stop" data-tooltip="ปริ้นที่อยู่">🖨️</button>
+                      </div>
+                  </div>
 
-                  <div class="icon-group">
-                    <button class="icon-btn" data-tooltip="รายละเอียดคำสั่งซื้อ">📝</button>
-                    <button class="icon-btn stop" data-tooltip="ปริ้นที่อยู่">🖨️</button>
-                  </div>  
 
                 <div class="popup-bottom-right" id="detailsPopup">
                   <div class="popup-header">

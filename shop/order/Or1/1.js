@@ -29,7 +29,7 @@ function renderOrders() {
     tbody.innerHTML = "";
     orders = JSON.parse(localStorage.getItem("orders") || "{}");
 
-    let waitingCount = 0;
+    let displayedCount = 0; // ตัวนับออเดอร์ที่แสดง
 
     Object.keys(orders).forEach(orderId => {
         const data = orders[orderId];
@@ -43,14 +43,11 @@ function renderOrders() {
                     style="
                         width:80px; 
                         height:auto; 
-                        display:block; 
-                        object-fit:contain; 
-                        margin:5px 0 0 0; /* เพิ่ม margin-top 5px ให้ขยับลงมา */
-                        max-height:80px; 
+                        display:inline-block; 
+                        object-fit:contain;
+                        vertical-align:middle;
                     ">`
             : `<span style="color:red;">ไม่มีภาพ</span>`;
-
-
 
         const row = document.createElement("tr");
         row.classList.add("order-row");
@@ -74,7 +71,7 @@ function renderOrders() {
             </td>
         `;
         tbody.appendChild(row);
-        waitingCount++;
+        displayedCount++; // นับออเดอร์ที่แสดง
 
         // --- สร้าง popup การชำระเงิน ---
         if (!document.getElementById(`paymentPopup-${orderId}`)) {
@@ -108,6 +105,10 @@ function renderOrders() {
             document.body.appendChild(paymentPopup);
         }
     });
+
+    // --- อัปเดตตัวเลขออเดอร์ที่ปุ่ม filter ---
+        const filterBtn = document.querySelector(".filter-btn.active span");
+        if(filterBtn) filterBtn.textContent = displayedCount;
 
     // อัพเดทจำนวนออเดอร์ใหม่
     const newOrderBtn = document.querySelector(".filter-btn.active span");

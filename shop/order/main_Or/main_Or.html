@@ -100,7 +100,7 @@
           <a href="../../order/Or5/5.html" class="filter-btn">จัดส่งแล้ว <span>10</span></a>
         </div>
       </section>
-
+     
       <table class="order-table">
         <thead>
           <tr>
@@ -114,60 +114,65 @@
             <th></th>
           </tr>
         </thead>
-
+ 
       <tbody>
             <tr class="order-row active">
-              <td>
-                <div>WA110666</div>
-                <div class="order-date">15/12/2022 5:50 PM</div>
-              </td>
-              <td><span class="status waiting">รับออเดอร์</span></td>
-              <td><b>สมชาย</b></td>
-              <td>roll-up</td>
-              <td>1  ชิ้น</td>
-              <td class="order-preview"> preview </td>
-              <td>270 บาท
-                <button class="confirm-btn payment"><i class="fa-regular fa-square-check"></i> ตรวจสอบการชำระเงิน</button>
-              </td>
-
+                      
               <td>
                 <div class="order-actions">
                   <button class="confirm-btn">ยืนยันออเดอร์</button>
+ 
                   <div class="icon-group">
-                    <button class="icon-btn">📝</button>
-                    <button class="icon-btn stop">🖨️</button>    
+                    <button class="icon-btn" data-tooltip="รายละเอียดคำสั่งซื้อ">📝</button>
+                    <button class="icon-btn stop" data-tooltip="ปริ้นที่อยู่">🖨️</button>
+                  </div>  
+ 
+                <!-- Popup รายละเอียดคำสั่งซื้อ -->
+                <div class="popup-bottom-right" id="detailsPopup">
+                  <div class="popup-header">
+                    <span>รายละเอียดคำสั่งซื้อ</span>
+                    <button class="close-btn">&times;</button>
+                  </div>
+                  <div class="popup-body">
+                    <div>รหัสออเดอร์: <b id="orderId"></b></div>
+                    <div>ชื่อลูกค้า: <b id="customerName"></b></div>
+                    <div>ประเภทสินค้า: <span id="productType"></span></div>
+                    <div>จำนวน: <span id="quantity"></span></div>
+                    <div>ยอดรวม: <span id="total"></span></div>
+                    <div>ที่อยู่: <span id="address"></span></div>
+                    <div>จัดส่งแบบ: <span id="delivery"></span></div>
+                    <div>วัสดุ: <span id="material"></span></div>
+                    <div>ขนาด: <span id="size"></span></div>
+                    <div>รูปสินค้า: <br><img id="productImage" src="" width="150"></div>
                   </div>
                 </div>
-              </td>
-              
-            </tr>
-            <tr class="order-row">
-              <td>
-                <div>WA110555</div>
-                <div class="order-date">14/12/2022 4:50 PM</div>
-              </td>
-              <td><span class="status waiting">รับออเดอร์</span></td>
-              <td><b>สมหญิง</b></td>
-              <td>x-stand</td>
-              <td>1  ชิ้น</td>
-              <td class="order-preview"> preview </td>
-              <td>340 บาท
-                <button class="confirm-btn payment"><i class="fa-regular fa-square-check"></i> ตรวจสอบการชำระเงิน </button>
-              </td>
 
-              <td>
-                <div class="order-actions">
-                  <button class="confirm-btn">ยืนยันออเดอร์</button>
-                  <div class="icon-group">
-                    <button class="icon-btn">📝</button>
-                    <button class="icon-btn stop">🖨️</button>    
+                <!-- Popup ปริ้นที่อยู่ -->
+                <div class="popup-bottom-right" id="printPopup">
+                  <div class="popup-header">
+                    <span>ปริ้นที่อยู่</span>
+                    <button class="close-btn">&times;</button>
+                  </div>
+                  <div class="popup-body">
+                    <div>ชื่อ: <span id="printName"></span></div>
+                    <div>ที่อยู่: <span id="printAddress"></span></div>
+                    <div>รหัสไปรษณีย์: <span id="printZip"></span></div>
+                    <div>จัดส่งแบบ: <span id="printdelivery"></span></div>
+                  </div>
+                  <div style="text-align:right; margin-top:10px;">
+                    <button class="confirm-btn" id="printBtn">ปริ้น</button>
                   </div>
                 </div>
-              </td>              
-            </tr>
-          </tbody>
-        </table>
-    </main>
+
+
+              </div>             
+            </td>
+          </tr>  
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</body>
 
     <div class="popup" id="paymentPopup">
       <div class="popup-header">

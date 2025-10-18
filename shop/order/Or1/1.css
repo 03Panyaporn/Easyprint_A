@@ -402,7 +402,7 @@ input:checked + .slider:before {
 .order-preview {
   width: 50px;            
   height: 50px;
-  margin: 10px 10px 10px 10px;
+  margin: 10px 10px 0px 10px;
   border: 2px dashed #999; 
   display: flex;
   align-items: center;
