@@ -191,8 +191,10 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
       // อัปเดต badge
-      const totalCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-      cartDot.textContent = totalCount;
+     // ใหม่ — นับตามจำนวนออเดอร์
+const totalOrders = cartItems.length;
+cartDot.textContent = totalOrders;
+
       cartDot.style.display = 'block';
 
       alert("เพิ่มออเดอร์ลงตะกร้าแล้ว");
@@ -200,4 +202,69 @@ document.addEventListener('DOMContentLoaded', () => {
 
     reader.readAsDataURL(file);
   });
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("orderForm");
+  const priceField = document.getElementById("price");
+  const quantityInput = document.getElementById("quantity");
+  const uploadInput = document.getElementById("upfile");
+
+  // ราคาต่อชิ้น roll-up (กำหนดคงที่ไว้ก่อน เช่น 700 บาท)
+  const unitPrice = 700;
+
+  // แสดงราคาอัตโนมัติเมื่อเปลี่ยนจำนวน
+  function updatePrice() {
+    const qty = parseInt(quantityInput.value) || 1;
+    priceField.value = (unitPrice * qty).toFixed(2);
+  }
+
+  quantityInput.addEventListener("input", updatePrice);
+  updatePrice();
+
+  // เมื่อผู้ใช้กดยืนยัน
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const agree = document.getElementById("agree");
+    if (!agree.checked) {
+      alert("กรุณายอมรับเงื่อนไขก่อนทำการสั่งซื้อ");
+      return;
+    }
+
+    const file = uploadInput.files[0];
+    let imgSrc = "";
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        imgSrc = reader.result;
+        saveToCart(imgSrc);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      saveToCart(imgSrc);
+    }
+  });
+
+  function saveToCart(imgSrc) {
+    const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+
+    const item = {
+      product: "ROLL-UP",
+      width: 80,
+      height: 200,
+      quantity: parseInt(quantityInput.value) || 1,
+      material: "ไวนิล",
+      price: priceField.value,
+      imgSrc: imgSrc
+    };
+
+    cartItems.push(item);
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+    alert("เพิ่มสินค้าในตะกร้าเรียบร้อยแล้ว!");
+    window.location.href = "../cart/cart.html";
+  }
 });
