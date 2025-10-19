@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             row.setAttribute("data-id", orderId);
 
             const previewContent = data.image
-                ? `<img src="${data.image}" class="preview-img" data-full="${data.image}" style="width:80px; height:auto; display:block; object-fit:contain;">`
+                ? `<img src="${data.image}" class="preview-img" data-full="${data.image}" style="width:100px; height:auto; display:block; object-fit:contain;">`
                 : `<span style="color:red;">ไม่มีภาพ</span>`;
 
             let statusText = "";

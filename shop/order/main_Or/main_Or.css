@@ -397,6 +397,20 @@
   .order-preview {
     cursor: pointer;
   }
+
+  .order-preview {
+    max-width: 100px; /* กำหนดขนาดสูงสุดของ cell */
+    overflow: hidden; /* ซ่อนส่วนเกิน */
+    text-align: center; /* จัดกึ่งกลาง */
+}
+
+.order-preview img.preview-img {
+    max-width: 100%; /* ไม่ให้ภาพเกิน cell */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
   
   .status {
     padding: 5px 12px;
