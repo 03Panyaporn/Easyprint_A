@@ -172,12 +172,9 @@ document.addEventListener('DOMContentLoaded', () => {
         price: parseFloat(priceInput.value.replace(/,/g,'')),
         imgSrc: e.target.result
       });
-
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
-      // นับจำนวนทั้งหมดอย่างถูกต้อง
-      const totalCount = cartItems.reduce((sum, item) => sum + Number(item.quantity), 0);
-      cartDot.textContent = totalCount;
+      cartDot.textContent = cartItems.length;
       cartDot.style.display = 'block';
 
       alert("เพิ่มออเดอร์ลงตะกร้าแล้ว");
