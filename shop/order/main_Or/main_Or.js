@@ -3,99 +3,97 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- ดึง Orders จาก localStorage ---
     let orders = JSON.parse(localStorage.getItem("orders") || "{}");
 
-function renderAllOrders() {
-    const tbody = document.querySelector(".order-table tbody");
-    tbody.innerHTML = ""; // ลบของเก่า
-    orders = JSON.parse(localStorage.getItem("orders") || "{}");
+    function renderAllOrders() {
+        const tbody = document.querySelector(".order-table tbody");
+        tbody.innerHTML = ""; // ลบของเก่า
+        orders = JSON.parse(localStorage.getItem("orders") || "{}");
 
-    let orderCount = 0; // นับจำนวนออเดอร์
+        let orderCount = 0; // นับจำนวนออเดอร์
 
-    Object.keys(orders).forEach(orderId => {
-        const data = orders[orderId];
+        Object.keys(orders).forEach(orderId => {
+            const data = orders[orderId];
 
-        const row = document.createElement("tr");
-        row.setAttribute("data-id", orderId);
+            const row = document.createElement("tr");
+            row.setAttribute("data-id", orderId);
 
-        const previewContent = data.image
-            ? `<img src="${data.image}" class="preview-img" data-full="${data.image}" style="width:80px; height:auto; display:block; object-fit:contain;">`
-            : `<span style="color:red;">ไม่มีภาพ</span>`;
+            const previewContent = data.image
+                ? `<img src="${data.image}" class="preview-img" data-full="${data.image}" style="width:80px; height:auto; display:block; object-fit:contain;">`
+                : `<span style="color:red;">ไม่มีภาพ</span>`;
 
+            // แสดงสถานะด้วยสีหรือข้อความ
+            let statusText = "";
+            switch(data.status) {
+                case "new": statusText = '<span class="status new">ออเดอร์ใหม่</span>'; break;
+                case "confirmed": statusText = '<span class="status confirmed">ยืนยันออเดอร์</span>'; break;
+                case "printing": statusText = '<span class="status printing">กำลังพิมพ์</span>'; break;
+                case "preparing": statusText = '<span class="status preparing">เตรียมจัดส่ง</span>'; break;
+                case "sent": statusText = '<span class="status sent">จัดส่งแล้ว</span>'; break;
+                default: statusText = `<span class="status unknown">${data.status}</span>`;
+            }
 
-        // แสดงสถานะด้วยสีหรือข้อความ
-        let statusText = "";
-        switch(data.status) {
-            case "new": statusText = '<span class="status new">ออเดอร์ใหม่</span>'; break;
-            case "confirmed": statusText = '<span class="status confirmed">ยืนยันออเดอร์</span>'; break;
-            case "printing": statusText = '<span class="status printing">กำลังพิมพ์</span>'; break;
-            case "preparing": statusText = '<span class="status preparing">เตรียมจัดส่ง</span>'; break;
-            case "sent": statusText = '<span class="status sent">จัดส่งแล้ว</span>'; break;
-            default: statusText = `<span class="status unknown">${data.status}</span>`;
-        }
-
-        row.innerHTML = `
-            <td>${orderId}</td>
-            <td>${statusText}</td>
-            <td><b>${data.customer}</b></td>
-            <td>${data.product}</td>
-            <td>${data.quantity}</td>
-            <td class="order-preview">${previewContent}</td>
-            <td>
-                ${data.total} <br>
-                <button class="confirm-btn payment" data-target="#paymentPopup-${orderId}" style="margin-top:5px;">ตรวจสอบการชำระเงิน</button>
-            </td>
-            <td class="order-actions-cell">
-                <div class="icon-group" style="display:flex; gap:5px;">
-                    <button class="icon-btn" data-tooltip="รายละเอียดคำสั่งซื้อ">📝</button>
-                    <button class="icon-btn stop" data-tooltip="ปริ้นที่อยู่">🖨️</button>
-                </div>
-            </td>
-        `;
-        tbody.appendChild(row);
-
-        orderCount++; // เพิ่มตัวนับ
-
-        // --- สร้าง popup การชำระเงิน ---
-        if (!document.getElementById(`paymentPopup-${orderId}`)) {
-            const paymentPopup = document.createElement("div");
-            paymentPopup.classList.add("popup");
-            paymentPopup.id = `paymentPopup-${orderId}`;
-            paymentPopup.innerHTML = `
-                <div class="popup-header">
-                    <span>ตรวจสอบการชำระเงิน</span>
-                    <div class="header-right">
-                        <button class="closePopup">&times;</button>
+            row.innerHTML = `
+                <td>${orderId}</td>
+                <td>${statusText}</td>
+                <td><b>${data.customer}</b></td>
+                <td>${data.product}</td>
+                <td>${data.quantity}</td>
+                <td class="order-preview">${previewContent}</td>
+                <td>
+                    ${data.total} <br>
+                    <button class="confirm-btn payment" data-target="#paymentPopup-${orderId}" style="margin-top:5px;">ตรวจสอบการชำระเงิน</button>
+                </td>
+                <td class="order-actions-cell">
+                    <div class="icon-group" style="display:flex; gap:5px;">
+                        <button class="icon-btn" data-tooltip="รายละเอียดคำสั่งซื้อ">📝</button>
+                        <button class="icon-btn stop" data-tooltip="ปริ้นที่อยู่">🖨️</button>
                     </div>
-                </div>
-                <div class="popup-content">
-                    <div class="slip-header">
-                        <h4>สลิปโอนเงิน</h4>
-                        <button class="status-btn">ชำระเงินแล้ว</button>
-                    </div>
-                    <div class="content-row">
-                        <div class="slip-box">ตัวอย่างสลิปโอนเงิน</div>
-                        <div class="order-details">
-                            <div><b>#${orderId}</b></div>
-                            <div>ชื่อบัญชี : ${data.customer}</div>
-                            <div>วันที่ : ${data.date?.split(" ")[0] || '-'}</div>
-                            <div>เวลา : ${data.date?.split(" ")[1] || '-'} ${data.date?.split(" ")[2] || ''}</div>
-                            <div><b>ยอดรวม : ${data.total}</b></div>
+                </td>
+            `;
+            tbody.appendChild(row);
+
+            orderCount++; // เพิ่มตัวนับ
+
+            // --- สร้าง popup การชำระเงิน ---
+            if (!document.getElementById(`paymentPopup-${orderId}`)) {
+                const paymentPopup = document.createElement("div");
+                paymentPopup.classList.add("popup");
+                paymentPopup.id = `paymentPopup-${orderId}`;
+                paymentPopup.innerHTML = `
+                    <div class="popup-header">
+                        <span>ตรวจสอบการชำระเงิน</span>
+                        <div class="header-right">
+                            <button class="closePopup">&times;</button>
                         </div>
                     </div>
-                </div>
-            `;
-            document.body.appendChild(paymentPopup);
-        }
-    });
+                    <div class="popup-content">
+                        <div class="slip-header">
+                            <h4>สลิปโอนเงิน</h4>
+                            <button class="status-btn">ชำระเงินแล้ว</button>
+                        </div>
+                        <div class="content-row">
+                            <div class="slip-box">ตัวอย่างสลิปโอนเงิน</div>
+                            <div class="order-details">
+                                <div><b>#${orderId}</b></div>
+                                <div>ชื่อบัญชี : ${data.customer}</div>
+                                <div>วันที่ : ${data.date?.split(" ")[0] || '-'}</div>
+                                <div>เวลา : ${data.date?.split(" ")[1] || '-'} ${data.date?.split(" ")[2] || ''}</div>
+                                <div><b>ยอดรวม : ${data.total}</b></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(paymentPopup);
+            }
+        });
 
-    // --- อัปเดตตัวเลขออเดอร์ ---
-    const orderCountElement = document.getElementById("orderCount");
-    if(orderCountElement) orderCountElement.innerText = orderCount;
+        // --- อัปเดตตัวเลขออเดอร์ ---
+        const orderCountElement = document.getElementById("orderCount");
+        if(orderCountElement) orderCountElement.innerText = orderCount;
 
-    attachPreviewEvents();
-    attachIconEvents();
-    attachPaymentEvents();
-}
-
+        attachPreviewEvents();
+        attachIconEvents();
+        attachPaymentEvents();
+    }
 
     // --- preview / popup รูป ---
     function attachPreviewEvents() {
@@ -114,6 +112,7 @@ function renderAllOrders() {
                 const data = orders[orderId];
                 if(!data) return;
 
+                // 📌 Popup รายละเอียดคำสั่งซื้อ
                 if(btn.dataset.tooltip === "รายละเอียดคำสั่งซื้อ") {
                     let existingPopup = document.getElementById(`detailsPopup-${orderId}`);
                     if(!existingPopup) {
@@ -140,13 +139,12 @@ function renderAllOrders() {
                             </div>
                         `;
                         document.body.appendChild(detailsPopup);
-                        detailsPopup.querySelector(".closePopup").onclick = () => detailsPopup.remove();
                     } else {
                         existingPopup.style.display = "block";
                     }
                 }
 
-                // ปริ้นที่อยู่
+                // 🖨️ ปริ้นที่อยู่
                 if(btn.dataset.tooltip === "ปริ้นที่อยู่") {
                     const printContent = `
                         <h3>คำสั่งซื้อ #${orderId}</h3>
@@ -164,7 +162,7 @@ function renderAllOrders() {
         });
     }
 
-    // --- popup การชำระเงิน ---
+    // --- popup การชำระเงิน + ปิด popup ทุกแบบ ---
     function attachPaymentEvents() {
         document.querySelectorAll('.confirm-btn.payment').forEach(btn => {
             btn.onclick = () => {
@@ -174,9 +172,12 @@ function renderAllOrders() {
             };
         });
 
+        // 📌 ปิด popup ได้ทุกประเภท (ทั้งรายละเอียด และชำระเงิน)
         document.querySelectorAll('.closePopup').forEach(btn => {
             btn.onclick = () => {
-                btn.closest('.popup').classList.remove('show');
+                const popup = btn.closest('.popup');
+                if (popup.classList.contains('show')) popup.classList.remove('show');
+                else popup.remove();
             };
         });
     }
