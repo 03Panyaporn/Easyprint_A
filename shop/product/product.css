@@ -400,3 +400,68 @@ input:checked + .slider:before {
 .table-row div:nth-child(2) {
   padding-left: 180px;  
 }
+
+/* เพิ่มใน product.css */
+.popup-container {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 320px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.popup-input {
+  width: 100%;
+  margin: 6px 0;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.popup-actions {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.popup-btn {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 6px;
+}
+
+.popup-btn.save {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.popup-btn.cancel {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-edit {
+  background-color: #dc3545; /* สีแดง */
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-edit:hover {
+  background-color: #b30000;
+}
+
