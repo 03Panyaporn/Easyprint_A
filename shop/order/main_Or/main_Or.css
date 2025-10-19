@@ -272,12 +272,12 @@
   .page-title2 {
     display: flex;                 
     justify-content: space-between; 
-    align-items: center;           
-    
+    align-items: center;                
     color: #44545d;
     font-size: 22px;
     font-weight: 700;
-    margin-top: 55px;
+    margin-top: 8px;
+    margin-bottom: 40px;
   }
   
   .filter-right {

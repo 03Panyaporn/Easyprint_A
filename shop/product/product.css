@@ -357,7 +357,7 @@ input:checked + .slider:before {
   background-color: #fafafa;
 }
 
-.btn-delete {
+.btn-edit {
   padding: 5px 10px;
   background-color: #ff4d4d;
   color: white;
@@ -368,7 +368,7 @@ input:checked + .slider:before {
   transition: 0.2s;
 }
 
-.btn-delete:hover {
+.btn-edit:hover {
   background-color: #e60000;
   transform: translateY(-3px);
 }
@@ -399,4 +399,60 @@ input:checked + .slider:before {
 .table-header div:nth-child(2),
 .table-row div:nth-child(2) {
   padding-left: 180px;  
+}
+
+/* Popup แก้ไขสินค้า */
+.popup-container {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-box {
+  background: white;
+  padding: 20px 25px;
+  border-radius: 12px;
+  width: 320px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.popup-box h3 {
+  margin-top: 0;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.popup-input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.popup-actions {
+  text-align: right;
+}
+
+.popup-btn {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.popup-btn.save {
+  background: #28a745;
+  color: white;
+}
+
+.popup-btn.cancel {
+  background: #dc3545;
+  color: white;
 }
