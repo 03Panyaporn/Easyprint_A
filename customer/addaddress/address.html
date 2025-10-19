@@ -231,6 +231,50 @@
   });
 </script>
 
+<script>
+// ดึง index จาก URL (ถ้ามี)
+const urlParams = new URLSearchParams(window.location.search);
+const editIndex = urlParams.get('edit');
+
+// ฟังก์ชันบันทึก
+function saveAddress() {
+  const newAddress = {
+    type: document.getElementById('placeType').value,
+    fname: document.getElementById('fname').value,
+    lname: document.getElementById('lname').value,
+    houseNo: document.getElementById('houseNo').value,
+    village: document.getElementById('village').value,
+    street: document.getElementById('street').value,
+    subdistrict: document.getElementById('subdistrict').value,
+    district: document.getElementById('district').value,
+    province: document.getElementById('province').value,
+    zipcode: document.getElementById('zipcode').value,
+    phone: document.getElementById('phone').value
+  };
+
+  const saved = JSON.parse(localStorage.getItem('addresses')) || [];
+
+  if (editIndex !== null) {
+    // แก้ไขที่อยู่เดิม
+    saved[editIndex] = newAddress;
+    alert('แก้ไขที่อยู่เรียบร้อย!');
+  } else {
+    // เพิ่มที่อยู่ใหม่
+    saved.push(newAddress);
+    alert('บันทึกที่อยู่เรียบร้อย!');
+  }
+
+  localStorage.setItem('addresses', JSON.stringify(saved));
+  window.location.href = '../main/index.html';
+}
+
+// กำหนดให้ปุ่มบันทึกเรียกฟังก์ชันนี้
+document.querySelector('.btn-login:not(.cancel-btn)').addEventListener('click', function(e) {
+  e.preventDefault();
+  saveAddress();
+});
+
+</script>
 
 </body>
 

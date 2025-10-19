@@ -139,3 +139,100 @@ calculatePrice();
 handleFileChange();
 
 // --- navbar, location, user dropdown ฟังก์ชันเดิมยังใช้งานได้ ---
+// ----- เพิ่ม/โหลดที่อยู่จาก localStorage -----
+
+document.addEventListener('DOMContentLoaded', function () {
+  const userBtn = document.getElementById("userBtn");
+  const userMenu = document.getElementById("userMenu");
+  const locationBtn = document.getElementById('locationBtn');
+  const locationMenu = document.getElementById('locationMenu');
+  const selectedSpan = document.getElementById('selectedLocation');
+
+  // ✅ ปุ่มตำแหน่งปัจจุบัน (เหมือนหน้า main)
+  locationBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    locationMenu.style.display = (locationMenu.style.display === 'block') ? 'none' : 'block';
+  });
+  document.addEventListener('click', function (e) {
+    if (!locationBtn.contains(e.target) && !locationMenu.contains(e.target)) {
+      locationMenu.style.display = 'none';
+    }
+  });
+
+  // ✅ โหลดที่อยู่จาก localStorage
+  const saved = JSON.parse(localStorage.getItem('addresses')) || [];
+
+  const addLocationBtn = locationMenu.querySelector('.add-location');
+  locationMenu.innerHTML = '';
+  locationMenu.appendChild(addLocationBtn);
+
+  saved.forEach((addr, index) => {
+    const div = document.createElement('div');
+    div.classList.add('location-option');
+    div.innerHTML = `
+      <label class="option-content">
+        <input type="radio" name="address" value="${addr.type}">
+        <span class="option-title">${addr.type}</span>
+      </label>
+      <div class="option-detail">
+        ${addr.fname} ${addr.lname}<br>
+        ${addr.houseNo}, หมู่ ${addr.village}, ${addr.subdistrict}<br>
+        ${addr.district}, ${addr.province} ${addr.zipcode}<br>
+        ${addr.phone}
+      </div>
+      <div class="option-actions">
+        <button class="edit-btn" data-index="${index}" title="แก้ไข">
+          <img src="icon/edit-30.svg" alt="แก้ไข">
+        </button>
+        <button class="delete-btn" data-index="${index}" title="ลบ">
+          <img src="icon/trash-20.svg" alt="ลบ">
+        </button>
+      </div>
+    `;
+    locationMenu.insertBefore(div, addLocationBtn);
+  });
+
+  // ✅ เมื่อเลือก radio จะอัปเดตตำแหน่งที่เลือกไว้
+  locationMenu.addEventListener('change', (e) => {
+    if (e.target.name === 'address' && e.target.checked) {
+      selectedSpan.innerText = e.target.value;
+      const selected = document.getElementById('selectedLocations');
+      if (selected) selected.innerText = e.target.value;
+    }
+  });
+
+  // ✅ ปุ่มแก้ไข
+  locationMenu.addEventListener('click', (e) => {
+    const editBtn = e.target.closest('.edit-btn');
+    if (editBtn) {
+      const index = editBtn.dataset.index;
+      window.location.href = `../editaddress/address.html?edit=${index}`;
+    }
+  });
+
+  // ✅ ปุ่มลบ
+  locationMenu.addEventListener('click', (e) => {
+    const delBtn = e.target.closest('.delete-btn');
+    if (delBtn) {
+      const index = delBtn.dataset.index;
+      const saved = JSON.parse(localStorage.getItem('addresses')) || [];
+      const confirmed = confirm("คุณแน่ใจหรือไม่ว่าต้องการลบที่อยู่นี้?");
+      if (confirmed) {
+        saved.splice(index, 1);
+        localStorage.setItem('addresses', JSON.stringify(saved));
+        location.reload();
+      }
+    }
+  });
+
+  // ✅ เมนูผู้ใช้
+  userBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    userMenu.style.display = userMenu.style.display === "block" ? "none" : "block";
+  });
+  document.addEventListener("click", function (e) {
+    if (!userBtn.contains(e.target) && !userMenu.contains(e.target)) {
+      userMenu.style.display = "none";
+    }
+  });
+});

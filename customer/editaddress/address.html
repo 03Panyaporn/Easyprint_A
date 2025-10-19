@@ -182,7 +182,7 @@
         </div>
         <div class="btn-group">
           <a href="../main/index.html" class="btn-login cancel-btn">ยกเลิก</a>
-          <a href="../main/index.html" class="btn-login">ยืนยัน</a>
+          <a href="#" class="btn-login" id="confirmBtn">ยืนยัน</a>
         </div>
       </form>
     </div>
@@ -203,31 +203,86 @@
       </div>
     </div>
   </footer>
-        <script>
-  const dot = document.getElementById("storeDot");
-  const text = document.getElementById("storeText");
+<script defer>
+    // --- สถานะร้านค้า ---
+    const dot = document.getElementById("storeDot");
+    const text = document.getElementById("storeText");
 
-  function updateStoreStatus() {
-    const status = localStorage.getItem("storeStatus");
-    if (status === "closed") {
-      dot.classList.add("closed");
-      text.textContent = "สถานะร้านค้า : ปิดบริการ";
-    } else {
-      dot.classList.remove("closed");
-      text.textContent = "สถานะร้านค้า : เปิดบริการ";
+    function updateStoreStatus() {
+      const status = localStorage.getItem("storeStatus");
+      if (status === "closed") {
+        dot.classList.add("closed");
+        text.textContent = "สถานะร้านค้า : ปิดบริการ";
+      } else {
+        dot.classList.remove("closed");
+        text.textContent = "สถานะร้านค้า : เปิดบริการ";
+      }
     }
-  }
 
-  // โหลดตอนเปิดหน้า
-  updateStoreStatus();
+    updateStoreStatus();
 
-  // ถ้ามีการเปลี่ยนสถานะจากฝั่งร้าน
-  window.addEventListener("storage", (event) => {
-    if (event.key === "storeStatus") {
-      updateStoreStatus();
+    window.addEventListener("storage", (event) => {
+      if (event.key === "storeStatus") updateStoreStatus();
+    });
+
+    // --- แก้ไข / บันทึกที่อยู่ ---
+    document.addEventListener("DOMContentLoaded", function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const editIndex = urlParams.get("edit");
+      const saved = JSON.parse(localStorage.getItem("addresses")) || [];
+
+      if (editIndex !== null && saved[editIndex]) {
+        const addr = saved[editIndex];
+        document.getElementById("placeType").value = addr.type || "";
+        document.getElementById("fname").value = addr.fname || "";
+        document.getElementById("lname").value = addr.lname || "";
+        document.getElementById("houseNo").value = addr.houseNo || "";
+        document.getElementById("village").value = addr.village || "";
+        document.getElementById("street").value = addr.street || "";
+        document.getElementById("subdistrict").value = addr.subdistrict || "";
+        document.getElementById("district").value = addr.district || "";
+        document.getElementById("province").value = addr.province || "";
+        document.getElementById("zipcode").value = addr.zipcode || "";
+        document.getElementById("phone").value = addr.phone || "";
+      }
+
+      const confirmBtn = document.getElementById("confirmBtn");
+      if (confirmBtn) {
+        confirmBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const updated = {
+            type: document.getElementById("placeType").value,
+            fname: document.getElementById("fname").value,
+            lname: document.getElementById("lname").value,
+            houseNo: document.getElementById("houseNo").value,
+            village: document.getElementById("village").value,
+            street: document.getElementById("street").value,
+            subdistrict: document.getElementById("subdistrict").value,
+            district: document.getElementById("district").value,
+            province: document.getElementById("province").value,
+            zipcode: document.getElementById("zipcode").value,
+            phone: document.getElementById("phone").value,
+          };
+
+          if (editIndex !== null && saved[editIndex] !== undefined) {
+            saved[editIndex] = updated;
+          } else {
+            saved.push(updated);
+          }
+
+          localStorage.setItem("addresses", JSON.stringify(saved));
+          alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+          window.location.href = "../main/index.html";
+        });
+      }
+    });
+
+    // --- ฟังก์ชันรีเซ็ตเส้นขอบ ---
+    function resetBorder(el) {
+      el.style.borderColor = "";
     }
-  });
-</script>
+  </script>
 </body>
 
 </html>

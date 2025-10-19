@@ -37,48 +37,7 @@
 
                     </div>
                     <span class="option-title" style="margin-left: 20px; font-size:medium;">ตำแหน่งที่บันทึกไว้</span>
-                    <!-- บ้าน -->
-                    <div class="location-option">
 
-                        <label class="option-content">
-                            <input type="radio" name="address" value="บ้าน">
-                            <span class="option-title">บ้าน</span>
-                        </label>
-
-                        <div class="option-detail">
-                            สมใจ ทันที<br>
-                            75/1 , หมู่ 7 , ตำบลงาว<br>
-                            อำเภองาว , จังหวัดลำปาง 52110<br>
-                            080-000-1111
-                        </div>
-                        <div class="option-actions">
-                            <button class="edit-btn" title="แก้ไข"><img src="../main/icon/edit-30.svg"
-                                    alt="แก้ไข"></button>
-                            <button class="delete-btn" title="ลบ"><img src="../main/icon/trash-20.svg"
-                                    alt="ลบ"></button>
-                        </div>
-                    </div>
-
-                    <!-- ที่ทำงาน -->
-                    <div class="location-option">
-                        <label class="option-content">
-                            <input type="radio" name="address" value="ที่ทำงาน">
-                            <span class="option-title">ที่ทำงาน</span>
-                        </label>
-
-                        <div class="option-detail">
-                            สมหมาย ทันที<br>
-                            123 , หมู่ 4 , ตำบลแม่กา<br>
-                            อำเภอเมืองพะเยา , จังหวัดพะเยา ,56000<br>
-                            042-000-333
-                        </div>
-                        <div class="option-actions">
-                            <button class="edit-btn" title="แก้ไข"><img src="../main/icon/edit-30.svg"
-                                    alt="แก้ไข"></button>
-                            <button class="delete-btn" title="ลบ"><img src="../main/icon/trash-20.svg"
-                                    alt="ลบ"></button>
-                        </div>
-                    </div>
 
                     <!-- เพิ่มที่อยู่ใหม่ -->
                     <a href="../addaddress/address.html" class="location-option add-location">+ เพิ่มที่อยู่ใหม่</a>
@@ -265,4 +224,77 @@
     });
 </script>
 <script src="order-details.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const locationMenu = document.getElementById('locationMenu');
+  const selectedSpan = document.getElementById('selectedLocation'); // ใช้ id ตาม HTML
+
+  if (!locationMenu) return; // ถ้าไม่มี element นี้ในหน้า จะไม่ทำอะไร
+
+  // โหลดข้อมูลที่อยู่จาก localStorage
+  const saved = JSON.parse(localStorage.getItem('addresses')) || [];
+
+  saved.forEach((addr, index) => {
+    const div = document.createElement('div');
+    div.classList.add('location-option');
+
+    div.innerHTML = `
+      <label class="option-content">
+        <input type="radio" name="address" value="${addr.type}">
+        <span class="option-title">${addr.type}</span>
+      </label>
+      <div class="option-detail">
+        ${addr.fname} ${addr.lname}<br>
+        ${addr.houseNo}, หมู่ ${addr.village}, ${addr.subdistrict}<br>
+        ${addr.district}, ${addr.province} ${addr.zipcode}<br>
+        ${addr.phone}
+      </div>
+      <div class="option-actions">
+        <button class="edit-btn" title="แก้ไข"><img src="icon/edit-30.svg" alt="แก้ไข"></button>
+        <button class="delete-btn" title="ลบ" data-index="${index}"><img src="icon/trash-20.svg" alt="ลบ"></button>
+      </div>
+    `;
+
+    // เพิ่ม div ก่อนปุ่มเพิ่มที่อยู่ (ถ้ามี)
+    const addBtn = locationMenu.querySelector('.add-location');
+    if (addBtn) {
+      locationMenu.insertBefore(div, addBtn);
+    } else {
+      locationMenu.appendChild(div);
+    }
+  });
+
+  // เลือก radio แล้วอัปเดตตำแหน่ง
+  locationMenu.addEventListener('change', function(e) {
+    const radio = e.target.closest('input[type="radio"][name="address"]');
+    if (radio && radio.checked) {
+      if (selectedSpan) selectedSpan.innerText = radio.value;
+    }
+  });
+
+  // ปุ่มลบที่อยู่
+  locationMenu.addEventListener('click', function(e) {
+    const delBtn = e.target.closest('.delete-btn');
+    if (!delBtn) return;
+    const index = delBtn.dataset.index;
+    const saved = JSON.parse(localStorage.getItem('addresses')) || [];
+    const confirmed = confirm("คุณแน่ใจหรือไม่ว่าต้องการลบที่อยู่นี้?");
+    if (confirmed) {
+      saved.splice(index, 1);
+      localStorage.setItem('addresses', JSON.stringify(saved));
+      location.reload();
+    }
+  });
+
+  // ปุ่มแก้ไขที่อยู่
+  locationMenu.addEventListener('click', function(e) {
+    const editBtn = e.target.closest('.edit-btn');
+    if (!editBtn) return;
+    const index = Array.from(locationMenu.querySelectorAll('.edit-btn')).indexOf(editBtn);
+    window.location.href = `../editaddress/address.html?edit=${index}`;
+  });
+});
+
+ </script>
 </html>
