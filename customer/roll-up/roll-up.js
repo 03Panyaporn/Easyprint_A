@@ -176,11 +176,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     reader.onload = function(e) {
       const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
-
+      const sizeValue = sizeSelect.value.replace("ซม.", "").trim();
+      const [width, height] = sizeValue.split("x").map(v => v.trim()); 
       cartItems.push({
         product: "Roll-up",
-        width: sizeSelect.value.split(" ")[0],
-        height: sizeSelect.value.split(" ")[1],
+        width:width,
+        height:height,
         quantity: parseInt(quantityInput.value),
         material: typeSelect.value,
         price: parseFloat(priceInput.value.replace(/,/g,'')),
