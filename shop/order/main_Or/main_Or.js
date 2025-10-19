@@ -20,6 +20,7 @@ function renderAllOrders() {
             ? `<img src="${data.image}" class="preview-img" data-full="${data.image}" style="width:80px; height:auto; display:block; object-fit:contain;">`
             : `<span style="color:red;">ไม่มีภาพ</span>`;
 
+
         // แสดงสถานะด้วยสีหรือข้อความ
         let statusText = "";
         switch(data.status) {
