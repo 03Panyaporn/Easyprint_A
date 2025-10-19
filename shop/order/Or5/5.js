@@ -24,11 +24,9 @@ function renderSentOrders() {
     tbody.innerHTML = "";
     orders = JSON.parse(localStorage.getItem("orders") || "{}");
 
-    let displayedCount = 0; // ตัวนับออเดอร์ที่แสดง
-
     Object.keys(orders).forEach(orderId => {
         const data = orders[orderId];
-        if(data.status !== 'sent') return; // เฉพาะ sent (มาจากหน้า 4)
+        if(data.status !== 'sent') return; // เฉพาะ sent
 
         const row = document.createElement("tr");
         row.setAttribute("data-id", orderId);
@@ -56,11 +54,6 @@ function renderSentOrders() {
             </td>
         `;
         tbody.appendChild(row);
-        displayedCount++; // นับออเดอร์ที่แสดง
-
-        // --- อัปเดตตัวเลขออเดอร์ที่ปุ่ม filter ---
-        const filterBtn = document.querySelector(".filter-btn.active span");
-        if(filterBtn) filterBtn.textContent = displayedCount;
 
         // --- สร้าง popup การชำระเงิน ---
         if (!document.getElementById(`paymentPopup-${orderId}`)) {
@@ -188,8 +181,74 @@ function showPreviewImage(src) {
     overlay.querySelector("span").onclick = () => overlay.remove();
 }
 
-// --- Auto render หน้า 5 ---
+// ========================
+// ✅ ฟังก์ชันที่ “อัปเดตเลขตาราง”
+// ========================
+
+// Helper: ดึง Orders ปลอดภัย
+function EP_getOrders() {
+  try {
+    const raw = localStorage.getItem("orders");
+    if (!raw) return {};
+    const obj = JSON.parse(raw);
+    return (obj && typeof obj === "object") ? obj : {};
+  } catch (e) {
+    console.error("EP_getOrders parse error:", e);
+    return {};
+  }
+}
+
+// Compute counts by status
+function EP_computeCounts(orders) {
+  const counts = { all: 0, waiting: 0, confirmed: 0, printing: 0, preparing: 0, sent: 0 };
+  Object.keys(orders).forEach(id => {
+    counts.all += 1;
+    const st = (orders[id].status || "").toLowerCase();
+    if (counts.hasOwnProperty(st)) counts[st] += 1;
+  });
+  return counts;
+}
+
+// Update numbers shown on the filter buttons
+function EP_updateFilterCounts() {
+  const orders = EP_getOrders();                // ดึงข้อมูลทั้งหมดจาก localStorage
+  const c = EP_computeCounts(orders);           // นับจำนวนแต่ละสถานะ
+  const container = document.querySelector(".order-filters");
+  if (!container) return;
+  const map = {
+    "ทั้งหมด": "all",
+    "ออเดอร์ใหม่": "waiting",
+    "ยืนยันออเดอร์": "confirmed",
+    "กำลังพิมพ์": "printing",
+    "เตรียมจัดส่ง": "preparing",
+    "จัดส่งแล้ว": "sent",
+  };
+  container.querySelectorAll("a.filter-btn").forEach(a => {
+    const label = a.textContent.replace(/\d+/g, "").trim();
+    let chosen = null;
+    for (const th in map) if (label.startsWith(th)) { chosen = map[th]; break; }
+    const span = a.querySelector("span") || (() => { 
+      const s = document.createElement("span"); 
+      a.appendChild(s); 
+      return s; 
+    })();
+    if (chosen && c.hasOwnProperty(chosen)) span.textContent = c[chosen];
+  });
+}
+
+// ========================
+// Auto render / Auto update
+// ========================
 document.addEventListener('DOMContentLoaded', () => {
     renderSentOrders();
-    setInterval(renderSentOrders, 2000);
+    EP_updateFilterCounts();
+    setInterval(() => {
+        renderSentOrders();
+        EP_updateFilterCounts();
+    }, 2000);
+});
+
+// อัปเดตเลขเมื่อ localStorage เปลี่ยน
+window.addEventListener("storage", e => { 
+    if (e.key==="orders") EP_updateFilterCounts(); 
 });
